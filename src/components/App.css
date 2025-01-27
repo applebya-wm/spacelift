@@ -1,0 +1,55 @@
+body {
+  font-family: 'Besley', sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.sans-serif {
+  font-family: 'Lato', serif;
+}
+
+.sans-serif.font-extralight {
+  font-weight: 200;
+}
+
+.tracking-wide {
+  letter-spacing: 0.1em;
+}
+
+.tracking-wider {
+  letter-spacing: 0.2em;
+}
+
+.tracking-widest {
+  letter-spacing: 0.5em;
+}
+
+.text-sm {
+  font-size: 0.85rem;
+}
+
+.text-xs {
+  font-size: 0.6rem;
+}
+
+.pad {
+  padding: 0 6rem;
+}
+
+.pad-left {
+  padding-left: 6rem;
+}
+
+.pad-right {
+  padding-right: 2rem;
+}
+
+.leading-loose {
+  line-height: 1.75;
+}
+
+input,
+textarea {
+  border-radius: 4px;
+}
