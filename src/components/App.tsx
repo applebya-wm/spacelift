@@ -6,11 +6,27 @@ import facebook from 'assets/facebook.svg'
 import arrowDown from 'assets/arrow-down.svg'
 import instagram from 'assets/instagram.svg'
 import star from 'assets/star.svg'
+import couch from 'assets/couch.png'
+import couchBg from 'assets/couch-bg.png'
+import vanIsle from 'assets/van-isle.png'
+import anySpace from 'assets/any-space.png'
+import clean from 'assets/process/clean.png'
+import declutter from 'assets/process/declutter.png'
+import paint from 'assets/process/paint.png'
+import market from 'assets/process/market.png'
+import stage from 'assets/process/stage.png'
+import organize from 'assets/process/organize.png'
+import cleanBg from 'assets/clean.png'
+import declutterBg from 'assets/declutter.png'
+import paintBg from 'assets/paint.png'
+import marketBg from 'assets/market.png'
+import stageBg from 'assets/stage.png'
+import organizeBg from 'assets/organize.png'
 import { FormEvent, Fragment, useState } from 'react'
 import { motion, useAnimation, useScroll, useTransform } from 'motion/react'
 
 const Button =
-  'sans-serif border border-gray-800 px-6 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center'
+  'sans-serif border border-gray-800 px-8 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center'
 
 const ButtonLarge = `${Button} text-lg px-12 py-3`
 const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border-yellow-50`
@@ -22,12 +38,13 @@ const Header = () => {
   const scrollEnd = 310
   const leftEnd = '5%'
 
-  // Map scroll position to left and top values
+  // Map scroll position to left, top, width and opacity values
   const left = useTransform(scrollY, [0, scrollEnd], ['10%', leftEnd])
   const top = useTransform(scrollY, [0, scrollEnd], [80, -12])
   const width = useTransform(scrollY, [0, scrollEnd], [420, widthEnd])
   const opacity = useTransform(scrollY, [0, 80], [1, 0])
 
+  // Background logo transforms
   const backLeft = useTransform(scrollY, [0, scrollEnd], ['-8%', '-10%'])
   const backWidth = useTransform(scrollY, [0, scrollEnd], [1200, 1200])
   const backTop = useTransform(scrollY, [0, scrollEnd], [-280, -400])
@@ -48,6 +65,7 @@ const Header = () => {
             opacity: backOpacity,
             pointerEvents: 'none'
           }}
+          alt="Background logo"
         />
 
         <motion.div
@@ -56,7 +74,7 @@ const Header = () => {
           animate={controls}
         >
           <a href="#" className="justify-center text-center">
-            <motion.img src={logo} style={{ width }} />
+            <motion.img src={logo} style={{ width }} alt="Logo" />
             <motion.div
               className="flex justify-center text-sm tracking-widest text-gray-600"
               style={{ opacity }}
@@ -66,7 +84,7 @@ const Header = () => {
           </a>
         </motion.div>
 
-        <nav className="pad-right mt-4 flex items-center justify-end gap-6 py-4 text-sm uppercase tracking-wider underline-offset-8">
+        <nav className="mt-4 flex items-center justify-end gap-6 p-4 text-sm uppercase tracking-wider underline-offset-8">
           {[
             { href: '#about', label: 'About' },
             { href: '#process', label: 'The Process' },
@@ -87,10 +105,10 @@ const Header = () => {
           </a>
           <div className="flex gap-2">
             <a href="">
-              <img src={facebook} />
+              <img src={facebook} alt="Facebook" />
             </a>
             <a href="">
-              <img src={instagram} />
+              <img src={instagram} alt="Instagram" />
             </a>
           </div>
         </nav>
@@ -156,7 +174,10 @@ const Hero = () => (
 const About = () => (
   <section
     id="about"
-    className="relative mt-12 scroll-mt-32 bg-gray-100 bg-[url(src/assets/couch.png),_url(src/assets/couch-bg.png),_url(src/assets/van-isle.png)] bg-[length:auto_450px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-90px] bg-no-repeat pb-56 pt-28"
+    className="relative mt-12 scroll-mt-32 bg-gray-100 bg-[length:auto_450px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-90px] bg-no-repeat pb-56 pt-28"
+    style={{
+      backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
+    }}
   >
     <motion.div whileInView={{ marginLeft: 0 }}>
       <div className="pad-left sans-serif absolute -top-10 left-0 border border-l-0 border-gray-800 bg-white py-6 pr-20 text-3xl font-thin uppercase tracking-wider text-gray-700">
@@ -190,7 +211,17 @@ const About = () => (
 )
 
 const TheProcess = () => {
-  const steps = ['declutter', 'organize', 'paint', 'clean', 'stage', 'market']
+  const stepsMap: { [key: string]: [string, string] } = {
+    declutter: [declutter, declutterBg],
+    organize: [organize, organizeBg],
+    paint: [paint, paintBg],
+    clean: [clean, cleanBg],
+    stage: [stage, stageBg],
+    market: [market, marketBg]
+  }
+
+  const steps = Object.keys(stepsMap)
+
   const [selectedStep, setSelectedStep] = useState(steps[0])
 
   return (
@@ -217,7 +248,7 @@ const TheProcess = () => {
         <div
           key={selectedStep}
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(/src/assets/${selectedStep}.png)` }}
+          style={{ backgroundImage: stepsMap[selectedStep][1] }}
         />
         <div className="relative z-10 mx-auto -mt-20 flex max-w-6xl justify-around gap-12">
           {steps.map((step) => (
@@ -227,7 +258,7 @@ const TheProcess = () => {
               onMouseEnter={() => setSelectedStep(step)}
             >
               <img
-                src={`/src/assets/process/${step}.png`}
+                src={stepsMap[step][0]}
                 alt={`${step} icon`}
                 className="mb-2 w-20"
               />
@@ -315,7 +346,10 @@ const AnySpace = () => (
 )
 
 const CTA = () => (
-  <section className="flex h-screen items-center justify-center bg-[url(src/assets/any-space.png)] bg-cover bg-center bg-no-repeat">
+  <section
+    className="flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
+    style={{ backgroundImage: `url(${anySpace})` }}
+  >
     <div className="border border-gray-800 bg-white/80 px-24 py-12 text-center text-lg font-light leading-loose tracking-wide text-gray-700 backdrop-blur-sm">
       Have a unique space in mind?
       <br />
@@ -375,6 +409,77 @@ const Testimonials = () => (
           </div>
         ))}
       </div>
+    </div>
+  </section>
+)
+
+const Question = ({
+  question,
+  answer
+}: {
+  question: string
+  answer: string
+}) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <div className="mt-8">
+      <h3
+        className="inline-block cursor-pointer text-lg font-light text-gray-600 hover:underline"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {question}
+        <img
+          src={arrowDown}
+          width="24"
+          className={`ml-4 inline-block ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+        />
+      </h3>
+      {isOpen && (
+        <p className="mt-2 p-6 text-sm tracking-wide text-gray-800">{answer}</p>
+      )}
+    </div>
+  )
+}
+
+const FAQ = () => (
+  <section className=" bg-gray-100">
+    <div className="mx-auto max-w-6xl px-4 py-28">
+      <h2 className="mb-16 text-center text-3xl tracking-wide">
+        Frequently Asked Questions
+      </h2>
+      {[
+        [
+          'What are the rates for your services?',
+          'Prices begin at $75.00 per hour. (3 hour minimum). Jobs can vary depending your needs and requirements. '
+        ],
+        [
+          "What happens to all the extra stuff I don't want?",
+          'We will take care of all your unwanted & unneeded items for you. *DONATIONS. We will donate to organizations that make a difference in our community. *REHOMED & REUSED Your items can have a second chance and be Rehomed and reused in a different project. *RECYCLING, GARBAGE & HAULING. We are happy to take it away but additional dump fees and rates may apply.'
+        ],
+        [
+          'Does your company offer moving services?',
+          'Unfortunately we do not offer physical moving and loading but we are able to offer packing and unpacking services. '
+        ],
+        [
+          'Should I buy boxes, bins and containers?',
+          'These supplies can be costly but necessary. We are happy to work with items you may want to purchase or already have. Alternatively we can purchase any needed items for an additional fee . '
+        ],
+        [
+          'Does your company offer interior or exterior painting?',
+          'From interior to exterior, little to big projects, we can fulfil your painting needs.'
+        ],
+        [
+          'Do I need to be home for the Spacelift process?',
+          'No not usually. Depending on the project scope we may need to spend some time together one-on-one sorting through items.'
+        ],
+        [
+          'My back yard isn’t working for me. Is this a space that you could help with?',
+          'Any space in any style.  From inside to out we will work with any space you need.'
+        ]
+      ].map(([question, answer]) => (
+        <Question key={question} question={question} answer={answer} />
+      ))}
     </div>
   </section>
 )
@@ -488,7 +593,10 @@ const Contact = () => {
             />
           </label>
           {error && <div className="mt-2 text-red-500">Error: {error}</div>}
-          <button className={`${ButtonLarge} mt-8 w-full`} type="submit">
+          <button
+            className={`${ButtonLargeSecondary} mt-8 w-full`}
+            type="submit"
+          >
             Book my free estimate
           </button>
         </form>
@@ -496,79 +604,6 @@ const Contact = () => {
     </section>
   )
 }
-
-const Question = ({
-  question,
-  answer
-}: {
-  question: string
-  answer: string
-}) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  return (
-    <div className="mt-8">
-      <h3
-        className="inline-block cursor-pointer text-lg font-light text-gray-600 hover:underline"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {question}
-        <img
-          src={arrowDown}
-          width="24"
-          className={`ml-4 inline-block ${isOpen ? 'rotate-180' : 'rotate-0'}`}
-        />
-      </h3>
-      {isOpen && (
-        <p className="ml-6 mt-2 text-sm tracking-wide text-gray-800">
-          {answer}
-        </p>
-      )}
-    </div>
-  )
-}
-
-const FAQ = () => (
-  <section className=" bg-gray-100">
-    <div className="mx-auto max-w-6xl px-4 py-28">
-      <h2 className="mb-16 text-center text-3xl tracking-wide">
-        Frequently Asked Questions
-      </h2>
-      {[
-        [
-          'What are the rates for your services?',
-          'Prices begin at $75.00 per hour. (3 hour minimum). Jobs can vary depending your needs and requirements. '
-        ],
-        [
-          "What happens to all the extra stuff I don't want?",
-          'We will take care of all your unwanted & unneeded items for you. *DONATIONS. We will donate to organizations that make a difference in our community. *REHOMED & REUSED Your items can have a second chance and be Rehomed and reused in a different project. *RECYCLING, GARBAGE & HAULING. We are happy to take it away but additional dump fees and rates may apply.'
-        ],
-        [
-          'Does your company offer moving services?',
-          'Unfortunately we do not offer physical moving and loading but we are able to offer packing and unpacking services. '
-        ],
-        [
-          'Should I buy boxes, bins and containers?',
-          'These supplies can be costly but necessary. We are happy to work with items you may want to purchase or already have. Alternatively we can purchase any needed items for an additional fee . '
-        ],
-        [
-          'Does your company offer interior or exterior painting?',
-          'From interior to exterior, little to big projects, we can fulfil your painting needs.'
-        ],
-        [
-          'Do I need to be home for the Spacelift process?',
-          'No not usually. Depending on the project scope we may need to spend some time together one-on-one sorting through items.'
-        ],
-        [
-          'My back yard isn’t working for me. Is this a space that you could help with?',
-          'Any space in any style.  From inside to out we will work with any space you need.'
-        ]
-      ].map(([question, answer]) => (
-        <Question key={question} question={question} answer={answer} />
-      ))}
-    </div>
-  </section>
-)
 
 const Footer = () => (
   <footer className="flex bg-black/90 text-white">
