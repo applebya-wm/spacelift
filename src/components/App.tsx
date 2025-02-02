@@ -37,6 +37,9 @@ const Button =
 const ButtonLarge = `${Button} text-lg px-12 py-3`
 const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border-yellow-50 text-center`
 
+const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61560538700519'
+const INSTAGRAM_URL = 'https://www.instagram.com/spaceliftonline/'
+
 const Header = () => {
   // Track window width to determine if we're in mobile view
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
@@ -145,10 +148,10 @@ const Header = () => {
             <span className="hidden lg:block">Your </span>Free Estimate
           </a>
           <div className="hidden gap-2 lg:flex">
-            <a href="#">
+            <a href={FACEBOOK_URL} target="_blank" rel="noreferrer">
               <img src={facebook} alt="Facebook" />
             </a>
-            <a href="#">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
               <img src={instagram} alt="Instagram" />
             </a>
           </div>
@@ -215,10 +218,20 @@ const Header = () => {
               Your Free Estimate
             </a>
             <div className="flex gap-2">
-              <a href="#" onClick={() => setMenuOpen(false)}>
+              <a
+                href={FACEBOOK_URL}
+                onClick={() => setMenuOpen(false)}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img src={facebook} alt="Facebook" />
               </a>
-              <a href="#" onClick={() => setMenuOpen(false)}>
+              <a
+                href={INSTAGRAM_URL}
+                onClick={() => setMenuOpen(false)}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img src={instagram} alt="Instagram" />
               </a>
             </div>
@@ -503,8 +516,8 @@ const CTA = () => (
 
 const Testimonials = () => (
   <section className="bg-gray-100">
-    <div className="mx-auto max-w-6xl bg-gray-100 px-8 pb-16 sm:px-12">
-      <div className="flex justify-center pt-12">
+    <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 px-8 pb-16 sm:px-12">
+      <div className="mt-8 inline-flex justify-center gap-2 self-center p-4">
         <img src={star} alt="star" />
         <img src={star} alt="star" />
         <img src={star} alt="star" />
@@ -628,13 +641,14 @@ const FAQ = () => (
 )
 
 const Contact = () => {
-  const [whichSpace, setWhichSpace] = useState('')
+  const [space, setSpace] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -650,13 +664,14 @@ const Contact = () => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, phone, whichSpace, message })
+        body: JSON.stringify({ name, email, phone, space, message })
       })
 
       const data = await response.json()
       setIsLoading(false)
 
       if (data.code === 200) {
+        setIsSuccess(true)
         setTimeout(() => {
           alert(`Thank you ${name}, we will respond within 2-3 business days.`)
         }, 0)
@@ -673,87 +688,99 @@ const Contact = () => {
     <section id="contact" className="flex scroll-mt-20">
       <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
       <div className="flex flex-[2] flex-col items-center p-8 leading-loose tracking-wide sm:p-12">
-        <h2 className="sans-serif -mt-20 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center text-xl font-thin uppercase tracking-wide sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
-          Start Your Spacelift Today!
+        <h2 className="sans-serif -mt-20 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center text-xl font-thin uppercase tracking-wider sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
+          Start Your Spacelift
         </h2>
 
-        <form onSubmit={onSubmit}>
-          <label className="mt-4 block">
-            <span className="text-gray-700">
-              Name <sup className="text-red-400">*</sup>
-            </span>
-            <input
-              type="text"
-              name="name"
-              value={name}
-              placeholder="Please enter your full name"
-              onChange={(e) => setName(e.target.value)}
-              className="mt-2 block w-full border border-gray-300 p-2"
-              required
-            />
-          </label>
-          <div className="flex gap-8">
-            <label className="mt-6 block">
+        {isSuccess ? (
+          <div className="my-36 max-w-xl text-center">
+            <h2 className="mb-8 text-xl">Thanks for getting in touch!</h2>
+            <p>
+              We&apos;ll get back to you within a few business days to discuss
+              your Spacelift project.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={onSubmit}>
+            <label className="mt-4 block">
               <span className="text-gray-700">
-                Email <sup className="text-red-400">*</sup>
+                Name <sup className="text-red-400">*</sup>
               </span>
               <input
-                type="email"
-                name="email"
-                value={email}
-                placeholder="your@email.com"
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                name="name"
+                value={name}
+                placeholder="Please enter your full name"
+                onChange={(e) => setName(e.target.value)}
                 className="mt-2 block w-full border border-gray-300 p-2"
                 required
               />
             </label>
+            <div className="flex gap-8">
+              <label className="mt-6 block">
+                <span className="text-gray-700">
+                  Email <sup className="text-red-400">*</sup>
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  value={email}
+                  placeholder="your@email.com"
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-2 block w-full border border-gray-300 p-2"
+                  required
+                />
+              </label>
+              <label className="mt-6 block">
+                <span className="text-gray-700">Phone number</span>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={phone}
+                  placeholder="(123) 456-7890"
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="mt-2 block w-full border border-gray-300 p-2"
+                />
+              </label>
+            </div>
             <label className="mt-6 block">
-              <span className="text-gray-700">Phone number</span>
+              <span className="text-gray-700">
+                Which space do you have in mind?
+              </span>
               <input
-                type="tel"
-                name="phone"
-                value={phone}
-                placeholder="(123) 456-7890"
-                onChange={(e) => setPhone(e.target.value)}
+                type="text"
+                name="space"
+                value={space}
+                placeholder="My space is..."
+                onChange={(e) => setSpace(e.target.value)}
                 className="mt-2 block w-full border border-gray-300 p-2"
               />
             </label>
-          </div>
-          <label className="mt-6 block">
-            <span className="text-gray-700">
-              Which space do you have in mind?
-            </span>
-            <input
-              type="text"
-              name="whichSpace"
-              value={whichSpace}
-              placeholder="My space is..."
-              onChange={(e) => setWhichSpace(e.target.value)}
-              className="mt-2 block w-full border border-gray-300 p-2"
-            />
-          </label>
-          <label className="mt-6 block">
-            <span className="text-gray-700">
-              Tell us about your project <sup className="text-red-400">*</sup>
-            </span>
-            <textarea
-              className="mt-2 block w-full border border-gray-300 p-2 text-sm"
-              rows={5}
-              name="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-            />
-          </label>
-          {error && <div className="mt-2 text-red-500">Error: {error}</div>}
-          <button
-            className={`${ButtonLargeSecondary} mt-8 w-full rounded-full border-gray-600`}
-            type="submit"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Sending...' : 'Book my free estimate'}
-          </button>
-        </form>
+            <label className="mt-6 block">
+              <span className="text-gray-700">
+                Tell us about your project <sup className="text-red-400">*</sup>
+              </span>
+              <textarea
+                className="mt-2 block w-full border border-gray-300 p-2 text-sm"
+                rows={5}
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+              />
+            </label>
+            {error && (
+              <div className="mt-2 text-sm text-red-500">Error: {error}</div>
+            )}
+            <button
+              className={`${ButtonLargeSecondary} mt-8 w-full rounded-full border-gray-600`}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Sending...' : 'Book my free estimate'}
+            </button>
+          </form>
+        )}
       </div>
     </section>
   )
@@ -774,42 +801,45 @@ const Footer = () => (
         <div className="hidden font-thin tracking-wide md:block">
           Explore our projects on Facebook & Instagram
         </div>
-        <div className="flex-1 flex-col items-center gap-4 md:flex-row">
+        <div className="flex-1 flex-col items-center gap-8 md:flex-row">
           <div className="flex gap-2">
-            <a className="rounded-full border-2 border-white" href="">
+            <a
+              className="rounded-full border-2 border-white"
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src={facebook} />
             </a>
-            <a className="rounded-full border-2 border-white" href="">
+            <a
+              className="rounded-full border-2 border-white"
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src={instagram} />
             </a>
           </div>
-          <span className="hidden text-xl tracking-wide text-white sm:block">
+          <div className="hidden pt-2 text-lg tracking-wide text-gray-400 sm:block">
             @spaceliftonline
-          </span>
+          </div>
         </div>
       </div>
-      <div className="flex flex-col items-end gap-1 text-right">
-        <a
-          href="#"
-          className="mb-2 inline-block text-sm tracking-wide underline"
-        >
-          Back to top
-        </a>
-        <a
-          className="inline-block tracking-wide hover:underline md:text-lg"
-          href="mailto:info@spacelift.online"
-        >
-          info@spacelift.online
-        </a>
-        <a
-          className="inline-block tracking-wide hover:underline md:text-lg"
-          href="tel:2501234567"
-        >
-          (250)-123-4567
-        </a>
-        <span className="mt-2 text-sm tracking-wide text-gray-400">
-          &copy; Spacelift 2024
-        </span>
+      <div className="flex flex-col items-end justify-between gap-1 text-right">
+        <div className="flex flex-1 flex-col">
+          <a href="#" className="mb-2 inline-block text-sm tracking-wide">
+            Back to top <img src={arrowDown} width="24" className="rotate-90" />
+          </a>
+        </div>
+        <div className="mt-2 flex flex-col gap-2 text-sm tracking-wide ">
+          <a
+            className="inline-block tracking-wide underline"
+            href="mailto:info@spacelift.online"
+          >
+            info@spacelift.online
+          </a>
+          <div className="text-gray-400">&copy; Spacelift 2024</div>
+        </div>
       </div>
     </div>
   </footer>
