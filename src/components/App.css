@@ -30,7 +30,7 @@ html {
 }
 
 .text-xs {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
 }
 
 .pad {
@@ -52,4 +52,8 @@ html {
 input,
 textarea {
   border-radius: 4px;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }

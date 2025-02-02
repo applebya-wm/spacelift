@@ -22,8 +22,14 @@ import paintBg from 'assets/paint.png'
 import marketBg from 'assets/market.png'
 import stageBg from 'assets/stage.png'
 import organizeBg from 'assets/organize.png'
-import { FormEvent, Fragment, useState } from 'react'
+import { FormEvent, Fragment, ReactNode, useEffect, useState } from 'react'
 import { motion, useAnimation, useScroll, useTransform } from 'motion/react'
+import homeSpace from 'assets/spaces/home-1.png'
+import businessSpace from 'assets/spaces/business-1.png'
+import realEstateSpace from 'assets/spaces/real-estate-1.png'
+import storeDisplaysSpace from 'assets/spaces/store-displays-1.png'
+import windowFrontsSpace from 'assets/spaces/window-fronts-1.png'
+import anySpaceSpace from 'assets/spaces/any-space-1.png'
 
 const Button =
   'sans-serif border border-gray-800 px-8 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center'
@@ -32,64 +38,97 @@ const ButtonLarge = `${Button} text-lg px-12 py-3`
 const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border-yellow-50`
 
 const Header = () => {
+  // Track window width to determine if we're in mobile view
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  const isMobile = windowWidth < 768
+
   const controls = useAnimation()
   const { scrollY } = useScroll()
   const widthEnd = 180
   const scrollEnd = 310
-  const leftEnd = '5%'
+  const leftEnd = '2rem'
 
-  // Map scroll position to left, top, width and opacity values
-  const left = useTransform(scrollY, [0, scrollEnd], ['10%', leftEnd])
-  const top = useTransform(scrollY, [0, scrollEnd], [80, -12])
+  // Dynamic transforms for the logo (desktop only)
+  const left = useTransform(scrollY, [0, scrollEnd], ['12rem', leftEnd])
+  const top = useTransform(scrollY, [0, scrollEnd], [70, 0])
   const width = useTransform(scrollY, [0, scrollEnd], [420, widthEnd])
   const opacity = useTransform(scrollY, [0, 80], [1, 0])
 
-  // Background logo transforms
-  const backLeft = useTransform(scrollY, [0, scrollEnd], ['-8%', '-10%'])
+  // Static values for mobile
+  const staticLeft = '10%'
+  const staticTop = '-1rem'
+  const staticWidth = 200
+  const staticOpacity = 1
+
+  // Choose dynamic values for desktop and static values for mobile
+  const logoLeft = isMobile ? staticLeft : left
+  const logoTop = isMobile ? staticTop : top
+  const logoWidth = isMobile ? staticWidth : width
+  const logoOpacity = isMobile ? staticOpacity : opacity
+
+  // Background logo transforms (desktop only; still animated on mobile if desired)
+  // const backLeft = useTransform(scrollY, [0, scrollEnd], ['-8%', '-10%'])
   const backWidth = useTransform(scrollY, [0, scrollEnd], [1200, 1200])
   const backTop = useTransform(scrollY, [0, scrollEnd], [-280, -400])
-  const backOpacity = useTransform(scrollY, [0, scrollEnd], [0.075, 0])
+  const backOpacity = useTransform(
+    scrollY,
+    [0, scrollEnd],
+    [isMobile ? 0 : 0.075, 0]
+  )
+
+  // State for mobile menu toggle
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  // Navigation links array
+  const navLinks = [
+    { href: '#about', label: 'About' },
+    { href: '#process', label: 'The Process' },
+    { href: '#spaces', label: 'Any Space' }
+  ]
 
   return (
-    <header className="sans-serif fixed left-0 top-0 z-20 w-full bg-white/80 backdrop-blur-sm">
-      <div className="relative">
+    <header className="sans-serif fixed left-0 top-0 z-20 w-full md:bg-white/80 md:backdrop-blur-sm">
+      {/* Container provides horizontal padding/margin at intermediate sizes */}
+      <div className="flex justify-between px-8 lg:mx-auto lg:block">
         {/* Background logo */}
         <motion.img
           src={logo}
+          alt="Background logo"
           width={1000}
           className="absolute -z-50 opacity-10 grayscale"
           style={{
             width: backWidth,
-            left: backLeft,
             top: backTop,
             opacity: backOpacity,
             pointerEvents: 'none'
           }}
-          alt="Background logo"
         />
 
+        {/* Logo: use animated transforms for desktop, static values for mobile */}
         <motion.div
           className="absolute"
-          style={{ left, top }}
-          animate={controls}
+          style={{ left: logoLeft, top: logoTop }}
+          animate={isMobile ? undefined : controls}
         >
-          <a href="#" className="justify-center text-center">
-            <motion.img src={logo} style={{ width }} alt="Logo" />
+          <a href="#" className="mt-4 flex flex-col items-center md:mt-0">
+            <motion.img src={logo} style={{ width: logoWidth }} alt="Logo" />
             <motion.div
-              className="flex justify-center text-sm tracking-widest text-gray-600"
-              style={{ opacity }}
+              className="hidden justify-center text-sm tracking-widest text-gray-600 md:flex"
+              style={{ opacity: logoOpacity }}
             >
               <span>TRANSFORMING SPACES</span>
             </motion.div>
           </a>
         </motion.div>
 
-        <nav className="mt-4 flex items-center justify-end gap-6 p-4 text-sm uppercase tracking-wider underline-offset-8">
-          {[
-            { href: '#about', label: 'About' },
-            { href: '#process', label: 'The Process' },
-            { href: '#spaces', label: 'Any Space' }
-          ].map((item, index) => (
+        {/* Desktop Navigation (unchanged from original) */}
+        <nav className="mt-4 hidden items-center justify-end gap-6 py-4 text-sm uppercase tracking-wider underline-offset-8 md:flex">
+          {navLinks.map((item, index) => (
             <Fragment key={index}>
               <a
                 href={item.href}
@@ -97,76 +136,153 @@ const Header = () => {
               >
                 {item.label}
               </a>
-              {index < 2 && <span className="text-gray-300">•</span>}
+              {index < navLinks.length - 1 && (
+                <span className="text-gray-300">•</span>
+              )}
             </Fragment>
           ))}
           <a href="#contact" className={`${Button} ml-2 font-bold`}>
-            Your Free Estimate
+            <span className="hidden lg:block">Your </span>Free Estimate
           </a>
-          <div className="flex gap-2">
-            <a href="">
+          <div className="hidden gap-2 lg:flex">
+            <a href="#">
               <img src={facebook} alt="Facebook" />
             </a>
-            <a href="">
+            <a href="#">
               <img src={instagram} alt="Instagram" />
             </a>
           </div>
         </nav>
+
+        {/* Hamburger button for mobile (always in top-right) */}
+        <div className="absolute right-4 top-4 md:hidden">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="rounded-md bg-white p-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
+          >
+            {menuOpen ? (
+              <svg
+                className="size-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                style={{ transform: 'translateY(-1px)' }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="size-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {menuOpen && (
+          <nav className="mt-4 flex flex-col items-center justify-end gap-4 py-4 text-sm uppercase tracking-wider underline-offset-8 md:hidden">
+            {navLinks.map((item, index) => (
+              <Fragment key={index}>
+                <a
+                  href={item.href}
+                  className="text-gray-700 hover:text-gray-900 hover:underline"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+                {index < navLinks.length - 1 && (
+                  <span className="text-gray-300">•</span>
+                )}
+              </Fragment>
+            ))}
+            <a
+              href="#contact"
+              className={`${Button} ml-2 font-bold`}
+              onClick={() => setMenuOpen(false)}
+            >
+              Your Free Estimate
+            </a>
+            <div className="flex gap-2">
+              <a href="#" onClick={() => setMenuOpen(false)}>
+                <img src={facebook} alt="Facebook" />
+              </a>
+              <a href="#" onClick={() => setMenuOpen(false)}>
+                <img src={instagram} alt="Instagram" />
+              </a>
+            </div>
+          </nav>
+        )}
       </div>
     </header>
   )
 }
 
 const Hero = () => (
-  <div className="flex h-screen">
-    <div className="flex-1 pt-96 text-gray-700">
+  <div className="flex h-screen flex-col-reverse pt-16 md:flex-row md:pt-24">
+    <div className="flex-[2] pt-32 text-gray-700 md:flex-row md:pt-72 xl:flex-1">
       <motion.div
         initial={{ marginLeft: -100, opacity: 0 }}
         animate={{ marginLeft: 0, opacity: 1 }}
         transition={{ duration: 1 }}
-        className="pad-left"
+        className="max-w-3xl px-20 md:pl-12 xl:pl-24"
       >
-        <h1 className="mt-4 text-4xl leading-loose tracking-wide">
-          We specialize in revitalizing
-          <br />
+        <h1 className="text-center text-4xl leading-loose tracking-wide md:text-left">
+          We specialize in revitalizing {/* <br /> */}
           <span className="sans-serif font-extralight">
             regular, unused, unloved
           </span>{' '}
           places
-          <br />
-          into <span className="underline">amazin</span>g spaces.
+          {/* <br /> */} into <span className="underline">amazin</span>g spaces.
         </h1>
       </motion.div>
-      <div className="pad-left my-12 bg-gray-50 py-6 pr-4">
-        <div className="sans-serif inline-flex gap-10 text-gray-500">
+      <div className="my-6 bg-gray-50 px-20 py-6 md:my-12 md:pl-12 xl:pl-24">
+        <div className="sans-serif flex max-w-xl justify-between text-gray-500 lg:gap-6 xl:gap-8">
           {['Home', 'Business', 'Real-Estate', 'Any Space'].map(
             (item, index) => (
               <motion.div
                 key={index}
-                className="flex text-sm uppercase tracking-wider"
+                className="flex items-center gap-2 whitespace-nowrap text-sm uppercase tracking-wider lg:gap-4"
                 initial={{ marginLeft: -100, opacity: 0 }}
                 animate={{ marginLeft: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.25 }}
               >
                 {item}
-                <img src={check} className="ml-4 h-5" />
+                <img src={check} className="size-4" />
               </motion.div>
             )
           )}
         </div>
       </div>
-      <div className="pad-left inline-flex gap-8">
-        <a href="#about" className={ButtonLarge}>
+      <div className="flex max-w-3xl justify-between gap-8 px-20 md:justify-around md:pl-12 xl:pl-24">
+        <a href="#about" className={`${ButtonLarge} flex-1`}>
           Learn More
           <img src={arrowDown} width="24" />
         </a>
-        <a href="#contact" className={ButtonLargeSecondary}>
+        <a href="#contact" className={`${ButtonLargeSecondary} flex-1`}>
           Book an Estimate
         </a>
       </div>
     </div>
-    <div className="flex flex-1 pt-28">
-      <img src={hero} width="100%" />
+    <div
+      className="-mb-24 flex flex-1 bg-cover"
+      style={{ backgroundImage: `url(${hero})` }}
+    >
+      {/* <img src={hero} width="100%" /> */}
     </div>
   </div>
 )
@@ -179,13 +295,11 @@ const About = () => (
       backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
     }}
   >
-    <motion.div whileInView={{ marginLeft: 0 }}>
-      <div className="pad-left sans-serif absolute -top-10 left-0 border border-l-0 border-gray-800 bg-white py-6 pr-20 text-3xl font-thin uppercase tracking-wider text-gray-700">
-        <h2>What is Spacelift?</h2>
-      </div>
-    </motion.div>
-    <div className="pad-left max-w-2xl">
-      <div className="text-xl font-light leading-loose tracking-wide text-gray-700">
+    <div className="sans-serif absolute -top-10 left-0 border border-l-0 border-gray-800 bg-white py-6 pl-12 pr-20 text-3xl font-thin uppercase tracking-wider text-gray-700 xl:pl-24">
+      <h2>What is Spacelift?</h2>
+    </div>
+    <div className="px-24">
+      <div className="max-w-2xl text-xl font-light leading-loose tracking-wide text-gray-700">
         Spacelift is your complete transformation <br />
         design service for home &amp; business.
         <br />
@@ -207,6 +321,7 @@ const About = () => (
         </a>
       </div>
     </div>
+    <div className="flex-1"></div>
   </section>
 )
 
@@ -229,10 +344,10 @@ const TheProcess = () => {
       id="process"
       className="relative flex h-screen scroll-mt-32 flex-col"
     >
-      <div className="sans-serif my-12 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
+      <div className="sans-serif -mt-12 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
         <h2>The Process</h2>
       </div>
-      <div className="mx-auto mb-36 flex justify-around gap-16 text-center text-xl font-light leading-loose tracking-wide text-gray-700">
+      <div className="mx-auto my-24 flex justify-around gap-16 text-center text-xl font-light leading-loose tracking-wide text-gray-700">
         <div>
           Spacelift designs a space perfectly-suited
           <br />
@@ -244,28 +359,35 @@ const TheProcess = () => {
           incredible results, and exceed expectations.
         </div>
       </div>
-      <div className="relative flex-1">
-        <div
-          key={selectedStep}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: stepsMap[selectedStep][1] }}
-        />
-        <div className="relative z-10 mx-auto -mt-20 flex max-w-6xl justify-around gap-12">
-          {steps.map((step) => (
-            <div
-              key={step}
-              className="sans-serif flex w-48 flex-1 cursor-pointer flex-col items-center justify-center border border-gray-800 bg-white pb-5 pt-3 text-center text-sm uppercase tracking-wider"
-              onMouseEnter={() => setSelectedStep(step)}
-            >
-              <img
-                src={stepsMap[step][0]}
-                alt={`${step} icon`}
-                className="mb-2 w-20"
-              />
-              {step}
-            </div>
-          ))}
-        </div>
+      <div className="z-10 mx-auto -mb-16 flex gap-8">
+        {steps.map((step) => (
+          <div
+            key={`${step}-icon`}
+            className="sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pb-5 pt-3 text-center text-sm uppercase tracking-wider transition-all hover:-mb-6"
+            onMouseEnter={() => {
+              setSelectedStep(step)
+            }}
+          >
+            <img
+              src={stepsMap[step][0]}
+              alt={`${step} icon`}
+              className="mb-2 w-20"
+            />
+            {step}
+          </div>
+        ))}
+      </div>
+      <div className="flex-1">
+        {steps.map((step) => (
+          <div
+            key={`${step}-bg`}
+            className="h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(${stepsMap[step][1]})`,
+              display: step === selectedStep ? 'block' : 'none'
+            }}
+          />
+        ))}
       </div>
     </section>
   )
@@ -273,10 +395,12 @@ const TheProcess = () => {
 
 const Space = ({
   title,
-  description
+  description,
+  image
 }: {
   title: string
   description: string
+  image: string
 }) => {
   return (
     <div>
@@ -284,11 +408,7 @@ const Space = ({
         <h3 className="sans-serif absolute -top-10 inline border border-gray-800 bg-white px-12 py-4 text-xl font-thin uppercase tracking-wider text-gray-700">
           {title}
         </h3>
-        <img
-          src={`/src/assets/spaces/${title}-1.png`}
-          width="100%"
-          alt={`${title} photo 1`}
-        />
+        <img src={image} width="100%" alt={`${title} photo 1`} />
         <button className="absolute bottom-12 left-4 rounded-full bg-white p-2">
           <img src={arrowDown} width="24" className="rotate-90" />
         </button>
@@ -306,7 +426,7 @@ const Space = ({
 const AnySpace = () => (
   <section id="spaces" className="relative scroll-mt-32">
     <div className="pb-24 pt-48">
-      <div className="pad-left sans-serif absolute -top-10 left-0 border border-l-0 border-gray-800 bg-white py-6 pr-20 text-3xl font-thin uppercase tracking-wider text-gray-700">
+      <div className="sans-serif absolute -top-10 left-0 border border-l-0 border-gray-800 bg-white py-6 pl-12 pr-20 text-3xl font-thin uppercase tracking-wider text-gray-700 xl:pl-24">
         <h2>
           Any Space<span className="mx-3 mt-0.5">•</span>Any Style
         </h2>
@@ -315,30 +435,41 @@ const AnySpace = () => (
         {[
           [
             'Home',
-            "Whether it's a cozy living room or a vibrant kitchen, we bring tailored designs to elevate your everyday living."
+            "Whether it's a cozy living room or a vibrant kitchen, we bring tailored designs to elevate your everyday living.",
+            homeSpace
           ],
           [
             'Business',
-            'Drive productivity and impresses clients. We specialize in modern, functional designs for businesses of all sizes.'
+            'Drive productivity and impresses clients. We specialize in modern, functional designs for businesses of all sizes.',
+            businessSpace
           ],
           [
             'Real-Estate',
-            'Maximize property value with our expert staging services. We create inviting spaces that attract potential buyers.'
+            'Maximize property value with our expert staging services. We create inviting spaces that attract potential buyers.',
+            realEstateSpace
           ],
           [
             'Store Displays',
-            'Captivate customers with eye-catching store displays. Our designs enhance product visibility and drive sales.'
+            'Captivate customers with eye-catching store displays. Our designs enhance product visibility and drive sales.',
+            storeDisplaysSpace
           ],
           [
             'Window Fronts',
-            'Transform your window fronts into stunning showcases. We design displays that draw attention and increase foot traffic.'
+            'Transform your window fronts into stunning showcases. We design displays that draw attention and increase foot traffic.',
+            windowFrontsSpace
           ],
           [
             'Any Space',
-            'No matter the space, we bring your vision to life. Our versatile designs cater to any style and function.'
+            'No matter the space, we bring your vision to life. Our versatile designs cater to any style and function.',
+            anySpaceSpace
           ]
-        ].map(([title, description]) => (
-          <Space key={title} title={title} description={description} />
+        ].map(([title, description, image]) => (
+          <Space
+            key={title}
+            image={image}
+            title={title}
+            description={description}
+          />
         ))}
       </div>
     </div>
@@ -414,11 +545,11 @@ const Testimonials = () => (
 )
 
 const Question = ({
-  question,
-  answer
+  title,
+  children
 }: {
-  question: string
-  answer: string
+  title: string
+  children: ReactNode
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -428,58 +559,65 @@ const Question = ({
         className="inline-block cursor-pointer text-lg font-light text-gray-600 hover:underline"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {question}
+        {title}
         <img
           src={arrowDown}
           width="24"
           className={`ml-4 inline-block ${isOpen ? 'rotate-180' : 'rotate-0'}`}
         />
       </h3>
-      {isOpen && (
-        <p className="mt-2 p-6 text-sm tracking-wide text-gray-800">{answer}</p>
-      )}
+      <div
+        className="mt-4 bg-white p-6 text-sm leading-loose tracking-wide text-gray-800"
+        style={{ display: isOpen ? 'block' : 'none' }}
+      >
+        {children}
+      </div>
     </div>
   )
 }
 
 const FAQ = () => (
-  <section className=" bg-gray-100">
+  <section className="bg-gray-100">
     <div className="mx-auto max-w-6xl px-4 py-28">
       <h2 className="mb-16 text-center text-3xl tracking-wide">
         Frequently Asked Questions
       </h2>
-      {[
-        [
-          'What are the rates for your services?',
-          'Prices begin at $75.00 per hour. (3 hour minimum). Jobs can vary depending your needs and requirements. '
-        ],
-        [
-          "What happens to all the extra stuff I don't want?",
-          'We will take care of all your unwanted & unneeded items for you. *DONATIONS. We will donate to organizations that make a difference in our community. *REHOMED & REUSED Your items can have a second chance and be Rehomed and reused in a different project. *RECYCLING, GARBAGE & HAULING. We are happy to take it away but additional dump fees and rates may apply.'
-        ],
-        [
-          'Does your company offer moving services?',
-          'Unfortunately we do not offer physical moving and loading but we are able to offer packing and unpacking services. '
-        ],
-        [
-          'Should I buy boxes, bins and containers?',
-          'These supplies can be costly but necessary. We are happy to work with items you may want to purchase or already have. Alternatively we can purchase any needed items for an additional fee . '
-        ],
-        [
-          'Does your company offer interior or exterior painting?',
-          'From interior to exterior, little to big projects, we can fulfil your painting needs.'
-        ],
-        [
-          'Do I need to be home for the Spacelift process?',
-          'No not usually. Depending on the project scope we may need to spend some time together one-on-one sorting through items.'
-        ],
-        [
-          'My back yard isn’t working for me. Is this a space that you could help with?',
-          'Any space in any style.  From inside to out we will work with any space you need.'
-        ]
-      ].map(([question, answer]) => (
-        <Question key={question} question={question} answer={answer} />
-      ))}
+      <Question title="What are the rates for your services?">
+        Prices begin at $75.00 per hour. (3 hour minimum). Jobs can vary
+        depending your needs and requirements.
+      </Question>
+      <Question title="What happens to all the extra stuff I don't want?">
+        We will take care of all your unwanted & unneeded items for you.
+        <p className="mt-8">
+          <strong>DONATIONS:</strong> We will donate to organizations that make
+          a difference in our community.
+        </p>
+        <p>
+          <strong>REHOMED & REUSED:</strong> Your items can have a second chance
+          and be Rehomed and reused in a different project.
+        </p>
+        <p>
+          <strong>RECYCLING, GARBAGE & HAULING:</strong> We are happy to take it
+          away but additional dump fees and rates may apply.
+        </p>
+      </Question>
+      <Question title="Should I buy boxes, bins or containers?">
+        These supplies can be costly but necessary. We are happy to work with
+        items you may want to purchase or already have. Alternatively we can
+        purchase any needed items for an additional fee.
+      </Question>
+      <Question title="Does your company offer interior or exterior painting?">
+        From interior to exterior, little to big projects, we can fulfil your
+        painting needs.
+      </Question>
+      <Question title="Do I need to be home for the Spacelift process?">
+        No not usually. Depending on the project scope we may need to spend some
+        time together one-on-one sorting through items.
+      </Question>
+      <Question title="My back yard isn't working for me. Is this a space that you could help with?">
+        Any space in any style. From inside to out we will work with any space
+        you need.
+      </Question>
     </div>
   </section>
 )
@@ -491,6 +629,7 @@ const Contact = () => {
   const [phone, setPhone] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -498,6 +637,7 @@ const Contact = () => {
 
     try {
       setError('')
+      setIsLoading(true)
 
       const response = await fetch('https://formcarry.com/s/VhZHRRwdqzu', {
         method: 'POST',
@@ -509,13 +649,17 @@ const Contact = () => {
       })
 
       const data = await response.json()
+      setIsLoading(false)
 
       if (data.code === 200) {
-        alert('We received your submission, thank you!')
+        setTimeout(() => {
+          alert(`Thank you ${name}, we will respond within 2-3 business days.`)
+        }, 0)
       } else {
         setError(data.message)
       }
     } catch (error: any) {
+      setIsLoading(false)
       setError(error.message)
     }
   }
@@ -524,14 +668,14 @@ const Contact = () => {
     <section id="contact" className="flex scroll-mt-20">
       <div className="flex basis-1/3 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center"></div>
       <div className="flex basis-2/3 flex-col items-center p-12 leading-loose tracking-wide">
-        <h2 className="sans-serif mb-6 inline border border-gray-800 px-24 py-8 text-2xl font-thin uppercase tracking-wide">
-          Ready to start your project?
+        <h2 className="sans-serif -mt-24 mb-6 inline border border-gray-800 bg-white px-24 py-8 text-2xl font-thin uppercase tracking-wide">
+          Start your Spacelift Today!
         </h2>
 
         <form onSubmit={onSubmit}>
-          <label className="mt-6 block">
+          <label className="mt-4 block">
             <span className="text-gray-700">
-              Your Name <sup className="text-red-400">*</sup>
+              Name <sup className="text-red-400">*</sup>
             </span>
             <input
               type="text"
@@ -594,10 +738,11 @@ const Contact = () => {
           </label>
           {error && <div className="mt-2 text-red-500">Error: {error}</div>}
           <button
-            className={`${ButtonLargeSecondary} mt-8 w-full`}
+            className={`${ButtonLargeSecondary} mt-8 w-full rounded-full border-gray-600`}
             type="submit"
+            disabled={isLoading}
           >
-            Book my free estimate
+            {isLoading ? 'Sending...' : 'Book my free estimate'}
           </button>
         </form>
       </div>
@@ -629,7 +774,7 @@ const Footer = () => (
               <img src={instagram} />
             </a>
           </div>
-          <span className="text-xl tracking-wide text-gray-300">
+          <span className="text-xl tracking-wide text-white">
             @spaceliftonline
           </span>
         </div>
