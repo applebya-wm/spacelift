@@ -127,7 +127,7 @@ const Header = () => {
         </motion.div>
 
         {/* Desktop Navigation (unchanged from original) */}
-        <nav className="mt-4 hidden items-center justify-end gap-6 py-4 text-sm uppercase tracking-wider underline-offset-8 md:flex">
+        <nav className="hidden items-center justify-end gap-6 py-4 text-sm uppercase tracking-wider underline-offset-8 md:flex">
           {navLinks.map((item, index) => (
             <Fragment key={index}>
               <a
