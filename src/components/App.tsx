@@ -32,10 +32,10 @@ import windowFrontsSpace from 'assets/spaces/window-fronts-1.png'
 import anySpaceSpace from 'assets/spaces/any-space-1.png'
 
 const Button =
-  'sans-serif border border-gray-800 px-8 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center'
+  'sans-serif border border-gray-800 px-8 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center whitespace-nowrap'
 
 const ButtonLarge = `${Button} text-lg px-12 py-3`
-const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border-yellow-50`
+const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border-yellow-50 text-center`
 
 const Header = () => {
   // Track window width to determine if we're in mobile view
@@ -111,7 +111,7 @@ const Header = () => {
 
         {/* Logo: use animated transforms for desktop, static values for mobile */}
         <motion.div
-          className="absolute"
+          className="absolute hidden md:block"
           style={{ left: logoLeft, top: logoTop }}
           animate={isMobile ? undefined : controls}
         >
@@ -155,10 +155,10 @@ const Header = () => {
         </nav>
 
         {/* Hamburger button for mobile (always in top-right) */}
-        <div className="absolute right-4 top-4 md:hidden">
+        <div className="absolute right-3 top-3 z-50 md:hidden ">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="rounded-md bg-white p-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
+            className="z-50 rounded-sm bg-white p-2 focus:outline-none focus:ring-gray-600"
           >
             {menuOpen ? (
               <svg
@@ -195,19 +195,16 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {menuOpen && (
-          <nav className="mt-4 flex flex-col items-center justify-end gap-4 py-4 text-sm uppercase tracking-wider underline-offset-8 md:hidden">
+          <nav className="absolute z-10 -ml-8 flex w-screen flex-col items-center justify-end gap-12 border border-b-black bg-white py-4 pt-24 text-sm uppercase tracking-wider md:hidden">
             {navLinks.map((item, index) => (
               <Fragment key={index}>
                 <a
                   href={item.href}
-                  className="text-gray-700 hover:text-gray-900 hover:underline"
+                  className="text-xl text-gray-700 hover:text-gray-900 hover:underline"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
                 </a>
-                {index < navLinks.length - 1 && (
-                  <span className="text-gray-300">•</span>
-                )}
               </Fragment>
             ))}
             <a
@@ -233,56 +230,61 @@ const Header = () => {
 }
 
 const Hero = () => (
-  <div className="flex h-screen flex-col-reverse pt-16 md:flex-row md:pt-24">
-    <div className="flex-[2] pt-32 text-gray-700 md:flex-row md:pt-72 xl:flex-1">
+  <div className="flex h-screen flex-col-reverse md:flex-row md:pt-24">
+    <div className="text-gray-700 md:flex-[2] md:flex-row md:pt-72 xl:flex-1">
       <motion.div
         initial={{ marginLeft: -100, opacity: 0 }}
         animate={{ marginLeft: 0, opacity: 1 }}
         transition={{ duration: 1 }}
-        className="max-w-3xl px-20 md:pl-12 xl:pl-24"
+        className="max-w-3xl px-8 md:px-12 xl:pl-24"
       >
-        <h1 className="text-center text-4xl leading-loose tracking-wide md:text-left">
-          We specialize in revitalizing {/* <br /> */}
+        <h1 className="max-w-md py-8 text-center text-2xl leading-loose tracking-wide sm:text-3xl md:max-w-2xl md:py-0 md:text-left md:text-4xl">
+          We revitalize your {/* <br /> */}
           <span className="sans-serif font-extralight">
             regular, unused, unloved
           </span>{' '}
-          places
-          {/* <br /> */} into <span className="underline">amazin</span>g spaces.
+          places into <span className="underline">amazin</span>g spaces.
         </h1>
       </motion.div>
-      <div className="my-6 bg-gray-50 px-20 py-6 md:my-12 md:pl-12 xl:pl-24">
-        <div className="sans-serif flex max-w-xl justify-between text-gray-500 lg:gap-6 xl:gap-8">
-          {['Home', 'Business', 'Real-Estate', 'Any Space'].map(
+      <div className="bg-gray-50 px-8 py-6 md:my-8 md:px-12 xl:pl-24">
+        <div className="sans-serif flex max-w-xl justify-between gap-1 text-gray-500">
+          {['Home', 'Business', 'Real Estate', 'Any Space'].map(
             (item, index) => (
               <motion.div
                 key={index}
-                className="flex items-center gap-2 whitespace-nowrap text-sm uppercase tracking-wider lg:gap-4"
+                className="flex gap-2 uppercase tracking-wider lg:gap-4"
                 initial={{ marginLeft: -100, opacity: 0 }}
                 animate={{ marginLeft: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.25 }}
               >
-                {item}
-                <img src={check} className="size-4" />
+                <span className="text-sm">{item}</span>
+                <img src={check} className="size-4" alt="checkmark" />
               </motion.div>
             )
           )}
         </div>
       </div>
-      <div className="flex max-w-3xl justify-between gap-8 px-20 md:justify-around md:pl-12 xl:pl-24">
-        <a href="#about" className={`${ButtonLarge} flex-1`}>
+      <div className="my-6 flex max-w-3xl justify-between gap-8 px-8 md:justify-around md:px-12 xl:pl-24">
+        <a href="#about" className={`${ButtonLarge} flex-1 font-bold`}>
           Learn More
           <img src={arrowDown} width="24" />
         </a>
-        <a href="#contact" className={`${ButtonLargeSecondary} flex-1`}>
+        <a
+          href="#contact"
+          className={`${ButtonLargeSecondary} hidden flex-1 md:block`}
+        >
           Book an Estimate
         </a>
       </div>
     </div>
     <div
-      className="-mb-24 flex flex-1 bg-cover"
+      className="flex flex-1 bg-cover md:-mb-24"
       style={{ backgroundImage: `url(${hero})` }}
     >
       {/* <img src={hero} width="100%" /> */}
+    </div>
+    <div className="pointer-events-none z-20 px-4 sm:px-12 md:hidden">
+      <img className="z-20 -mb-8 h-28 self-start" src={logo} alt="Logo" />
     </div>
   </div>
 )
@@ -290,26 +292,22 @@ const Hero = () => (
 const About = () => (
   <section
     id="about"
-    className="relative mt-12 scroll-mt-32 bg-gray-100 bg-[length:auto_450px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-90px] bg-no-repeat pb-56 pt-28"
+    className="relative mt-12 h-screen scroll-mt-32 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-56 pt-20 sm:pt-28 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px]"
     style={{
       backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
     }}
   >
-    <div className="sans-serif absolute -top-10 left-0 border border-l-0 border-gray-800 bg-white py-6 pl-12 pr-20 text-3xl font-thin uppercase tracking-wider text-gray-700 xl:pl-24">
+    <div className="sans-serif absolute -top-10 left-0 border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-2xl font-thin uppercase tracking-wider text-gray-700 sm:pl-12 sm:pr-20 md:text-3xl xl:pl-24">
       <h2>What is Spacelift?</h2>
     </div>
-    <div className="px-24">
-      <div className="max-w-2xl text-xl font-light leading-loose tracking-wide text-gray-700">
-        Spacelift is your complete transformation <br />
-        design service for home &amp; business.
-        <br />
-        Any space, in any style.
+    <div className="px-8 sm:px-12 xl:pl-24">
+      <div className="max-w-2xl text-lg font-light leading-loose tracking-wide text-gray-700 sm:text-xl">
+        Spacelift is your complete transformation design service for home &amp;
+        business. Any space, in any style.
         <br />
         <br />
-        Cost-effective, reliable, and fully insured,
-        <br />
-        we manage projects from start to success with personalized care at every
-        step.
+        Cost-effective, reliable, and fully insured, we manage projects from
+        start to success with personalized care at every step.
         <br />
         <br />
         Proudly based on Vancouver Island.
@@ -347,15 +345,18 @@ const TheProcess = () => {
       <div className="sans-serif -mt-12 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
         <h2>The Process</h2>
       </div>
-      <div className="mx-auto my-24 flex justify-around gap-16 text-center text-xl font-light leading-loose tracking-wide text-gray-700">
-        <div>
-          Spacelift designs a space perfectly-suited
-          <br />
-          to fit your unique goals &amp; budget.
+      <div className="mx-auto my-12 flex flex-col justify-around gap-4 px-8 text-xl font-light leading-loose tracking-wide text-gray-700 sm:my-24 sm:px-12 md:flex-row">
+        <div className="mt-8 flex flex-1 gap-6">
+          <div className="font-serif text-4xl text-gray-300">1</div>
+          <div>
+            We design a space perfectly-suited
+            <br />
+            to fit your unique goals &amp; budget.
+          </div>
         </div>
-        <div>
-          Our process then takes over, to deliver
-          <br />
+        <div className="mt-8 flex flex-1 gap-6">
+          <div className="font-serif text-4xl text-gray-300">2</div>
+          Our process then takes over, to deliver <br />
           incredible results, and exceed expectations.
         </div>
       </div>
@@ -365,6 +366,9 @@ const TheProcess = () => {
             key={`${step}-icon`}
             className="sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pb-5 pt-3 text-center text-sm uppercase tracking-wider transition-all hover:-mb-6"
             onMouseEnter={() => {
+              setSelectedStep(step)
+            }}
+            onClick={() => {
               setSelectedStep(step)
             }}
           >
@@ -416,7 +420,7 @@ const Space = ({
           <img src={arrowDown} width="24" className="-rotate-90" />
         </button>
       </div>
-      <div className="px-10 pt-10 text-center text-lg font-light leading-loose tracking-wide text-gray-700">
+      <div className="pt-4 text-center text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-10">
         {description}
       </div>
     </div>
@@ -425,13 +429,15 @@ const Space = ({
 
 const AnySpace = () => (
   <section id="spaces" className="relative scroll-mt-32">
-    <div className="pb-24 pt-48">
-      <div className="sans-serif absolute -top-10 left-0 border border-l-0 border-gray-800 bg-white py-6 pl-12 pr-20 text-3xl font-thin uppercase tracking-wider text-gray-700 xl:pl-24">
+    <div className="text-center">
+      <div className="sans-serif inline-block bg-white px-8 py-16 text-3xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:py-24">
         <h2>
-          Any Space<span className="mx-3 mt-0.5">•</span>Any Style
+          Any Space
+          <span className="mx-4 mb-12 mt-0.5 text-gray-200 md:mx-6">•</span>
+          Any Style
         </h2>
       </div>
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-32">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-20 px-8 py-16 text-left sm:px-12 md:grid-cols-2 md:gap-32">
         {[
           [
             'Home',
@@ -444,7 +450,7 @@ const AnySpace = () => (
             businessSpace
           ],
           [
-            'Real-Estate',
+            'Real Estate',
             'Maximize property value with our expert staging services. We create inviting spaces that attract potential buyers.',
             realEstateSpace
           ],
@@ -481,7 +487,7 @@ const CTA = () => (
     className="flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
     style={{ backgroundImage: `url(${anySpace})` }}
   >
-    <div className="border border-gray-800 bg-white/80 px-24 py-12 text-center text-lg font-light leading-loose tracking-wide text-gray-700 backdrop-blur-sm">
+    <div className="m-4 border border-gray-800 bg-white/80 px-12 py-6 text-center text-lg font-light leading-loose tracking-wide text-gray-700 backdrop-blur-sm md:px-24 md:py-12">
       Have a unique space in mind?
       <br />
       Let us elevate it.
@@ -497,15 +503,18 @@ const CTA = () => (
 
 const Testimonials = () => (
   <section className="bg-gray-100">
-    <div className="mx-auto max-w-6xl bg-gray-100 px-4 py-16">
-      <div className="flex justify-center">
+    <div className="mx-auto max-w-6xl bg-gray-100 px-8 pb-16 sm:px-12">
+      <div className="flex justify-center pt-12">
         <img src={star} alt="star" />
         <img src={star} alt="star" />
         <img src={star} alt="star" />
         <img src={star} alt="star" />
         <img src={star} alt="star" />
       </div>
-      <div className="grid grid-cols-3 gap-x-20 gap-y-16 py-12">
+      <h2 className="mt-4 text-center text-xl italic tracking-wide text-gray-400">
+        Five-Star Customer Service
+      </h2>
+      <div className="grid grid-cols-1 gap-x-20 gap-y-16 py-12 md:grid-cols-2 lg:grid-cols-3">
         {[
           [
             'T. Malley',
@@ -529,12 +538,12 @@ const Testimonials = () => (
           ],
           [
             'M. Garcia',
-            '“Exceptional service and stunning results. Our new space is both beautiful and practical. Thank you, Spacelift!”'
+            '“Exceptional service and stunning results. Our new space is both beautiful and practical. Thank ou, Spacelift!”'
           ]
         ].map(([name, quote]) => (
-          <div key={name}>
-            <div className="mb-2 italic text-gray-500">{name}</div>
-            <div className="border border-black bg-white px-6 py-4 text-sm italic leading-loose tracking-wide text-gray-700">
+          <div key={name} className="flex flex-col">
+            <div className="mb-2 text-lg italic text-gray-500">{name}</div>
+            <div className="flex-1 border border-black bg-white px-6 py-4 text-sm italic leading-loose tracking-wide text-gray-700">
               <div>{quote}</div>
             </div>
           </div>
@@ -556,10 +565,10 @@ const Question = ({
   return (
     <div className="mt-8">
       <h3
-        className="inline-block cursor-pointer text-lg font-light text-gray-600 hover:underline"
+        className="inline-flex cursor-pointer text-lg font-light text-gray-600 hover:underline"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {title}
+        <div>{title}</div>
         <img
           src={arrowDown}
           width="24"
@@ -567,7 +576,7 @@ const Question = ({
         />
       </h3>
       <div
-        className="mt-4 bg-white p-6 text-sm leading-loose tracking-wide text-gray-800"
+        className="mt-4 border border-gray-800 bg-white p-6 text-sm leading-loose tracking-wide text-gray-800"
         style={{ display: isOpen ? 'block' : 'none' }}
       >
         {children}
@@ -578,43 +587,39 @@ const Question = ({
 
 const FAQ = () => (
   <section className="bg-gray-100">
-    <div className="mx-auto max-w-6xl px-4 py-28">
-      <h2 className="mb-16 text-center text-3xl tracking-wide">
+    <div className="mx-auto max-w-6xl px-8 pb-36 pt-24 sm:px-12">
+      <h2 className="mb-16 text-2xl tracking-wide md:text-3xl">
         Frequently Asked Questions
       </h2>
       <Question title="What are the rates for your services?">
-        Prices begin at $75.00 per hour. (3 hour minimum). Jobs can vary
+        Prices begin at $75.00 per hour (3 hour minimum). Jobs can vary
         depending your needs and requirements.
-      </Question>
-      <Question title="What happens to all the extra stuff I don't want?">
-        We will take care of all your unwanted & unneeded items for you.
-        <p className="mt-8">
-          <strong>DONATIONS:</strong> We will donate to organizations that make
-          a difference in our community.
-        </p>
-        <p>
-          <strong>REHOMED & REUSED:</strong> Your items can have a second chance
-          and be Rehomed and reused in a different project.
-        </p>
-        <p>
-          <strong>RECYCLING, GARBAGE & HAULING:</strong> We are happy to take it
-          away but additional dump fees and rates may apply.
-        </p>
       </Question>
       <Question title="Should I buy boxes, bins or containers?">
         These supplies can be costly but necessary. We are happy to work with
         items you may want to purchase or already have. Alternatively we can
         purchase any needed items for an additional fee.
       </Question>
-      <Question title="Does your company offer interior or exterior painting?">
-        From interior to exterior, little to big projects, we can fulfil your
-        painting needs.
-      </Question>
       <Question title="Do I need to be home for the Spacelift process?">
         No not usually. Depending on the project scope we may need to spend some
         time together one-on-one sorting through items.
       </Question>
-      <Question title="My back yard isn't working for me. Is this a space that you could help with?">
+      <Question title="What happens to all the extra stuff I don't want?">
+        We will take care of all your unwanted & unneeded items for you.
+        <h5 className="mt-6 font-bold">DONATIONS:</h5>
+        We will donate to organizations that make a difference in our community.
+        <h5 className="mt-2 font-bold">REHOMED & REUSED:</h5>
+        Your items can have a second chance and be Rehomed and reused in a
+        different project.
+        <h5 className="mt-2 font-bold">RECYCLING, GARBAGE & HAULING:</h5>
+        We are happy to take it away but additional dump fees and rates may
+        apply.
+      </Question>
+      <Question title="Does your company offer interior or exterior painting?">
+        From interior to exterior, little to big projects, we can fulfil your
+        painting needs.
+      </Question>
+      <Question title="My back yard isn't working for me, is this a space you could help with?">
         Any space in any style. From inside to out we will work with any space
         you need.
       </Question>
@@ -666,10 +671,10 @@ const Contact = () => {
 
   return (
     <section id="contact" className="flex scroll-mt-20">
-      <div className="flex basis-1/3 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center"></div>
-      <div className="flex basis-2/3 flex-col items-center p-12 leading-loose tracking-wide">
-        <h2 className="sans-serif -mt-24 mb-6 inline border border-gray-800 bg-white px-24 py-8 text-2xl font-thin uppercase tracking-wide">
-          Start your Spacelift Today!
+      <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
+      <div className="flex flex-[2] flex-col items-center p-8 leading-loose tracking-wide sm:p-12">
+        <h2 className="sans-serif -mt-20 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center text-xl font-thin uppercase tracking-wide sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
+          Start Your Spacelift
         </h2>
 
         <form onSubmit={onSubmit}>
@@ -681,6 +686,7 @@ const Contact = () => {
               type="text"
               name="name"
               value={name}
+              placeholder="Please enter your full name"
               onChange={(e) => setName(e.target.value)}
               className="mt-2 block w-full border border-gray-300 p-2"
               required
@@ -695,6 +701,7 @@ const Contact = () => {
                 type="email"
                 name="email"
                 value={email}
+                placeholder="your@email.com"
                 onChange={(e) => setEmail(e.target.value)}
                 className="mt-2 block w-full border border-gray-300 p-2"
                 required
@@ -706,6 +713,7 @@ const Contact = () => {
                 type="tel"
                 name="phone"
                 value={phone}
+                placeholder="(123) 456-7890"
                 onChange={(e) => setPhone(e.target.value)}
                 className="mt-2 block w-full border border-gray-300 p-2"
               />
@@ -719,6 +727,7 @@ const Contact = () => {
               type="text"
               name="whichSpace"
               value={whichSpace}
+              placeholder="My space is..."
               onChange={(e) => setWhichSpace(e.target.value)}
               className="mt-2 block w-full border border-gray-300 p-2"
             />
@@ -728,8 +737,8 @@ const Contact = () => {
               Tell us about your project <sup className="text-red-400">*</sup>
             </span>
             <textarea
-              className="mt-2 block w-full border border-gray-300 p-2"
-              rows={6}
+              className="mt-2 block w-full border border-gray-300 p-2 text-sm"
+              rows={5}
               name="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -752,7 +761,7 @@ const Contact = () => {
 
 const Footer = () => (
   <footer className="flex bg-black/90 text-white">
-    <div className=" flex basis-1/3 items-center justify-center border-r-white">
+    <div className="hidden flex-1 items-center justify-center lg:flex lg:border-r-white">
       <div>
         <img src={logo} className="h-32 brightness-150 grayscale" />
         <div className="sans-serif flex justify-center text-xs tracking-widest ">
@@ -760,12 +769,12 @@ const Footer = () => (
         </div>
       </div>
     </div>
-    <div className="flex flex-1 justify-between border-l border-l-white px-12 py-8">
-      <div className="flex flex-col gap-8">
-        <div className="font-thin tracking-wide">
+    <div className="flex flex-[2] justify-between border-l border-l-white p-8 sm:px-12">
+      <div className="flex flex-col gap-8 text-sm md:text-base">
+        <div className="hidden font-thin tracking-wide md:block">
           Explore our projects on Facebook & Instagram
         </div>
-        <div className="flex basis-1 items-center gap-4">
+        <div className="flex-1 flex-col items-center gap-4 md:flex-row">
           <div className="flex gap-2">
             <a className="rounded-full border-2 border-white" href="">
               <img src={facebook} />
@@ -774,7 +783,7 @@ const Footer = () => (
               <img src={instagram} />
             </a>
           </div>
-          <span className="text-xl tracking-wide text-white">
+          <span className="hidden text-xl tracking-wide text-white sm:block">
             @spaceliftonline
           </span>
         </div>
@@ -787,13 +796,13 @@ const Footer = () => (
           Back to top
         </a>
         <a
-          className="inline-block text-lg tracking-wide hover:underline"
+          className="inline-block tracking-wide hover:underline md:text-lg"
           href="mailto:info@spacelift.online"
         >
           info@spacelift.online
         </a>
         <a
-          className="inline-block text-lg tracking-wide hover:underline"
+          className="inline-block tracking-wide hover:underline md:text-lg"
           href="tel:2501234567"
         >
           (250)-123-4567
