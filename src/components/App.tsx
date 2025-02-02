@@ -672,15 +672,16 @@ const Contact = () => {
 
       if (data.code === 200) {
         setIsSuccess(true)
-        setTimeout(() => {
-          alert(`Thank you ${name}, we will respond within 2-3 business days.`)
-        }, 0)
       } else {
         setError(data.message)
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       setIsLoading(false)
-      setError(error.message)
+      if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError('An unknown error occurred')
+      }
     }
   }
 
@@ -698,6 +699,18 @@ const Contact = () => {
             <p>
               We&apos;ll get back to you within a few business days to discuss
               your Spacelift project.
+              <br />
+              <br />
+              Your info:
+              <br />
+              <br />
+              {name}
+              <br />
+              {email} / {phone}
+              <br />
+              {space}
+              <br />
+              {message}
             </p>
           </div>
         ) : (
@@ -777,7 +790,7 @@ const Contact = () => {
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? 'Sending...' : 'Book my free estimate'}
+              {isLoading ? 'Sending...' : 'Submit'}
             </button>
           </form>
         )}
