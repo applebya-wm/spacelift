@@ -132,7 +132,7 @@ const Header = () => {
             <Fragment key={index}>
               <a
                 href={item.href}
-                className="text-gray-700 hover:text-gray-900 hover:underline"
+                className="text-gray-700 hover:cursor-pointer hover:text-gray-900 hover:underline"
               >
                 {item.label}
               </a>
@@ -239,7 +239,7 @@ const Hero = () => (
         className="max-w-3xl px-8 md:px-12 xl:pl-24"
       >
         <h1 className="max-w-md py-8 text-center text-2xl leading-loose tracking-wide sm:text-3xl md:max-w-2xl md:py-0 md:text-left md:text-4xl">
-          We revitalize
+          We revitalize{' '}
           <span className="sans-serif font-extralight">
             regular, unused, unloved
           </span>{' '}
@@ -345,7 +345,7 @@ const TheProcess = () => {
       <div className="sans-serif -mt-12 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
         <h2>The Process</h2>
       </div>
-      <div className="mx-auto my-12 flex flex-col justify-around gap-4 px-8 text-xl font-light leading-loose tracking-wide text-gray-700 sm:my-24 sm:px-12 md:flex-row">
+      <div className="mx-auto my-12 flex max-w-6xl flex-col justify-around gap-4 px-8 text-lg font-light leading-loose tracking-wide text-gray-700 sm:my-24 sm:px-12 md:flex-row">
         <div className="mt-8 flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">1</div>
           <div>
@@ -356,8 +356,8 @@ const TheProcess = () => {
         </div>
         <div className="mt-8 flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">2</div>
-          Our process then takes over, to deliver <br />
-          incredible results, and exceed expectations.
+          Our process then takes over, to deliver incredible results and exceed
+          expectations.
         </div>
       </div>
       <div className="z-10 mx-auto -mb-16 flex gap-8">
@@ -674,7 +674,7 @@ const Contact = () => {
       <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
       <div className="flex flex-[2] flex-col items-center p-8 leading-loose tracking-wide sm:p-12">
         <h2 className="sans-serif -mt-20 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center text-xl font-thin uppercase tracking-wide sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
-          Start Your Spacelift
+          Start Your Spacelift Today!
         </h2>
 
         <form onSubmit={onSubmit}>
