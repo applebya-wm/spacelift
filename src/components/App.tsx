@@ -239,7 +239,7 @@ const Hero = () => (
         className="max-w-3xl px-8 md:px-12 xl:pl-24"
       >
         <h1 className="max-w-md py-8 text-center text-2xl leading-loose tracking-wide sm:text-3xl md:max-w-2xl md:py-0 md:text-left md:text-4xl">
-          We revitalize your {/* <br /> */}
+          We revitalize
           <span className="sans-serif font-extralight">
             regular, unused, unloved
           </span>{' '}
