@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "vite",
     "predeploy": "npm run build",
-    "deploy": "git push && echo 'spacelift.online' > ./build/CNAME && gh-pages -d dist",
+    "deploy": "echo spacelift.online > ./build/CNAME && gh-pages -d build",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test": "vitest",
