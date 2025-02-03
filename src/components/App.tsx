@@ -13,13 +13,13 @@ import anySpace from 'assets/any-space.png'
 import clean from 'assets/process/clean.png'
 import declutter from 'assets/process/declutter.png'
 import paint from 'assets/process/paint.png'
-import market from 'assets/process/market.png'
+import merchandise from 'assets/process/merchandise.png'
 import stage from 'assets/process/stage.png'
 import organize from 'assets/process/organize.png'
 import cleanBg from 'assets/clean.png'
 import declutterBg from 'assets/declutter.png'
 import paintBg from 'assets/paint.png'
-import marketBg from 'assets/market.png'
+import merchandiseBg from 'assets/merchandise.png'
 import stageBg from 'assets/stage.png'
 import organizeBg from 'assets/organize.png'
 import { FormEvent, Fragment, ReactNode, useEffect, useState } from 'react'
@@ -343,7 +343,7 @@ const TheProcess = () => {
     paint: [paint, paintBg],
     clean: [clean, cleanBg],
     stage: [stage, stageBg],
-    market: [market, marketBg]
+    merchandise: [merchandise, merchandiseBg]
   }
 
   const steps = Object.keys(stepsMap)
@@ -844,14 +844,8 @@ const Footer = () => (
             Back to top <img src={arrowDown} width="24" className="rotate-90" />
           </a>
         </div>
-        <div className="mt-2 flex flex-col gap-2 text-sm tracking-wide ">
-          <a
-            className="inline-block tracking-wide underline"
-            href="mailto:info@spacelift.online"
-          >
-            info@spacelift.online
-          </a>
-          <div className="text-gray-400">&copy; Spacelift 2024</div>
+        <div className="mt-2 flex flex-col gap-2 text-sm tracking-wide text-gray-400">
+          &copy; Spacelift {new Date().getFullYear()}
         </div>
       </div>
     </div>
