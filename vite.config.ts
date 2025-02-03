@@ -6,7 +6,7 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 // https://vitejs.dev/config https://vitest.dev/config
 export default defineConfig({
-  base: '/spacelift/',
+  base: '/',
   plugins: [
     react(),
     tsconfigPaths(),
