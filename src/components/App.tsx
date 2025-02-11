@@ -54,10 +54,10 @@ const Header = () => {
   const { scrollY } = useScroll()
   const widthEnd = 180
   const scrollEnd = 310
-  const leftEnd = '2rem'
+  const leftEnd = '2%'
 
   // Dynamic transforms for the logo (desktop only)
-  const left = useTransform(scrollY, [0, scrollEnd], ['12rem', leftEnd])
+  const left = useTransform(scrollY, [0, scrollEnd], ['12%', leftEnd])
   const top = useTransform(scrollY, [0, scrollEnd], [70, 0])
   const width = useTransform(scrollY, [0, scrollEnd], [420, widthEnd])
   const opacity = useTransform(scrollY, [0, 80], [1, 0])
@@ -97,7 +97,7 @@ const Header = () => {
   return (
     <header className="sans-serif fixed left-0 top-0 z-20 w-full md:bg-white/80 md:backdrop-blur-sm">
       {/* Container provides horizontal padding/margin at intermediate sizes */}
-      <div className="flex justify-between px-8 lg:mx-auto lg:block">
+      <div className="px-4 lg:mx-auto">
         {/* Background logo */}
         <motion.img
           src={logo}
@@ -140,14 +140,14 @@ const Header = () => {
                 {item.label}
               </a>
               {index < navLinks.length - 1 && (
-                <span className="text-gray-300">•</span>
+                <span className="hidden text-gray-300 lg:block">•</span>
               )}
             </Fragment>
           ))}
           <a href="#contact" className={`${Button} ml-2 font-bold`}>
-            <span className="hidden lg:block">Your </span>Free Estimate
+            <span className="hidden lg:block">Book </span>Free Estimate
           </a>
-          <div className="hidden gap-2 lg:flex">
+          <div className="hidden gap-2 xl:flex">
             <a href={FACEBOOK_URL} target="_blank" rel="noreferrer">
               <img src={facebook} alt="Facebook" />
             </a>
@@ -158,10 +158,10 @@ const Header = () => {
         </nav>
 
         {/* Hamburger button for mobile (always in top-right) */}
-        <div className="absolute right-3 top-3 z-50 md:hidden ">
+        <div className="absolute right-3 top-4 z-50 md:hidden ">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="z-50 rounded-sm bg-white p-2 focus:outline-none focus:ring-gray-600"
+            className="z-50 border border-black bg-white p-2 focus:outline-none focus:ring-gray-600"
           >
             {menuOpen ? (
               <svg
@@ -170,7 +170,6 @@ const Header = () => {
                 stroke="currentColor"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                style={{ transform: 'translateY(-1px)' }}
               >
                 <path
                   strokeLinecap="round"
@@ -215,7 +214,7 @@ const Header = () => {
               className={`${Button} ml-2 font-bold`}
               onClick={() => setMenuOpen(false)}
             >
-              Your Free Estimate
+              Book Free Estimate
             </a>
             <div className="flex gap-2">
               <a
@@ -242,30 +241,32 @@ const Header = () => {
   )
 }
 
+const Tagline = () => (
+  <h1 className="py-8 text-center text-4xl leading-loose tracking-wide text-white md:max-w-2xl md:py-0 md:text-left md:text-4xl md:text-black">
+    We revitalize{' '}
+    <span className="sans-serif font-extralight">regular, unused, unloved</span>{' '}
+    places into <span className="underline">amazin</span>g spaces.
+  </h1>
+)
+
 const Hero = () => (
-  <div className="flex h-screen flex-col-reverse md:flex-row md:pt-24">
+  <div className="flex h-screen flex-col-reverse md:flex-row md:pt-20">
     <div className="text-gray-700 md:flex-[2] md:flex-row md:pt-72 xl:flex-1">
       <motion.div
         initial={{ marginLeft: -100, opacity: 0 }}
         animate={{ marginLeft: 0, opacity: 1 }}
         transition={{ duration: 1 }}
-        className="max-w-3xl px-8 md:px-12 xl:pl-24"
+        className="hidden max-w-3xl px-8 md:block md:px-12 xl:pl-24"
       >
-        <h1 className="max-w-md py-8 text-center text-2xl leading-loose tracking-wide sm:text-3xl md:max-w-2xl md:py-0 md:text-left md:text-4xl">
-          We revitalize{' '}
-          <span className="sans-serif font-extralight">
-            regular, unused, unloved
-          </span>{' '}
-          places into <span className="underline">amazin</span>g spaces.
-        </h1>
+        <Tagline />
       </motion.div>
-      <div className="bg-gray-50 px-8 py-6 md:my-8 md:px-12 xl:pl-24">
-        <div className="sans-serif flex max-w-xl justify-between gap-1 text-gray-500">
+      <div className="bg-gray-50 px-8 py-6 md:my-12 md:px-8 lg:px-12 xl:pl-24">
+        <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-3xl text-gray-500 sm:text-lg md:flex md:justify-between">
           {['Home', 'Business', 'Real Estate', 'Any Space'].map(
             (item, index) => (
               <motion.div
                 key={index}
-                className="flex gap-2 uppercase tracking-wider lg:gap-4"
+                className="flex justify-center gap-2 uppercase tracking-wider lg:gap-4"
                 initial={{ marginLeft: -100, opacity: 0 }}
                 animate={{ marginLeft: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.25 }}
@@ -291,13 +292,19 @@ const Hero = () => (
       </div>
     </div>
     <div
-      className="flex flex-1 bg-cover md:-mb-24"
+      className="flex flex-1 items-center bg-black bg-opacity-50 bg-cover bg-blend-darken backdrop-blur-sm md:-mb-24 md:bg-opacity-0"
       style={{ backgroundImage: `url(${hero})` }}
     >
-      {/* <img src={hero} width="100%" /> */}
+      <div className="mx-12 pt-24 text-center md:hidden">
+        <Tagline />
+      </div>
     </div>
-    <div className="pointer-events-none z-20 px-4 sm:px-12 md:hidden">
-      <img className="z-20 -mb-8 h-28 self-start" src={logo} alt="Logo" />
+    <div className="pointer-events-none absolute top-0 flex h-20 w-full justify-center bg-white text-center md:hidden">
+      <div className="z-40 bg-white">
+        <div className="relative border border-t-0 border-black bg-white px-4">
+          <img className="top-1 h-28" src={logo} alt="Logo" />
+        </div>
+      </div>
     </div>
   </div>
 )
@@ -305,18 +312,18 @@ const Hero = () => (
 const About = () => (
   <section
     id="about"
-    className="relative mt-12 h-screen scroll-mt-32 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-56 pt-20 sm:pt-28 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px]"
+    className="relative mt-12 scroll-mt-16 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 pt-28 sm:pt-28 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56"
     style={{
       backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
     }}
   >
-    <div className="sans-serif absolute -top-10 left-0 border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-2xl font-thin uppercase tracking-wider text-gray-700 sm:pl-12 sm:pr-20 md:text-3xl xl:pl-24">
+    <div className="sans-serif absolute -top-0 left-0 border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-2xl font-thin uppercase tracking-wider text-gray-700 sm:pl-12 sm:pr-20 md:text-3xl xl:pl-24">
       <h2>What is Spacelift?</h2>
     </div>
     <div className="px-8 sm:px-12 xl:pl-24">
       <div className="max-w-2xl text-lg font-light leading-loose tracking-wide text-gray-700 sm:text-xl">
-        Spacelift is your complete transformation design service for home &amp;
-        business. Any space, in any style.
+        Spacelift is your complete transformation design service for home /
+        business / real estate. Any space, any style.
         <br />
         <br />
         Cost-effective, reliable, and fully insured, we manage projects from
@@ -353,34 +360,37 @@ const TheProcess = () => {
   return (
     <section
       id="process"
-      className="relative flex h-screen scroll-mt-32 flex-col"
+      className="relative flex h-screen scroll-mt-16 flex-col"
     >
-      <div className="sans-serif -mt-12 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
+      <div className="sans-serif my-8 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
         <h2>The Process</h2>
       </div>
-      <div className="mx-auto my-12 flex max-w-6xl flex-col justify-around gap-4 px-8 text-lg font-light leading-loose tracking-wide text-gray-700 sm:my-24 sm:px-12 md:flex-row">
-        <div className="mt-8 flex flex-1 gap-6">
+      <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:my-24 md:flex-row">
+        <div className="flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">1</div>
-          <div>
+          <div className="text-lg md:text-xl">
             We design a space perfectly-suited
             <br />
             to fit your unique goals &amp; budget.
           </div>
         </div>
-        <div className="mt-8 flex flex-1 gap-6">
+        <div className="flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">2</div>
-          Our process then takes over, to deliver incredible results and exceed
-          expectations.
+          <div className="text-lg md:text-xl">
+            Our process then takes over, to deliver incredible results and
+            exceed expectations.
+          </div>
         </div>
       </div>
-      <div className="z-10 mx-auto -mb-16 flex gap-8">
+      <div className="z-10 mx-auto -mb-16 grid grid-cols-3 gap-4 md:grid-cols-6 md:gap-8">
         {steps.map((step) => (
           <div
             key={`${step}-icon`}
-            className="sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pb-5 pt-3 text-center text-sm uppercase tracking-wider transition-all hover:-mb-6"
-            onMouseEnter={() => {
-              setSelectedStep(step)
-            }}
+            className="sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white py-5 text-center text-sm uppercase tracking-wider transition-all hover:-mb-4"
+            // TODO: Restore this
+            // onMouseEnter={() => {
+            //   setSelectedStep(step)
+            // }}
             onClick={() => {
               setSelectedStep(step)
             }}
@@ -426,12 +436,12 @@ const Space = ({
           {title}
         </h3>
         <img src={image} width="100%" alt={`${title} photo 1`} />
-        <button className="absolute bottom-12 left-4 rounded-full bg-white p-2">
+        {/* <button className="absolute bottom-12 left-4 rounded-full bg-white p-2">
           <img src={arrowDown} width="24" className="rotate-90" />
         </button>
         <button className="absolute bottom-12 right-4 rounded-full bg-white p-2">
           <img src={arrowDown} width="24" className="-rotate-90" />
-        </button>
+        </button> */}
       </div>
       <div className="pt-4 text-center text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-10">
         {description}
@@ -443,7 +453,7 @@ const Space = ({
 const AnySpace = () => (
   <section id="spaces" className="relative scroll-mt-32">
     <div className="text-center">
-      <div className="sans-serif inline-block bg-white px-8 py-16 text-3xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:py-24">
+      <div className="sans-serif inline-block bg-white px-8 py-16 pb-8 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:py-20">
         <h2>
           Any Space
           <span className="mx-4 mb-12 mt-0.5 text-gray-200 md:mx-6">•</span>
@@ -611,7 +621,11 @@ const FAQ = () => (
       <Question title="Should I buy boxes, bins or containers?">
         These supplies can be costly but necessary. We are happy to work with
         items you may want to purchase or already have. Alternatively we can
-        purchase any needed items for an additional fee.
+        provide any needed items for an additional fee.
+      </Question>
+      <Question title="Does your company offer moving services?">
+        Unfortunately we do not offer physical moving and loading, but we are
+        able to offer packing and unpacking services.
       </Question>
       <Question title="Do I need to be home for the Spacelift process?">
         No not usually. Depending on the project scope we may need to spend some
@@ -622,7 +636,7 @@ const FAQ = () => (
         <h5 className="mt-6 font-bold">DONATIONS:</h5>
         We will donate to organizations that make a difference in our community.
         <h5 className="mt-2 font-bold">REHOMED & REUSED:</h5>
-        Your items can have a second chance and be Rehomed and reused in a
+        Your items can have a second chance and be rehomed and reused in a
         different project.
         <h5 className="mt-2 font-bold">RECYCLING, GARBAGE & HAULING:</h5>
         We are happy to take it away but additional dump fees and rates may
@@ -689,7 +703,7 @@ const Contact = () => {
     <section id="contact" className="flex scroll-mt-20">
       <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
       <div className="flex flex-[2] flex-col items-center p-8 leading-loose tracking-wide sm:p-12">
-        <h2 className="sans-serif -mt-20 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center text-xl font-thin uppercase tracking-wider sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
+        <h2 className="sans-serif -mt-16 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center text-xl font-thin uppercase tracking-wider sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
           Start Your Spacelift
         </h2>
 
@@ -750,8 +764,21 @@ const Contact = () => {
                   type="tel"
                   name="phone"
                   value={phone}
-                  placeholder="(123) 456-7890"
-                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="123-456-7890"
+                  onChange={(e) => {
+                    let value = e.target.value.replace(/\D/g, '')
+                    if (value.length > 10) value = value.slice(0, 10)
+                    const maskedValue = value.replace(
+                      /(\d{3})(\d{0,3})(\d{0,4})/,
+                      (match, p1, p2, p3) => {
+                        if (p3) return `${p1}-${p2}-${p3}`
+                        else if (p2) return `${p1}-${p2}`
+                        else if (p1) return `${p1}`
+                        return ''
+                      }
+                    )
+                    setPhone(maskedValue)
+                  }}
                   className="mt-2 block w-full border border-gray-300 p-2"
                 />
               </label>
@@ -771,7 +798,7 @@ const Contact = () => {
             </label>
             <label className="mt-6 block">
               <span className="text-gray-700">
-                Tell us about your project <sup className="text-red-400">*</sup>
+                Tell us about your space <sup className="text-red-400">*</sup>
               </span>
               <textarea
                 className="mt-2 block w-full border border-gray-300 p-2 text-sm"
@@ -786,7 +813,7 @@ const Contact = () => {
               <div className="mt-2 text-sm text-red-500">Error: {error}</div>
             )}
             <button
-              className={`${ButtonLargeSecondary} mt-8 w-full rounded-full border-gray-600`}
+              className={`${ButtonLargeSecondary} mt-8 w-full rounded-full border border-gray-700`}
               type="submit"
               disabled={isLoading}
             >
