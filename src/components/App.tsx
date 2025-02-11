@@ -365,7 +365,7 @@ const TheProcess = () => {
       <div className="sans-serif my-8 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
         <h2>The Process</h2>
       </div>
-      <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:my-24 md:flex-row">
+      <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:flex-row lg:my-24">
         <div className="flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">1</div>
           <div className="text-lg md:text-xl">
@@ -386,7 +386,7 @@ const TheProcess = () => {
         {steps.map((step) => (
           <div
             key={`${step}-icon`}
-            className="sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white py-5 text-center text-sm uppercase tracking-wider transition-all hover:-mb-4"
+            className="sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white py-5 text-center text-sm uppercase tracking-wider transition-all md:hover:-mb-4"
             // TODO: Restore this
             // onMouseEnter={() => {
             //   setSelectedStep(step)
