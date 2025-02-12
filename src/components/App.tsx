@@ -591,7 +591,7 @@ const spaces: [string, string, string[]][] = [
 ]
 
 const Spaces = () => (
-  <section id="spaces" className="relative scroll-mt-32">
+  <section id="spaces" className="relative scroll-mt-16">
     <div className="text-center">
       <div className="sans-serif inline-block bg-white px-8 py-16 pb-8 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:py-20">
         <motion.h2
@@ -648,7 +648,7 @@ const Testimonials = () => (
         <img src={star} alt="star" />
         <img src={star} alt="star" />
       </div>
-      <h2 className="mt-4 text-center text-xl italic tracking-wide text-gray-400">
+      <h2 className="mt-4 text-center text-xl italic tracking-wide text-gray-600">
         Five-Star Customer Service
       </h2>
       <div className="grid grid-cols-1 gap-x-20 gap-y-16 py-12 md:grid-cols-2 lg:grid-cols-3">
@@ -814,7 +814,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="flex scroll-mt-20">
+    <section id="contact" className="flex scroll-mt-32">
       <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
       <div className="flex flex-[2] flex-col items-center p-8 leading-loose tracking-wide sm:p-12">
         <h2 className="sans-serif -mt-16 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center text-xl font-thin uppercase tracking-wider sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
