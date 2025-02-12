@@ -1,3 +1,5 @@
+import { motion, useAnimation, useScroll, useTransform } from 'motion/react'
+import { debounce } from 'lodash'
 import './App.css'
 import logo from 'assets/spacelift-logo-transparent.png'
 import hero from 'assets/hero-1.png'
@@ -22,8 +24,14 @@ import paintBg from 'assets/paint.png'
 import merchandiseBg from 'assets/merchandise.png'
 import stageBg from 'assets/stage.png'
 import organizeBg from 'assets/organize.png'
-import { FormEvent, Fragment, ReactNode, useEffect, useState } from 'react'
-import { motion, useAnimation, useScroll, useTransform } from 'motion/react'
+import {
+  FormEvent,
+  Fragment,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import homeSpace from 'assets/spaces/home-1.png'
 import businessSpace from 'assets/spaces/business-1.png'
 import realEstateSpace from 'assets/spaces/real-estate-1.png'
@@ -39,6 +47,26 @@ const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border-yellow-50 text-
 
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61560538700519'
 const INSTAGRAM_URL = 'https://www.instagram.com/spaceliftonline/'
+
+const scrollToImage = (
+  container: HTMLDivElement | null,
+  directionOrIndex: 'prev' | 'next' | number
+) => {
+  if (!container) return
+  const scrollAmount = container.clientWidth
+
+  let newScrollPosition
+  if (typeof directionOrIndex === 'number') {
+    newScrollPosition = directionOrIndex * scrollAmount
+  } else {
+    newScrollPosition =
+      directionOrIndex === 'next'
+        ? container.scrollLeft + scrollAmount
+        : container.scrollLeft - scrollAmount
+  }
+
+  container.scrollTo({ left: newScrollPosition, behavior: 'smooth' })
+}
 
 const Header = () => {
   // Track window width to determine if we're in mobile view
@@ -312,16 +340,23 @@ const Hero = () => (
 const About = () => (
   <section
     id="about"
-    className="relative mt-12 scroll-mt-16 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 pt-28 sm:pt-28 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56"
+    className="relative mt-20 scroll-mt-20 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 pt-28 sm:pt-32 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56 border-b border-black"
     style={{
       backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
     }}
   >
     <div className="sans-serif absolute -top-0 left-0 border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-2xl font-thin uppercase tracking-wider text-gray-700 sm:pl-12 sm:pr-20 md:text-3xl xl:pl-24">
-      <h2>What is Spacelift?</h2>
+      <motion.h2
+        initial={{ y: 50, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
+        What is Spacelift?
+      </motion.h2>
     </div>
     <div className="px-8 sm:px-12 xl:pl-24">
-      <div className="max-w-2xl text-lg font-light leading-loose tracking-wide text-gray-700 sm:text-xl">
+      <div className="max-w-2xl text-lg font-light leading-loose tracking-wide text-gray-700">
         Spacelift is your complete transformation design service for home /
         business / real estate. Any space, any style.
         <br />
@@ -355,20 +390,26 @@ const TheProcess = () => {
 
   const steps = Object.keys(stepsMap)
 
-  const [selectedStep, setSelectedStep] = useState(steps[0])
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [selectedStep, setSelectedStep] = useState<string | null>(null)
+
+  const handleHover = (stepIndex: number) => {
+    scrollToImage(containerRef.current, stepIndex)
+    setSelectedStep(steps[stepIndex])
+  }
 
   return (
     <section
       id="process"
       className="relative flex h-screen scroll-mt-16 flex-col"
     >
-      <div className="sans-serif my-8 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
+      <div className="sans-serif mt-12 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
         <h2>The Process</h2>
       </div>
-      <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:flex-row lg:my-24">
+      <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:flex-row lg:my-16">
         <div className="flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">1</div>
-          <div className="text-lg md:text-xl">
+          <div className="text-lg">
             We design a space perfectly-suited
             <br />
             to fit your unique goals &amp; budget.
@@ -376,45 +417,52 @@ const TheProcess = () => {
         </div>
         <div className="flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">2</div>
-          <div className="text-lg md:text-xl">
+          <div className="text-lg">
             Our process then takes over, to deliver incredible results and
             exceed expectations.
           </div>
         </div>
       </div>
-      <div className="z-10 mx-auto -mb-16 grid grid-cols-3 gap-4 md:grid-cols-6 md:gap-8">
-        {steps.map((step) => (
+      <div className="z-10 mx-auto -mb-12 grid grid-cols-3 gap-4 md:grid-cols-6 md:gap-8">
+        {steps.map((step, index) => (
           <div
             key={`${step}-icon`}
-            className="sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white py-5 text-center text-sm uppercase tracking-wider transition-all md:hover:-mb-4"
-            // TODO: Restore this
-            // onMouseEnter={() => {
-            //   setSelectedStep(step)
-            // }}
-            onClick={() => {
-              setSelectedStep(step)
+            className={`sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-sm uppercase tracking-wider hover:font-bold cursor-pointer ${
+              selectedStep === step ? 'font-bold' : ''
+            }`}
+            onMouseEnter={() => handleHover(index)}
+            onClick={() => handleHover(index)}
+            onFocus={() => handleHover(index)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                handleHover(index)
+              }
             }}
+            tabIndex={0}
           >
             <img
               src={stepsMap[step][0]}
               alt={`${step} icon`}
-              className="mb-2 w-20"
+              className="w-20 bg-black"
+              loading="lazy"
             />
-            {step}
+            <h4>{step}</h4>
           </div>
         ))}
       </div>
-      <div className="flex-1">
-        {steps.map((step) => (
-          <div
-            key={`${step}-bg`}
-            className="h-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url(${stepsMap[step][1]})`,
-              display: step === selectedStep ? 'block' : 'none'
-            }}
-          />
-        ))}
+      <div
+        className="flex-1 hide-scrollbar overflow-x-scroll snap-x snap-mandatory border-t border-black"
+        ref={containerRef}
+      >
+        <div className="flex h-full">
+          {steps.map((step) => (
+            <div
+              key={`${step}-bg`}
+              className="h-full w-full flex-shrink-0 bg-cover bg-center bg-no-repeat snap-center"
+              style={{ backgroundImage: `url(${stepsMap[step][1]})` }}
+            ></div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -423,79 +471,145 @@ const TheProcess = () => {
 const Space = ({
   title,
   description,
-  image
+  images
 }: {
   title: string
   description: string
-  image: string
+  images: string[]
 }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [canScrollPrev, setCanScrollPrev] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(true)
+
+  const handleScroll = () => {
+    if (!containerRef.current) return
+    const { scrollLeft, scrollWidth, clientWidth } = containerRef.current
+    setCanScrollPrev(scrollLeft > 0)
+    setCanScrollNext(scrollLeft + clientWidth < scrollWidth)
+  }
+
+  useEffect(() => {
+    handleScroll()
+    const container = containerRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+      return () => container.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
     <div>
       <div className="relative border-gray-800">
-        <h3 className="sans-serif absolute -top-10 inline border border-gray-800 bg-white px-12 py-4 text-xl font-thin uppercase tracking-wider text-gray-700">
+        <h3 className="sans-serif absolute top-0 border border-black bg-white px-8 py-3 text-center text-xl font-thin uppercase tracking-wider text-gray-700">
           {title}
         </h3>
-        <img src={image} width="100%" alt={`${title} photo 1`} />
-        {/* <button className="absolute bottom-12 left-4 rounded-full bg-white p-2">
-          <img src={arrowDown} width="24" className="rotate-90" />
-        </button>
-        <button className="absolute bottom-12 right-4 rounded-full bg-white p-2">
-          <img src={arrowDown} width="24" className="-rotate-90" />
-        </button> */}
+        <div
+          className="hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll"
+          ref={containerRef}
+        >
+          {images.map((image, index) => (
+            <img
+              className="w-full snap-center"
+              key={index}
+              src={image}
+              width="100%"
+              alt={`${title} photo ${index + 1}`}
+              style={{ scrollSnapAlign: 'center' }}
+            />
+          ))}
+
+          <button
+            className="absolute bottom-12 left-4 rounded-full bg-white p-2"
+            onClick={() => scrollToImage(containerRef.current, 'prev')}
+            aria-label="Scroll to previous image"
+            disabled={!canScrollPrev}
+          >
+            <img
+              src={arrowDown}
+              width="24"
+              className={`rotate-90 transition-opacity duration-500 ${
+                canScrollPrev ? '' : 'opacity-25'
+              }`}
+              alt="Previous"
+            />
+          </button>
+          <button
+            className="absolute bottom-12 right-4 rounded-full bg-white p-2"
+            onClick={() => scrollToImage(containerRef.current, 'next')}
+            aria-label="Scroll to next image"
+            disabled={!canScrollNext}
+          >
+            <img
+              src={arrowDown}
+              width="24"
+              className={`-rotate-90  ${
+                canScrollNext ? '' : 'opacity-25'
+              } transition-opacity duration-500 `}
+              alt="Next"
+            />
+          </button>
+        </div>
       </div>
-      <div className="pt-4 text-center text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-10">
+      <div className="pt-4 text-center text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-6">
         {description}
       </div>
     </div>
   )
 }
 
-const AnySpace = () => (
+const spaces: [string, string, string[]][] = [
+  [
+    'Home',
+    "Whether it's a cozy living room or a vibrant kitchen, we bring tailored designs to elevate your everyday living.",
+    [homeSpace, homeSpace]
+  ],
+  [
+    'Business',
+    'Drive productivity and impresses clients. We specialize in modern, functional designs for businesses of all sizes.',
+    [businessSpace, businessSpace]
+  ],
+  [
+    'Real Estate',
+    'Maximize property value with our expert staging services. We create inviting spaces that attract potential buyers.',
+    [realEstateSpace, realEstateSpace]
+  ],
+  [
+    'Store Displays',
+    'Captivate customers with eye-catching store displays. Our designs enhance product visibility and drive sales.',
+    [storeDisplaysSpace, storeDisplaysSpace]
+  ],
+  [
+    'Window Fronts',
+    'Transform your window fronts into stunning showcases. We design displays that draw attention and increase foot traffic.',
+    [windowFrontsSpace, windowFrontsSpace]
+  ],
+  [
+    'Any Space',
+    'No matter the space, we bring your vision to life. Our versatile designs cater to any style and function.',
+    [anySpaceSpace, anySpaceSpace]
+  ]
+]
+
+const Spaces = () => (
   <section id="spaces" className="relative scroll-mt-32">
     <div className="text-center">
       <div className="sans-serif inline-block bg-white px-8 py-16 pb-8 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:py-20">
-        <h2>
+        <motion.h2
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
           Any Space
           <span className="mx-4 mb-12 mt-0.5 text-gray-200 md:mx-6">•</span>
           Any Style
-        </h2>
+        </motion.h2>
       </div>
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-20 px-8 py-16 text-left sm:px-12 md:grid-cols-2 md:gap-32">
-        {[
-          [
-            'Home',
-            "Whether it's a cozy living room or a vibrant kitchen, we bring tailored designs to elevate your everyday living.",
-            homeSpace
-          ],
-          [
-            'Business',
-            'Drive productivity and impresses clients. We specialize in modern, functional designs for businesses of all sizes.',
-            businessSpace
-          ],
-          [
-            'Real Estate',
-            'Maximize property value with our expert staging services. We create inviting spaces that attract potential buyers.',
-            realEstateSpace
-          ],
-          [
-            'Store Displays',
-            'Captivate customers with eye-catching store displays. Our designs enhance product visibility and drive sales.',
-            storeDisplaysSpace
-          ],
-          [
-            'Window Fronts',
-            'Transform your window fronts into stunning showcases. We design displays that draw attention and increase foot traffic.',
-            windowFrontsSpace
-          ],
-          [
-            'Any Space',
-            'No matter the space, we bring your vision to life. Our versatile designs cater to any style and function.',
-            anySpaceSpace
-          ]
-        ].map(([title, description, image]) => (
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 px-8 pb-16 text-left sm:px-12 md:grid-cols-2 md:gap-24">
+        {spaces.map(([title, description, images]) => (
           <Space
             key={title}
-            image={image}
+            images={images}
             title={title}
             description={description}
           />
@@ -885,7 +999,7 @@ const App = () => (
     <Hero />
     <About />
     <TheProcess />
-    <AnySpace />
+    <Spaces />
     <Testimonials />
     <CTA />
     <FAQ />
