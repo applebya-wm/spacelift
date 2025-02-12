@@ -270,7 +270,7 @@ const Header = () => {
 }
 
 const Tagline = () => (
-  <h1 className="py-8 text-center text-4xl leading-loose tracking-wide text-white md:max-w-2xl md:py-0 md:text-left md:text-4xl md:text-black">
+  <h1 className="py-8 text-center text-3xl leading-loose tracking-wide text-white md:max-w-2xl md:py-0 md:text-left md:text-4xl md:text-black">
     We revitalize{' '}
     <span className="sans-serif font-extralight">regular, unused, unloved</span>{' '}
     places into <span className="underline">amazin</span>g spaces.
@@ -327,9 +327,9 @@ const Hero = () => (
         <Tagline />
       </div>
     </div>
-    <div className="pointer-events-none absolute top-0 flex h-20 w-full justify-center bg-white text-center md:hidden">
-      <div className="z-40 bg-white">
-        <div className="relative border border-t-0 border-black bg-white px-4">
+    <div className="pointer-events-none absolute top-0 flex h-0 w-full justify-center text-center md:hidden">
+      <div className="z-40">
+        <div className="relative px-4">
           <img className="top-1 h-28" src={logo} alt="Logo" />
         </div>
       </div>
@@ -340,7 +340,7 @@ const Hero = () => (
 const About = () => (
   <section
     id="about"
-    className="relative mt-20 scroll-mt-20 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 pt-28 sm:pt-32 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56 border-b border-black"
+    className="relative mt-4 sm:mt-20 scroll-mt-20 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 pt-28 sm:pt-32 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56 border-b border-black"
     style={{
       backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
     }}
@@ -356,7 +356,7 @@ const About = () => (
       </motion.h2>
     </div>
     <div className="px-8 sm:px-12 xl:pl-24">
-      <div className="max-w-2xl text-lg font-light leading-loose tracking-wide text-gray-700">
+      <div className="max-w-2xl sm:text-lg font-light leading-loose tracking-wide text-gray-700">
         Spacelift is your complete transformation design service for home /
         business / real estate. Any space, any style.
         <br />
@@ -399,17 +399,14 @@ const TheProcess = () => {
   }
 
   return (
-    <section
-      id="process"
-      className="relative flex h-screen scroll-mt-16 flex-col"
-    >
+    <section id="process" className="relative flex scroll-mt-16 flex-col">
       <div className="sans-serif mt-12 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
         <h2>The Process</h2>
       </div>
-      <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:flex-row lg:my-16">
+      <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:flex-row lg:my-16">
         <div className="flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">1</div>
-          <div className="text-lg">
+          <div className="sm:text-lg">
             We design a space perfectly-suited
             <br />
             to fit your unique goals &amp; budget.
@@ -417,7 +414,7 @@ const TheProcess = () => {
         </div>
         <div className="flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">2</div>
-          <div className="text-lg">
+          <div className="sm:text-lg">
             Our process then takes over, to deliver incredible results and
             exceed expectations.
           </div>
@@ -427,7 +424,7 @@ const TheProcess = () => {
         {steps.map((step, index) => (
           <div
             key={`${step}-icon`}
-            className={`sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-sm uppercase tracking-wider hover:font-bold cursor-pointer ${
+            className={`sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-xs sm:text-sm uppercase tracking-wider hover:font-bold cursor-pointer ${
               selectedStep === step ? 'font-bold' : ''
             }`}
             onMouseEnter={() => handleHover(index)}
@@ -451,7 +448,7 @@ const TheProcess = () => {
         ))}
       </div>
       <div
-        className="flex-1 hide-scrollbar overflow-x-scroll snap-x snap-mandatory border-t border-black"
+        className="h-96 hide-scrollbar overflow-x-scroll snap-x snap-mandatory border-t border-black"
         ref={containerRef}
       >
         <div className="flex h-full">
@@ -700,9 +697,9 @@ const Question = ({
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="mt-8">
+    <div className="mt-4">
       <h3
-        className="inline-flex cursor-pointer text-lg font-light text-gray-600 hover:underline"
+        className="mb-4 inline-flex cursor-pointer text-lg font-light text-gray-600 hover:underline"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div>{title}</div>
@@ -712,12 +709,16 @@ const Question = ({
           className={`ml-4 inline-block ${isOpen ? 'rotate-180' : 'rotate-0'}`}
         />
       </h3>
-      <div
-        className="mt-4 border border-gray-800 bg-white p-6 text-sm leading-loose tracking-wide text-gray-800"
-        style={{ display: isOpen ? 'block' : 'none' }}
-      >
-        {children}
-      </div>
+      {isOpen && (
+        <motion.div
+          className="border border-gray-800 bg-white p-6 text-sm leading-loose tracking-wide text-gray-800"
+          initial={{ marginTop: -50, opacity: 0 }}
+          animate={{ marginTop: 0, opacity: isOpen ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {children}
+        </motion.div>
+      )}
     </div>
   )
 }
@@ -742,8 +743,8 @@ const FAQ = () => (
         able to offer packing and unpacking services.
       </Question>
       <Question title="Do I need to be home for the Spacelift process?">
-        No not usually. Depending on the project scope we may need to spend some
-        time together one-on-one sorting through items.
+        No, not usually. Depending on the project scope we may need to spend
+        some time together one-on-one sorting through items.
       </Question>
       <Question title="What happens to all the extra stuff I don't want?">
         We will take care of all your unwanted & unneeded items for you.
@@ -946,11 +947,11 @@ const Footer = () => (
       <div>
         <img src={logo} className="h-32 brightness-150 grayscale" />
         <div className="sans-serif flex justify-center text-xs tracking-widest ">
-          <span>TRANSFORMING SPACES</span>
+          <span className="mb-1">TRANSFORMING SPACES</span>
         </div>
       </div>
     </div>
-    <div className="flex flex-[2] justify-between border-l border-l-white p-8 sm:px-12">
+    <div className="flex flex-[2] justify-between border-l border-l-white p-6 sm:px-12">
       <div className="flex flex-col gap-8 text-sm md:text-base">
         <div className="hidden font-thin tracking-wide md:block">
           Explore our projects on Facebook & Instagram
@@ -974,7 +975,7 @@ const Footer = () => (
               <img src={instagram} />
             </a>
           </div>
-          <div className="hidden pt-2 text-lg tracking-wide text-gray-400 sm:block">
+          <div className="hidden pt-2 tracking-wide text-gray-300 sm:block">
             @spaceliftonline
           </div>
         </div>
