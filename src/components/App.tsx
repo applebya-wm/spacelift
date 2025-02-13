@@ -278,49 +278,51 @@ const Tagline = () => (
 )
 
 const Hero = () => (
-  <div className="flex h-screen flex-col-reverse md:flex-row md:pt-20">
-    <div className="text-gray-700 md:flex-[2] md:flex-row md:pt-72 xl:flex-1">
-      <motion.div
-        initial={{ marginLeft: -100, opacity: 0 }}
-        animate={{ marginLeft: 0, opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="hidden max-w-3xl px-8 md:block md:px-12 xl:pl-24"
-      >
-        <Tagline />
-      </motion.div>
-      <div className="bg-gray-50 px-8 py-6 md:my-12 md:px-8 lg:px-12 xl:pl-24">
-        <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-3xl text-gray-500 sm:text-lg md:flex md:justify-between">
-          {['Home', 'Business', 'Real Estate', 'Any Space'].map(
-            (item, index) => (
-              <motion.div
-                key={index}
-                className="flex justify-center gap-2 uppercase tracking-wider lg:gap-4"
-                initial={{ marginLeft: -100, opacity: 0 }}
-                animate={{ marginLeft: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.25 }}
-              >
-                <span className="text-sm">{item}</span>
-                <img src={check} className="size-4" alt="checkmark" />
-              </motion.div>
-            )
-          )}
-        </div>
-      </div>
-      <div className="my-6 flex max-w-3xl justify-between gap-8 px-8 md:justify-around md:px-12 xl:pl-24">
-        <a href="#about" className={`${ButtonLarge} flex-1 font-bold`}>
-          Learn More
-          <img src={arrowDown} width="24" />
-        </a>
-        <a
-          href="#contact"
-          className={`${ButtonLargeSecondary} hidden flex-1 md:block`}
+  <div className="flex h-screen flex-col-reverse md:flex-row md:pt-18">
+    <div className="flex text-gray-700 md:flex-[2] md:flex-row md:pt-72 xl:flex-1">
+      <div className="flex-1 flex flex-col justify-around pb-10">
+        <motion.div
+          initial={{ marginLeft: -100, opacity: 0 }}
+          animate={{ marginLeft: 0, opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="hidden max-w-3xl px-8 my-8 md:block md:px-12 xl:pl-24"
         >
-          Book an Estimate
-        </a>
+          <Tagline />
+        </motion.div>
+        <div className="py-8 bg-gray-50 px-8 md:px-8 lg:px-12 xl:pl-24">
+          <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-3xl text-gray-500 sm:text-lg md:flex md:justify-between">
+            {['Home', 'Business', 'Real Estate', 'Any Space'].map(
+              (item, index) => (
+                <motion.div
+                  key={index}
+                  className="flex justify-center gap-2 uppercase tracking-wider lg:gap-4"
+                  initial={{ marginLeft: -100, opacity: 0 }}
+                  animate={{ marginLeft: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 + index * 0.25 }}
+                >
+                  <span className="text-sm">{item}</span>
+                  <img src={check} className="size-5" alt="checkmark" />
+                </motion.div>
+              )
+            )}
+          </div>
+        </div>
+        <div className="flex max-w-3xl justify-between gap-8 px-8 md:justify-around md:px-12 xl:pl-24">
+          <a href="#about" className={`${ButtonLarge} flex-1 font-bold`}>
+            Learn More
+            <img src={arrowDown} width="24" />
+          </a>
+          <a
+            href="#contact"
+            className={`${ButtonLargeSecondary} hidden flex-1 md:block`}
+          >
+            Book an Estimate
+          </a>
+        </div>
       </div>
     </div>
     <div
-      className="flex flex-1 items-center bg-black bg-opacity-50 bg-cover bg-blend-darken backdrop-blur-sm md:-mb-24 md:bg-opacity-0"
+      className="flex flex-1 items-center bg-black bg-opacity-50 bg-cover bg-blend-darken backdrop-blur-sm md:bg-opacity-0"
       style={{ backgroundImage: `url(${hero})` }}
     >
       <div className="mx-12 pt-24 text-center md:hidden">
@@ -340,12 +342,12 @@ const Hero = () => (
 const About = () => (
   <section
     id="about"
-    className="relative mt-4 sm:mt-20 scroll-mt-20 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 pt-28 sm:pt-32 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56 border-b border-black"
+    className="relative scroll-mt-18 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56 border-b border-black"
     style={{
       backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
     }}
   >
-    <div className="sans-serif absolute -top-0 left-0 border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-2xl font-thin uppercase tracking-wider text-gray-700 sm:pl-12 sm:pr-20 md:text-3xl xl:pl-24">
+    <div className="sans-serif my-12 inline-block border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-2xl font-thin uppercase tracking-wider text-gray-700 sm:pl-12 sm:pr-20 md:text-3xl xl:pl-24">
       <motion.h2
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -399,7 +401,7 @@ const TheProcess = () => {
   }
 
   return (
-    <section id="process" className="relative flex scroll-mt-16 flex-col">
+    <section id="process" className="relative flex scroll-mt-18 flex-col">
       <div className="sans-serif mt-12 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
         <h2>The Process</h2>
       </div>
@@ -486,10 +488,10 @@ const Space = ({
   }
 
   useEffect(() => {
-    handleScroll()
     const container = containerRef.current
     if (container) {
       container.addEventListener('scroll', handleScroll)
+      handleScroll()
       return () => container.removeEventListener('scroll', handleScroll)
     }
   }, [])
@@ -588,7 +590,7 @@ const spaces: [string, string, string[]][] = [
 ]
 
 const Spaces = () => (
-  <section id="spaces" className="relative scroll-mt-16">
+  <section id="spaces" className="relative scroll-mt-18">
     <div className="text-center">
       <div className="sans-serif inline-block bg-white px-8 py-16 pb-8 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:py-20">
         <motion.h2
@@ -639,16 +641,16 @@ const Testimonials = () => (
   <section className="bg-gray-100">
     <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 px-8 pb-16 sm:px-12">
       <div className="mt-8 inline-flex justify-center gap-2 self-center p-4">
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
-        <img src={star} alt="star" />
+        <img src={star} alt="star" className="w-14 sm:w-18" />
+        <img src={star} alt="star" className="w-14 sm:w-18" />
+        <img src={star} alt="star" className="w-14 sm:w-18" />
+        <img src={star} alt="star" className="w-14 sm:w-18" />
+        <img src={star} alt="star" className="w-14 sm:w-18" />
       </div>
-      <h2 className="mt-4 text-center text-xl italic tracking-wide text-gray-600">
+      <h2 className="mt-4 text-center text-lg sm:text-xl italic tracking-wide text-gray-600">
         Five-Star Customer Service
       </h2>
-      <div className="grid grid-cols-1 gap-x-20 gap-y-16 py-12 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 sm:gap-x-20 sm:gap-y-16 py-12 md:grid-cols-2 lg:grid-cols-3">
         {[
           [
             'T. Malley',
@@ -725,7 +727,7 @@ const Question = ({
 
 const FAQ = () => (
   <section className="bg-gray-100">
-    <div className="mx-auto max-w-6xl px-8 pb-36 pt-24 sm:px-12">
+    <div className="mx-auto max-w-6xl px-8 pb-20 pt-12 sm:pt-24 sm:pb-36 sm:px-12">
       <h2 className="mb-16 text-2xl tracking-wide md:text-3xl">
         Frequently Asked Questions
       </h2>

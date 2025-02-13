@@ -3,7 +3,11 @@
 export default {
   content: ['./src/**/*.{mjs,js,ts,jsx,tsx}'],
   theme: {
-    extend: {}
+    extend: {
+      spacing: {
+        18: '4.5rem' // 18 * 0.25rem = 4.5rem
+      }
+    }
   },
   variants: {
     fill: ['hover', 'focus'] // this line does the trick
