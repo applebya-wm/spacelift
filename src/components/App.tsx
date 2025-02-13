@@ -271,16 +271,19 @@ const Header = () => {
 
 const Tagline = () => (
   <h1 className="py-8 text-center text-3xl leading-loose tracking-wide text-white md:max-w-2xl md:py-0 md:text-left md:text-4xl md:text-black">
-    We revitalize{' '}
-    <span className="sans-serif font-extralight">regular, unused, unloved</span>{' '}
-    places into <span className="underline">amazin</span>g spaces.
+    We revitalize your{' '}
+    <span className="sans-serif font-extralight">
+      regular, <br /> unused, unloved
+    </span>{' '}
+    places into <br />
+    <span className="underline">amazin</span>g spaces.
   </h1>
 )
 
 const Hero = () => (
   <div className="flex h-screen flex-col-reverse md:flex-row md:pt-18">
     <div className="flex text-gray-700 md:flex-[2] md:flex-row md:pt-72 xl:flex-1">
-      <div className="flex-1 flex flex-col justify-around pb-10">
+      <div className="flex-1 flex flex-col justify-around pb-4 md:pb-10">
         <motion.div
           initial={{ marginLeft: -100, opacity: 0 }}
           animate={{ marginLeft: 0, opacity: 1 }}
@@ -289,7 +292,7 @@ const Hero = () => (
         >
           <Tagline />
         </motion.div>
-        <div className="py-8 bg-gray-50 px-8 md:px-8 lg:px-12 xl:pl-24">
+        <div className="py-8 md:bg-gray-50 px-8 md:px-8 lg:px-12 xl:pl-24">
           <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-3xl text-gray-500 sm:text-lg md:flex md:justify-between">
             {['Home', 'Business', 'Real Estate', 'Any Space'].map(
               (item, index) => (
@@ -307,7 +310,7 @@ const Hero = () => (
             )}
           </div>
         </div>
-        <div className="flex max-w-3xl justify-between gap-8 px-8 md:justify-around md:px-12 xl:pl-24">
+        <div className="flex max-w-3xl justify-between gap-8 px-8 md:justify-around md:px-12 xl:pl-24 pt-4">
           <a href="#about" className={`${ButtonLarge} flex-1 font-bold`}>
             Learn More
             <img src={arrowDown} width="24" />
@@ -322,10 +325,10 @@ const Hero = () => (
       </div>
     </div>
     <div
-      className="flex flex-1 items-center bg-black bg-opacity-50 bg-cover bg-blend-darken backdrop-blur-sm md:bg-opacity-0"
+      className="flex flex-1 w-full items-center bg-black bg-opacity-50 bg-cover bg-blend-darken backdrop-blur-sm md:bg-opacity-0"
       style={{ backgroundImage: `url(${hero})` }}
     >
-      <div className="mx-12 pt-24 text-center md:hidden">
+      <div className="mx-12 pt-24 text-center md:hidden w-full">
         <Tagline />
       </div>
     </div>
@@ -342,7 +345,7 @@ const Hero = () => (
 const About = () => (
   <section
     id="about"
-    className="relative scroll-mt-18 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56 border-b border-black"
+    className="relative md:scroll-mt-18 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56"
     style={{
       backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
     }}
@@ -360,14 +363,14 @@ const About = () => (
     <div className="px-8 sm:px-12 xl:pl-24">
       <div className="max-w-2xl sm:text-lg font-light leading-loose tracking-wide text-gray-700">
         Spacelift is your complete transformation design service for home /
-        business / real estate. Any space, any style.
+        business / real estate. Any space, in any style.
         <br />
         <br />
         Cost-effective, reliable, and fully insured, we manage projects from
         start to success with personalized care at every step.
         <br />
         <br />
-        Proudly based on Vancouver Island.
+        Proudly based in southern Vancouver Island.
       </div>
       <div className="mt-12">
         <a href="#process" className={ButtonLarge}>
@@ -401,8 +404,8 @@ const TheProcess = () => {
   }
 
   return (
-    <section id="process" className="relative flex scroll-mt-18 flex-col">
-      <div className="sans-serif mt-12 inline-block self-center border border-gray-800 bg-white px-20 py-6 text-center text-3xl font-thin uppercase tracking-wider text-gray-700">
+    <section id="process" className="relative flex md:scroll-mt-18 flex-col">
+      <div className="sans-serif my-12 inline-block self-center border  border-gray-800 bg-white py-6 px-8 text-2xl font-thin uppercase tracking-wider text-gray-700 sm:px-20 md:text-3xl">
         <h2>The Process</h2>
       </div>
       <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:flex-row lg:my-16">
@@ -422,11 +425,11 @@ const TheProcess = () => {
           </div>
         </div>
       </div>
-      <div className="z-10 mx-auto -mb-12 grid grid-cols-3 gap-4 md:grid-cols-6 md:gap-8">
+      <div className="z-10 mx-auto -mb-18 grid grid-cols-3 gap-4 md:grid-cols-6 md:gap-8">
         {steps.map((step, index) => (
           <div
             key={`${step}-icon`}
-            className={`sans-serif flex w-48 max-w-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-xs sm:text-sm uppercase tracking-wider hover:font-bold cursor-pointer ${
+            className={`sans-serif flex w-28 h-28 md:w-36 md:h-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-xs sm:text-sm uppercase tracking-wider hover:font-bold cursor-pointer ${
               selectedStep === step ? 'font-bold' : ''
             }`}
             onMouseEnter={() => handleHover(index)}
@@ -442,7 +445,7 @@ const TheProcess = () => {
             <img
               src={stepsMap[step][0]}
               alt={`${step} icon`}
-              className="w-20 bg-black"
+              className="w-16 md:w-20 bg-black"
               loading="lazy"
             />
             <h4>{step}</h4>
@@ -450,7 +453,7 @@ const TheProcess = () => {
         ))}
       </div>
       <div
-        className="h-96 hide-scrollbar overflow-x-scroll snap-x snap-mandatory border-t border-black"
+        className="h-96 hide-scrollbar overflow-x-scroll snap-x snap-mandatory py-3"
         ref={containerRef}
       >
         <div className="flex h-full">
@@ -498,28 +501,30 @@ const Space = ({
 
   return (
     <div>
-      <div className="relative border-gray-800">
-        <h3 className="sans-serif absolute top-0 border border-black bg-white px-8 py-3 text-center text-xl font-thin uppercase tracking-wider text-gray-700">
+      <div className="relative">
+        <h3 className="border border-black sans-serif absolute top-0 bg-white px-8 py-3 text-center text-xl font-thin uppercase tracking-wider text-gray-700">
           {title}
         </h3>
         <div
-          className="hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll"
+          className="hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll aspect-square border border-black"
           ref={containerRef}
         >
           {images.map((image, index) => (
-            <img
-              className="w-full snap-center"
+            <div
+              className="inline min-w-full snap-center bg-cover bg-center"
               key={index}
-              src={image}
-              width="100%"
-              alt={`${title} photo ${index + 1}`}
-              style={{ scrollSnapAlign: 'center' }}
+              style={{
+                backgroundImage: `url(${image})`,
+                scrollSnapAlign: 'center',
+                height: '100%'
+              }}
             />
           ))}
 
           <button
             className="absolute bottom-12 left-4 rounded-full bg-white p-2"
             onClick={() => scrollToImage(containerRef.current, 'prev')}
+            onMouseEnter={() => scrollToImage(containerRef.current, 'prev')}
             aria-label="Scroll to previous image"
             disabled={!canScrollPrev}
           >
@@ -535,6 +540,7 @@ const Space = ({
           <button
             className="absolute bottom-12 right-4 rounded-full bg-white p-2"
             onClick={() => scrollToImage(containerRef.current, 'next')}
+            onMouseEnter={() => scrollToImage(containerRef.current, 'next')}
             aria-label="Scroll to next image"
             disabled={!canScrollNext}
           >
@@ -549,7 +555,7 @@ const Space = ({
           </button>
         </div>
       </div>
-      <div className="pt-4 text-center text-lg font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-6">
+      <div className="pt-4 text-center font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-6">
         {description}
       </div>
     </div>
@@ -590,9 +596,9 @@ const spaces: [string, string, string[]][] = [
 ]
 
 const Spaces = () => (
-  <section id="spaces" className="relative scroll-mt-18">
+  <section id="spaces" className="relative md:scroll-mt-18">
     <div className="text-center">
-      <div className="sans-serif inline-block bg-white px-8 py-16 pb-8 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:py-20">
+      <div className="sans-serif inline-block bg-white px-8 py-16 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:py-20">
         <motion.h2
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -817,7 +823,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="flex scroll-mt-32">
+    <section id="contact" className="flex md:scroll-mt-32">
       <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
       <div className="flex flex-[2] flex-col items-center p-8 leading-loose tracking-wide sm:p-12">
         <h2 className="sans-serif -mt-16 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center text-xl font-thin uppercase tracking-wider sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
