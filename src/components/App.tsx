@@ -173,7 +173,7 @@ const Header = () => {
             </Fragment>
           ))}
           <a href="#contact" className={`${Button} ml-2 font-bold`}>
-            <span className="hidden lg:block">Book </span>Free Estimate
+            <span className="hidden lg:block">Book Your</span>Free Estimate
           </a>
           <div className="hidden gap-2 xl:flex">
             <a href={FACEBOOK_URL} target="_blank" rel="noreferrer">
@@ -272,11 +272,8 @@ const Header = () => {
 const Tagline = () => (
   <h1 className="py-8 text-center text-3xl leading-loose tracking-wide text-white md:max-w-2xl md:py-0 md:text-left md:text-4xl md:text-black">
     We revitalize your{' '}
-    <span className="sans-serif font-extralight">
-      regular, <br /> unused, unloved
-    </span>{' '}
-    places into <br />
-    <span className="underline">amazin</span>g spaces.
+    <span className="sans-serif font-extralight">regular, unused, unloved</span>{' '}
+    places into <span className="underline">amazin</span>g spaces.
   </h1>
 )
 
@@ -328,7 +325,7 @@ const Hero = () => (
       className="flex flex-1 w-full items-center bg-black bg-opacity-50 bg-cover bg-blend-darken backdrop-blur-sm md:bg-opacity-0"
       style={{ backgroundImage: `url(${hero})` }}
     >
-      <div className="mx-12 pt-24 text-center md:hidden w-full">
+      <div className="mx-4 pt-24 text-center md:hidden w-full">
         <Tagline />
       </div>
     </div>
@@ -778,10 +775,10 @@ const FAQ = () => (
 )
 
 const Contact = () => {
-  const [space, setSpace] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [question, setQuestion] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -801,7 +798,7 @@ const Contact = () => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, phone, space, message })
+        body: JSON.stringify({ name, email, phone, question, message })
       })
 
       const data = await response.json()
@@ -845,9 +842,9 @@ const Contact = () => {
               <br />
               {email} / {phone}
               <br />
-              {space}
+              <strong>Question:</strong> {question}
               <br />
-              {message}
+              <strong>Message:</strong> {message}
             </p>
           </div>
         ) : (
@@ -907,15 +904,12 @@ const Contact = () => {
               </label>
             </div>
             <label className="mt-6 block">
-              <span className="text-gray-700">
-                Which space do you have in mind?
-              </span>
+              <span className="text-gray-700">Have a question?</span>
               <input
                 type="text"
-                name="space"
-                value={space}
-                placeholder="My space is..."
-                onChange={(e) => setSpace(e.target.value)}
+                name="question"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
                 className="mt-2 block w-full border border-gray-300 p-2"
               />
             </label>
@@ -927,6 +921,7 @@ const Contact = () => {
                 className="mt-2 block w-full border border-gray-300 p-2 text-sm"
                 rows={5}
                 name="message"
+                placeholder="My space is..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 required
