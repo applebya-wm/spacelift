@@ -6,6 +6,9 @@ export default {
     extend: {
       spacing: {
         18: '4.5rem' // 18 * 0.25rem = 4.5rem
+      },
+      height: {
+        '75vh': '75vh'
       }
     }
   },

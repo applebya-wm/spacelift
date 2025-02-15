@@ -2,7 +2,7 @@ import { motion, useAnimation, useScroll, useTransform } from 'motion/react'
 import { debounce } from 'lodash'
 import './App.css'
 import logo from 'assets/spacelift-logo-transparent.png'
-import hero from 'assets/hero-1.png'
+import hero from 'assets/hero-1.jpg'
 import check from 'assets/check.png'
 import facebook from 'assets/facebook.svg'
 import arrowDown from 'assets/arrow-down.svg'
@@ -18,12 +18,12 @@ import paint from 'assets/process/paint.png'
 import merchandise from 'assets/process/merchandise.png'
 import stage from 'assets/process/stage.png'
 import organize from 'assets/process/organize.png'
-import cleanBg from 'assets/clean.png'
-import declutterBg from 'assets/declutter.png'
-import paintBg from 'assets/paint.png'
-import merchandiseBg from 'assets/merchandise.png'
-import stageBg from 'assets/stage.png'
-import organizeBg from 'assets/organize.png'
+import cleanBg from 'assets/clean.jpg'
+import declutterBg from 'assets/declutter.jpg'
+import paintBg from 'assets/paint.jpg'
+import merchandiseBg from 'assets/merchandise.jpg'
+import stageBg from 'assets/stage.jpg'
+import organizeBg from 'assets/organize.jpg'
 import {
   FormEvent,
   Fragment,
@@ -32,18 +32,37 @@ import {
   useRef,
   useState
 } from 'react'
-import homeSpace from 'assets/spaces/home-1.png'
-import businessSpace from 'assets/spaces/business-1.png'
-import realEstateSpace from 'assets/spaces/real-estate-1.png'
-import storeDisplaysSpace from 'assets/spaces/store-displays-1.png'
-import windowFrontsSpace from 'assets/spaces/window-fronts-1.png'
-import anySpaceSpace from 'assets/spaces/any-space-1.png'
+import homeSpace1 from 'assets/spaces/home-1.png'
+import homeSpace2 from 'assets/spaces/home-2.jpg'
+import homeSpace3 from 'assets/spaces/home-3.jpg'
+import homeSpace4 from 'assets/spaces/home-4.jpg'
+import homeSpace5 from 'assets/spaces/home-5.png'
+import businessSpace1 from 'assets/spaces/business-1.png'
+import businessSpace2 from 'assets/spaces/business-2.jpg'
+import businessSpace3 from 'assets/spaces/business-3.png'
+import businessSpace4 from 'assets/spaces/business-4.png'
+import businessSpace5 from 'assets/spaces/business-5.png'
+import realEstateSpace1 from 'assets/spaces/real-estate-1.png'
+import realEstateSpace2 from 'assets/spaces/real-estate-2.jpg'
+import realEstateSpace3 from 'assets/spaces/real-estate-3.png'
+import realEstateSpace4 from 'assets/spaces/real-estate-4.png'
+import realEstateSpace5 from 'assets/spaces/real-estate-5.png'
+import storeDisplaysSpace1 from 'assets/spaces/store-displays-1.png'
+import storeDisplaysSpace2 from 'assets/spaces/store-displays-2.png'
+import storeDisplaysSpace3 from 'assets/spaces/store-displays-3.png'
+import storeDisplaysSpace4 from 'assets/spaces/store-displays-4.png'
+import storeDisplaysSpace5 from 'assets/spaces/store-displays-5.png'
+import storeDisplaysSpace6 from 'assets/spaces/store-displays-6.png'
+import anySpaceSpace1 from 'assets/spaces/any-space-1.png'
+import anySpaceSpace2 from 'assets/spaces/any-space-2.png'
+import anySpaceSpace3 from 'assets/spaces/any-space-3.png'
+import anySpaceSpace4 from 'assets/spaces/any-space-4.png'
 
 const Button =
-  'sans-serif border border-gray-800 px-8 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center whitespace-nowrap'
+  'sans-serif border border-gray-800 px-6 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center whitespace-nowrap'
 
 const ButtonLarge = `${Button} text-lg px-12 py-3`
-const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border-yellow-50 text-center`
+const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border border-gray-100 text-center hover:border-gray-400`
 
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61560538700519'
 const INSTAGRAM_URL = 'https://www.instagram.com/spaceliftonline/'
@@ -80,9 +99,9 @@ const Header = () => {
 
   const controls = useAnimation()
   const { scrollY } = useScroll()
-  const widthEnd = 180
+  const widthEnd = 150
   const scrollEnd = 310
-  const leftEnd = '2%'
+  const leftEnd = '1%'
 
   // Dynamic transforms for the logo (desktop only)
   const left = useTransform(scrollY, [0, scrollEnd], ['12%', leftEnd])
@@ -172,8 +191,8 @@ const Header = () => {
               )}
             </Fragment>
           ))}
-          <a href="#contact" className={`${Button} ml-2 font-bold`}>
-            <span className="hidden lg:block">Book Your</span>Free Estimate
+          <a href="#contact" className={`${Button} ml-2 font-bold px-4`}>
+            <span className="hidden lg:block">Book your</span> Estimate
           </a>
           <div className="hidden gap-2 xl:flex">
             <a href={FACEBOOK_URL} target="_blank" rel="noreferrer">
@@ -316,7 +335,7 @@ const Hero = () => (
             href="#contact"
             className={`${ButtonLargeSecondary} hidden flex-1 md:block`}
           >
-            Book an Estimate
+            Book Your Estimate
           </a>
         </div>
       </div>
@@ -393,12 +412,38 @@ const TheProcess = () => {
   const steps = Object.keys(stepsMap)
 
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const [selectedStep, setSelectedStep] = useState<string | null>(null)
+  const [selectedStep, setSelectedStep] =
+    useState<keyof typeof stepsMap>('declutter')
+
+  const isHoveringRef = useRef(false)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const handleHover = (stepIndex: number) => {
+    isHoveringRef.current = true
     scrollToImage(containerRef.current, stepIndex)
     setSelectedStep(steps[stepIndex])
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current)
+    }
+    scrollTimeoutRef.current = setTimeout(() => {
+      isHoveringRef.current = false
+    }, 500)
   }
+
+  const handleScroll = () => {
+    if (!containerRef.current || isHoveringRef.current) return
+    const { scrollLeft, clientWidth } = containerRef.current
+    const stepIndex = Math.round(scrollLeft / clientWidth)
+    setSelectedStep(steps[stepIndex])
+  }
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+      return () => container.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <section id="process" className="relative flex md:scroll-mt-18 flex-col">
@@ -409,9 +454,8 @@ const TheProcess = () => {
         <div className="flex flex-1 gap-6">
           <div className="font-serif text-4xl text-gray-300">1</div>
           <div className="sm:text-lg">
-            We design a space perfectly-suited
-            <br />
-            to fit your unique goals &amp; budget.
+            We design a space perfectly-suited to fit your unique goals &amp;
+            budget.
           </div>
         </div>
         <div className="flex flex-1 gap-6">
@@ -426,8 +470,8 @@ const TheProcess = () => {
         {steps.map((step, index) => (
           <div
             key={`${step}-icon`}
-            className={`sans-serif flex w-28 h-28 md:w-36 md:h-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-xs sm:text-sm uppercase tracking-wider hover:font-bold cursor-pointer ${
-              selectedStep === step ? 'font-bold' : ''
+            className={`sans-serif flex w-28 h-28 md:w-36 md:h-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-xs sm:text-sm uppercase tracking-wider hover:font-bold hover:underline underline-offset-8 cursor-pointer ${
+              selectedStep === step ? 'font-bold underline' : ''
             }`}
             onMouseEnter={() => handleHover(index)}
             onClick={() => handleHover(index)}
@@ -450,16 +494,21 @@ const TheProcess = () => {
         ))}
       </div>
       <div
-        className="h-96 hide-scrollbar overflow-x-scroll snap-x snap-mandatory py-3"
+        className="h-96 xl:h-75vh hide-scrollbar overflow-x-scroll snap-x snap-mandatory"
         ref={containerRef}
       >
         <div className="flex h-full">
           {steps.map((step) => (
             <div
               key={`${step}-bg`}
-              className="h-full w-full flex-shrink-0 bg-cover bg-center bg-no-repeat snap-center"
-              style={{ backgroundImage: `url(${stepsMap[step][1]})` }}
-            ></div>
+              className="h-full w-full flex-shrink-0 snap-center"
+            >
+              <img
+                src={stepsMap[step][1]}
+                alt={`${step} background`}
+                className="h-full w-full object-cover"
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -473,7 +522,7 @@ const Space = ({
   images
 }: {
   title: string
-  description: string
+  description?: string
   images: string[]
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -496,14 +545,24 @@ const Space = ({
     }
   }, [])
 
+  const isFullWidth = !description
+
   return (
     <div>
       <div className="relative">
-        <h3 className="border border-black sans-serif absolute top-0 bg-white px-8 py-3 text-center text-xl font-thin uppercase tracking-wider text-gray-700">
+        <h3
+          className={`border border-black sans-serif absolute bg-white px-8 py-3 text-center text-xl font-thin uppercase tracking-wider text-gray-700 ${
+            isFullWidth
+              ? 'top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+              : 'top-3 left-3'
+          }`}
+        >
           {title}
         </h3>
         <div
-          className="hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll aspect-square border border-black"
+          className={`hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll ${
+            isFullWidth ? 'aspect-video' : 'aspect-square'
+          } border border-black`}
           ref={containerRef}
         >
           {images.map((image, index) => (
@@ -552,9 +611,11 @@ const Space = ({
           </button>
         </div>
       </div>
-      <div className="pt-4 text-center font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-6">
-        {description}
-      </div>
+      {!!description && (
+        <div className="pt-4 text-center font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-6">
+          {description}
+        </div>
+      )}
     </div>
   )
 }
@@ -563,39 +624,48 @@ const spaces: [string, string, string[]][] = [
   [
     'Home',
     "Whether it's a cozy living room or a vibrant kitchen, we bring tailored designs to elevate your everyday living.",
-    [homeSpace, homeSpace]
+    [homeSpace1, homeSpace2, homeSpace3, homeSpace4, homeSpace5]
   ],
   [
     'Business',
     'Drive productivity and impresses clients. We specialize in modern, functional designs for businesses of all sizes.',
-    [businessSpace, businessSpace]
+    [
+      businessSpace1,
+      businessSpace2,
+      businessSpace3,
+      businessSpace4,
+      businessSpace5
+    ]
   ],
   [
     'Real Estate',
     'Maximize property value with our expert staging services. We create inviting spaces that attract potential buyers.',
-    [realEstateSpace, realEstateSpace]
+    [
+      realEstateSpace1,
+      realEstateSpace2,
+      realEstateSpace3,
+      realEstateSpace4,
+      realEstateSpace5
+    ]
   ],
   [
     'Store Displays',
     'Captivate customers with eye-catching store displays. Our designs enhance product visibility and drive sales.',
-    [storeDisplaysSpace, storeDisplaysSpace]
-  ],
-  [
-    'Window Fronts',
-    'Transform your window fronts into stunning showcases. We design displays that draw attention and increase foot traffic.',
-    [windowFrontsSpace, windowFrontsSpace]
-  ],
-  [
-    'Any Space',
-    'No matter the space, we bring your vision to life. Our versatile designs cater to any style and function.',
-    [anySpaceSpace, anySpaceSpace]
+    [
+      storeDisplaysSpace1,
+      storeDisplaysSpace2,
+      storeDisplaysSpace3,
+      storeDisplaysSpace4,
+      storeDisplaysSpace5,
+      storeDisplaysSpace6
+    ]
   ]
 ]
 
 const Spaces = () => (
   <section id="spaces" className="relative md:scroll-mt-18">
-    <div className="text-center">
-      <div className="sans-serif inline-block bg-white px-8 py-16 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:py-20">
+    <div className="text-center mb-24">
+      <div className="sans-serif inline-block bg-white px-8 py-20 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:pb-20">
         <motion.h2
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -607,7 +677,7 @@ const Spaces = () => (
           Any Style
         </motion.h2>
       </div>
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 px-8 pb-16 text-left sm:px-12 md:grid-cols-2 md:gap-24">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 px-8 pb-28 text-left sm:px-12 md:grid-cols-2 md:gap-24">
         {spaces.map(([title, description, images]) => (
           <Space
             key={title}
@@ -616,6 +686,17 @@ const Spaces = () => (
             description={description}
           />
         ))}
+      </div>
+      <div className="max-w-6xl mx-auto mb-">
+        <Space
+          title="Any Space"
+          images={[
+            anySpaceSpace1,
+            anySpaceSpace2,
+            anySpaceSpace3,
+            anySpaceSpace4
+          ]}
+        />
       </div>
     </div>
   </section>
@@ -643,7 +724,7 @@ const CTA = () => (
 const Testimonials = () => (
   <section className="bg-gray-100">
     <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 px-8 pb-16 sm:px-12">
-      <div className="mt-8 inline-flex justify-center gap-2 self-center p-4">
+      <div className="mt-8 inline-flex justify-center gap-2 self-center py-4 px-6 bg-white bg-opacity-50 rounded-xl">
         <img src={star} alt="star" className="w-14 sm:w-18" />
         <img src={star} alt="star" className="w-14 sm:w-18" />
         <img src={star} alt="star" className="w-14 sm:w-18" />
@@ -657,27 +738,39 @@ const Testimonials = () => (
         {[
           [
             'T. Malley',
-            '“Completely transformed our space! The design was thoughtful, modern, and exactly what we needed. Couldnt be happier!”'
+            '“Completely transformed our space! The design was thoughtful, modern, and exactly what we needed. Couldn’t be happier!”'
           ],
           [
-            'J. Smith',
-            '“The team at Spacelift exceeded our expectations. Their attention to detail and creativity brought our vision to life.”'
+            'T. Deelstra',
+            '“You did more than expected—your help staging our home was truly exceptional. I’m so happy to have you as my realtor!”'
           ],
           [
-            'A. Johnson',
-            '“Professional, efficient, and highly skilled. Our office space has never looked better. Highly recommend Spacelift!”'
+            'R. & J. Parker',
+            '“Rose is the hardest worker I’ve ever known—thanks to her, we found our dream home and sold our place in just four days!”'
           ],
           [
-            'R. Lee',
-            '“From start to finish, the process was seamless. The end result was a beautiful, functional space that we love.”'
+            'M. Westgate',
+            '“Rose brought our house to life with her keen eye for detail. Her enthusiasm and commitment made the process effortless!”'
           ],
           [
-            'K. Patel',
-            '“Spacelift transformed our home into a modern, stylish space. Their team was a pleasure to work with.”'
+            'A. Scott',
+            '“Rose works for you—hand-selecting homes that perfectly match your needs. I’ll definitely use her services again!”'
           ],
           [
             'M. Garcia',
-            '“Exceptional service and stunning results. Our new space is both beautiful and practical. Thank ou, Spacelift!”'
+            '“Rose was amazing—upfront, honest, and incredibly dedicated. She even cleaned and staged our home, selling it in just hours!”'
+          ],
+          [
+            'M. Seel',
+            '“Spacelift transformed our office! Their design gave us a competitive edge by boosting productivity and impressing clients. We couldn’t be happier!”'
+          ],
+          [
+            'A. Johnson',
+            '“Exceptional service and stunning results. Our new space is both beautiful and practical. Thank you, Spacelift!”'
+          ],
+          [
+            'H. Smith',
+            '“Spacelift transformed our home into a modern, stylish space. Their team was an absolute pleasure to work with, highly recommended!”'
           ]
         ].map(([name, quote]) => (
           <div key={name} className="flex flex-col">
@@ -736,12 +829,17 @@ const FAQ = () => (
       </h2>
       <Question title="What are the rates for your services?">
         Prices begin at $75.00 per hour (3 hour minimum). Jobs can vary
-        depending your needs and requirements.
+        depending on your needs and requirements.
       </Question>
       <Question title="Should I buy boxes, bins or containers?">
         These supplies can be costly but necessary. We are happy to work with
         items you may want to purchase or already have. Alternatively we can
         provide any needed items for an additional fee.
+      </Question>
+      <Question title="Is Spacelift fully insured and certified?">
+        Absolutely! Spacelift is fully insured and certified, ensuring top-notch
+        quality and peace of mind for all our clients. All of your information
+        is confidential and secure.
       </Question>
       <Question title="Does your company offer moving services?">
         Unfortunately we do not offer physical moving and loading, but we are
@@ -921,7 +1019,6 @@ const Contact = () => {
                 className="mt-2 block w-full border border-gray-300 p-2 text-sm"
                 rows={5}
                 name="message"
-                placeholder="My space is..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 required
@@ -986,7 +1083,8 @@ const Footer = () => (
       <div className="flex flex-col items-end justify-between gap-1 text-right">
         <div className="flex flex-1 flex-col">
           <a href="#" className="mb-2 inline-block text-sm tracking-wide">
-            Back to top <img src={arrowDown} width="24" className="rotate-90" />
+            Back to top
+            {/* <img src={arrowDown} width="24" className="rotate-90" /> */}
           </a>
         </div>
         <div className="mt-2 flex flex-col gap-2 text-sm tracking-wide text-gray-400">
