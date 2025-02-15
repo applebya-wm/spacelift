@@ -62,7 +62,7 @@ const Button =
   'sans-serif border border-gray-800 px-6 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center whitespace-nowrap'
 
 const ButtonLarge = `${Button} text-lg px-12 py-3`
-const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border border-gray-100 text-center hover:border-gray-400`
+const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border border-gray-500 text-center`
 
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61560538700519'
 const INSTAGRAM_URL = 'https://www.instagram.com/spaceliftonline/'
@@ -289,7 +289,7 @@ const Header = () => {
 }
 
 const Tagline = () => (
-  <h1 className="py-8 text-center text-3xl leading-loose tracking-wide text-white md:max-w-2xl md:py-0 md:text-left md:text-4xl md:text-black">
+  <h1 className="py-8 text-center text-4xl leading-loose tracking-wide text-white md:max-w-2xl md:py-0 md:text-left md:text-4xl md:text-black">
     We revitalize your{' '}
     <span className="sans-serif font-extralight">regular, unused, unloved</span>{' '}
     places into <span className="underline">amazin</span>g spaces.
@@ -308,7 +308,7 @@ const Hero = () => (
         >
           <Tagline />
         </motion.div>
-        <div className="py-8 md:bg-gray-50 px-8 md:px-8 lg:px-12 xl:pl-24">
+        <div className="py-8 md:bg-gray-50 px-2 sm:px-8 md:px-8 lg:px-12 xl:pl-24">
           <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-3xl text-gray-500 sm:text-lg md:flex md:justify-between">
             {['Home', 'Business', 'Real Estate', 'Any Space'].map(
               (item, index) => (
@@ -551,18 +551,20 @@ const Space = ({
     <div>
       <div className="relative">
         <h3
-          className={`border border-black sans-serif absolute bg-white px-8 py-3 text-center text-xl font-thin uppercase tracking-wider text-gray-700 ${
+          className={`border border-black sans-serif absolute bg-white px-4 py-2 md:px-8 md:py-3 text-center tmd:text-xl font-thin uppercase tracking-wider text-gray-700 ${
             isFullWidth
-              ? 'top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+              ? 'top-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
               : 'top-3 left-3'
           }`}
         >
           {title}
         </h3>
         <div
-          className={`hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll ${
-            isFullWidth ? 'aspect-video' : 'aspect-square'
-          } border border-black`}
+          className={`hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll aspect-video ${
+            isFullWidth
+              ? 'border-0 lg:border border-t border-b'
+              : 'border md:aspect-square'
+          } border-black`}
           ref={containerRef}
         >
           {images.map((image, index) => (
@@ -578,9 +580,8 @@ const Space = ({
           ))}
 
           <button
-            className="absolute bottom-12 left-4 rounded-full bg-white p-2"
+            className="absolute bottom-4 md:bottom-12 left-4 rounded-full bg-white p-2"
             onClick={() => scrollToImage(containerRef.current, 'prev')}
-            onMouseEnter={() => scrollToImage(containerRef.current, 'prev')}
             aria-label="Scroll to previous image"
             disabled={!canScrollPrev}
           >
@@ -594,9 +595,8 @@ const Space = ({
             />
           </button>
           <button
-            className="absolute bottom-12 right-4 rounded-full bg-white p-2"
+            className="absolute bottom-4 md:bottom-12 right-4 rounded-full bg-white p-2"
             onClick={() => scrollToImage(containerRef.current, 'next')}
-            onMouseEnter={() => scrollToImage(containerRef.current, 'next')}
             aria-label="Scroll to next image"
             disabled={!canScrollNext}
           >
@@ -664,7 +664,7 @@ const spaces: [string, string, string[]][] = [
 
 const Spaces = () => (
   <section id="spaces" className="relative md:scroll-mt-18">
-    <div className="text-center mb-24">
+    <div className="text-center lg:mb-24">
       <div className="sans-serif inline-block bg-white px-8 py-20 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:pb-20">
         <motion.h2
           initial={{ y: 50, opacity: 0 }}
@@ -687,7 +687,7 @@ const Spaces = () => (
           />
         ))}
       </div>
-      <div className="max-w-6xl mx-auto mb-">
+      <div className="max-w-6xl mx-auto">
         <Space
           title="Any Space"
           images={[
@@ -704,10 +704,10 @@ const Spaces = () => (
 
 const CTA = () => (
   <section
-    className="flex h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
+    className="flex h-96 md:h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
     style={{ backgroundImage: `url(${anySpace})` }}
   >
-    <div className="m-4 border border-gray-800 bg-white/80 px-12 py-6 text-center text-lg font-light leading-loose tracking-wide text-gray-700 backdrop-blur-sm md:px-24 md:py-12">
+    <div className="m-4 border bg-white/80 px-12 py-6 text-center text-lg font-light leading-loose tracking-wide text-gray-700 backdrop-blur-sm md:px-24 md:py-12">
       Have a unique space in mind?
       <br />
       Let us elevate it.
@@ -723,7 +723,7 @@ const CTA = () => (
 
 const Testimonials = () => (
   <section className="bg-gray-100">
-    <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 px-8 pb-16 sm:px-12">
+    <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 px-8 md:pb-16 sm:px-12">
       <div className="mt-8 inline-flex justify-center gap-2 self-center py-4 px-6 bg-white bg-opacity-50 rounded-xl">
         <img src={star} alt="star" className="w-14 sm:w-18" />
         <img src={star} alt="star" className="w-14 sm:w-18" />
@@ -734,7 +734,7 @@ const Testimonials = () => (
       <h2 className="mt-4 text-center text-lg sm:text-xl italic tracking-wide text-gray-600">
         Five-Star Customer Service
       </h2>
-      <div className="grid grid-cols-1 gap-8 sm:gap-x-20 sm:gap-y-16 py-12 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 sm:gap-x-20 sm:gap-y-16 py-12 md:grid-cols-3 lg:grid-cols-3">
         {[
           [
             'T. Malley',
@@ -946,7 +946,7 @@ const Contact = () => {
             </p>
           </div>
         ) : (
-          <form onSubmit={onSubmit}>
+          <form onSubmit={onSubmit} className="w-full sm:max-w-md">
             <label className="mt-4 block">
               <span className="text-gray-700">
                 Name <sup className="text-red-400">*</sup>
@@ -955,13 +955,13 @@ const Contact = () => {
                 type="text"
                 name="name"
                 value={name}
-                placeholder="Please enter your full name"
+                placeholder="Your full name"
                 onChange={(e) => setName(e.target.value)}
                 className="mt-2 block w-full border border-gray-300 p-2"
                 required
               />
             </label>
-            <div className="flex gap-8">
+            <div className="flex-col md:flex-row gap-8">
               <label className="mt-6 block">
                 <span className="text-gray-700">
                   Email <sup className="text-red-400">*</sup>
