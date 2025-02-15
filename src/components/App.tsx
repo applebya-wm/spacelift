@@ -551,9 +551,9 @@ const Space = ({
     <div>
       <div className="relative">
         <h3
-          className={`border border-black sans-serif absolute bg-white px-4 py-2 md:px-8 md:py-3 text-center tmd:text-xl font-thin uppercase tracking-wider text-gray-700 ${
+          className={`border border-black sans-serif absolute bg-white px-4 py-2 md:px-8 md:py-3 text-center md:text-xl font-thin uppercase tracking-wider text-gray-700 ${
             isFullWidth
-              ? 'top-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+              ? 'top-8 md:top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl'
               : 'top-3 left-3'
           }`}
         >
