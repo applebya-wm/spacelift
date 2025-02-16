@@ -333,7 +333,7 @@ const Hero = () => (
         <div className="flex max-w-3xl justify-between gap-8 px-8 md:justify-around md:px-12 xl:pl-24 pt-4">
           <a href="#about" className={`${ButtonLarge} flex-1 font-bold`}>
             Learn More
-            <img src={arrowDown} width="24" />
+            <img src={arrowDown} alt="Down arrow" width="24" />
           </a>
           <a
             href="#contact"
@@ -395,7 +395,7 @@ const About = () => (
       <div className="mt-12">
         <a href="#process" className={ButtonLarge}>
           View the process
-          <img src={arrowDown} width="24" />
+          <img src={arrowDown} alt="Down arrow" width="24" />
         </a>
       </div>
     </div>
