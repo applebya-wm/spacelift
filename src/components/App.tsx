@@ -62,7 +62,7 @@ const Button =
   'sans-serif border border-gray-800 px-6 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center whitespace-nowrap'
 
 const ButtonLarge = `${Button} text-lg px-12 py-3`
-const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 border border-gray-500 text-center`
+const ButtonLargeSecondary = `${ButtonLarge} bg-yellow-50 text-center`
 
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61560538700519'
 const INSTAGRAM_URL = 'https://www.instagram.com/spaceliftonline/'
@@ -309,17 +309,17 @@ const Hero = () => (
           <Tagline />
         </motion.div>
         <div className="py-8 md:bg-gray-50 px-2 sm:px-8 md:px-8 lg:px-12 xl:pl-24">
-          <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-3xl text-gray-500 sm:text-lg md:flex md:justify-between">
+          <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-gray-500 md:flex md:justify-between">
             {['Home', 'Business', 'Real Estate', 'Any Space'].map(
               (item, index) => (
                 <motion.div
                   key={index}
-                  className="flex justify-center gap-2 uppercase tracking-wider lg:gap-4 text-xs sm:text-sm"
+                  className="flex justify-center gap-2 uppercase tracking-wider lg:gap-4 text-xs"
                   initial={{ marginLeft: -100, opacity: 0 }}
                   animate={{ marginLeft: 0, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.25 }}
                 >
-                  <span>{item}</span>
+                  <span className="lg:text-sm">{item}</span>
                   <img
                     src={check}
                     className="size-4 sm:size-5"
@@ -337,7 +337,7 @@ const Hero = () => (
           </a>
           <a
             href="#contact"
-            className={`${ButtonLargeSecondary} hidden flex-1 md:block`}
+            className={`${ButtonLargeSecondary} hidden flex-1 md:block border-0`}
           >
             Book Your Estimate
           </a>
@@ -1077,14 +1077,17 @@ const Footer = () => (
               <img src={instagram} />
             </a>
           </div>
-          <div className="hidden pt-2 tracking-wide text-gray-300 sm:block">
+          <div className="hidden pt-2 tracking-wide text-white sm:block">
             @spaceliftonline
           </div>
         </div>
       </div>
       <div className="flex flex-col items-end justify-between gap-1 text-right">
         <div className="flex flex-1 flex-col">
-          <a href="#" className="mb-2 inline-block text-sm tracking-wide">
+          <a
+            href="#"
+            className="mb-2 inline-block text-sm tracking-wide underline underline-offset-8"
+          >
             Back to top
             {/* <img src={arrowDown} width="24" className="rotate-90" /> */}
           </a>
