@@ -570,16 +570,30 @@ const Space = ({
           ref={containerRef}
         >
           {images.map((image, index) => (
-            <div
+            <img
               className="inline min-w-full snap-center bg-cover bg-center"
+              src={image}
+              alt={`${title} image ${index + 1}`}
               key={index}
               style={{
-                backgroundImage: `url(${image})`,
                 scrollSnapAlign: 'center',
                 height: '100%'
               }}
             />
           ))}
+          <div className="relative w-full overflow-hidden">
+            <div className="flex w-full overflow-x-auto snap-x snap-mandatory">
+              {images.map((image, index) => (
+                <div key={index} className="flex-shrink-0 w-full snap-center">
+                  <img
+                    className="w-full h-full object-cover"
+                    src={image}
+                    alt={`${title} image ${index + 1}`}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
 
           <button
             className="absolute bottom-4 md:bottom-12 left-4 rounded-full bg-white p-2"
