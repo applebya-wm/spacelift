@@ -564,36 +564,27 @@ const Space = ({
           {title}
         </h3>
         <div
-          className={`border-0 lg:border border-t border-b hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll aspect-video ${
+          className={`border-0 lg:border hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll aspect-video ${
             isFullWidth ? '' : 'border md:aspect-square'
           } border-black`}
           ref={containerRef}
         >
           {images.map((image, index) => (
-            <img
-              className="inline min-w-full snap-center bg-cover bg-center"
-              src={image}
-              alt={`${title} image ${index + 1}`}
+            <div
               key={index}
+              className="inline min-w-full snap-center"
               style={{
                 scrollSnapAlign: 'center',
                 height: '100%'
               }}
-            />
-          ))}
-          <div className="relative w-full overflow-hidden">
-            <div className="flex w-full overflow-x-auto snap-x snap-mandatory">
-              {images.map((image, index) => (
-                <div key={index} className="flex-shrink-0 w-full snap-center">
-                  <img
-                    className="w-full h-full object-cover"
-                    src={image}
-                    alt={`${title} image ${index + 1}`}
-                  />
-                </div>
-              ))}
+            >
+              <img
+                className="w-full h-full object-cover"
+                src={image}
+                alt={`${title} image ${index + 1}`}
+              />
             </div>
-          </div>
+          ))}
 
           <button
             className="absolute bottom-4 md:bottom-12 left-4 rounded-full bg-white p-2"
@@ -1100,7 +1091,7 @@ const Footer = () => (
         <div className="flex flex-1 flex-col">
           <a
             href="#"
-            className="mb-2 inline-block text-sm tracking-wide underline underline-offset-8"
+            className="mb-2 inline-block text-sm tracking-wide underline"
           >
             Back to top
             {/* <img src={arrowDown} width="24" className="rotate-90" /> */}
