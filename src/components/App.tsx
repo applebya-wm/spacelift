@@ -244,7 +244,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {menuOpen && (
-          <nav className="absolute z-10 -ml-8 flex w-screen flex-col items-center justify-end gap-12 border border-b-black bg-white py-4 pt-24 text-sm uppercase tracking-wider md:hidden">
+          <nav className="absolute z-10 top-0 right-0 -ml-8 flex h-screen w-screen flex-col items-center justify-center gap-12 bg-white py-4 pt-24 text-sm uppercase tracking-wider md:hidden">
             {navLinks.map((item, index) => (
               <Fragment key={index}>
                 <a
@@ -289,7 +289,7 @@ const Header = () => {
 }
 
 const Tagline = () => (
-  <h1 className="py-8 text-center text-4xl leading-loose tracking-wide text-white md:max-w-2xl md:py-0 md:text-left md:text-4xl md:text-black">
+  <h1 className="py-8 text-center text-3xl leading-loose tracking-wide text-white md:max-w-2xl md:py-0 md:text-left md:text-4xl md:text-black">
     We revitalize your{' '}
     <span className="sans-serif font-extralight">regular, unused, unloved</span>{' '}
     places into <span className="underline">amazin</span>g spaces.
@@ -314,13 +314,17 @@ const Hero = () => (
               (item, index) => (
                 <motion.div
                   key={index}
-                  className="flex justify-center gap-2 uppercase tracking-wider lg:gap-4"
+                  className="flex justify-center gap-2 uppercase tracking-wider lg:gap-4 text-xs sm:text-sm"
                   initial={{ marginLeft: -100, opacity: 0 }}
                   animate={{ marginLeft: 0, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.25 }}
                 >
-                  <span className="text-sm">{item}</span>
-                  <img src={check} className="size-5" alt="checkmark" />
+                  <span>{item}</span>
+                  <img
+                    src={check}
+                    className="size-4 sm:size-5"
+                    alt="checkmark"
+                  />
                 </motion.div>
               )
             )}
@@ -366,7 +370,7 @@ const About = () => (
       backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
     }}
   >
-    <div className="sans-serif my-12 inline-block border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-2xl font-thin uppercase tracking-wider text-gray-700 sm:pl-12 sm:pr-20 md:text-3xl xl:pl-24">
+    <div className="sans-serif my-8 sm:my-12 inline-block border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-xl sm:text-2xl font-thin uppercase tracking-wider text-gray-700 sm:pl-12 sm:pr-20 md:text-3xl xl:pl-24">
       <motion.h2
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -447,11 +451,11 @@ const TheProcess = () => {
 
   return (
     <section id="process" className="relative flex md:scroll-mt-18 flex-col">
-      <div className="sans-serif my-12 inline-block self-center border  border-gray-800 bg-white py-6 px-8 text-2xl font-thin uppercase tracking-wider text-gray-700 sm:px-20 md:text-3xl">
+      <div className="sans-serif my-6 sm:my-12 inline-block self-center border  border-gray-800 bg-white py-6 px-8 text-xl sm:text-2xl font-thin uppercase tracking-wider text-gray-700 sm:px-20 md:text-3xl">
         <h2>The Process</h2>
       </div>
       <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:flex-row lg:my-16">
-        <div className="flex flex-1 gap-6">
+        <div className="flex flex-1 gap-8">
           <div className="font-serif text-4xl text-gray-300">1</div>
           <div className="sm:text-lg">
             We design a space perfectly-suited to fit your unique goals &amp;
@@ -466,11 +470,11 @@ const TheProcess = () => {
           </div>
         </div>
       </div>
-      <div className="z-10 mx-auto -mb-18 grid grid-cols-3 gap-4 md:grid-cols-6 md:gap-8">
+      <div className="z-10 mx-auto -mb-18 grid grid-cols-3 gap-1 sm:gap-4 md:grid-cols-6 md:gap-8">
         {steps.map((step, index) => (
           <div
             key={`${step}-icon`}
-            className={`sans-serif flex w-28 h-28 md:w-36 md:h-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-xs sm:text-sm uppercase tracking-wider hover:font-bold hover:underline underline-offset-8 cursor-pointer ${
+            className={`sans-serif flex w-28 h-28 md:w-36 md:h-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-xs sm:text-sm uppercase tracking-wide sm:tracking-wider hover:font-bold sm:hover:underline underline-offset-8 cursor-pointer ${
               selectedStep === step ? 'font-bold underline' : ''
             }`}
             onMouseEnter={() => handleHover(index)}
@@ -553,17 +557,15 @@ const Space = ({
         <h3
           className={`border border-black sans-serif absolute bg-white px-4 py-2 md:px-8 md:py-3 text-center md:text-xl font-thin uppercase tracking-wider text-gray-700 ${
             isFullWidth
-              ? 'top-8 md:top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl'
+              ? 'top-8 md:top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
               : 'top-3 left-3'
           }`}
         >
           {title}
         </h3>
         <div
-          className={`hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll aspect-video ${
-            isFullWidth
-              ? 'border-0 lg:border border-t border-b'
-              : 'border md:aspect-square'
+          className={`border-0 lg:border border-t border-b hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll aspect-video ${
+            isFullWidth ? '' : 'border md:aspect-square'
           } border-black`}
           ref={containerRef}
         >
@@ -612,7 +614,7 @@ const Space = ({
         </div>
       </div>
       {!!description && (
-        <div className="pt-4 text-center font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-6">
+        <div className="pt-4 text-center font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-6 px-2 md:px-0">
           {description}
         </div>
       )}
@@ -665,7 +667,7 @@ const spaces: [string, string, string[]][] = [
 const Spaces = () => (
   <section id="spaces" className="relative md:scroll-mt-18">
     <div className="text-center lg:mb-24">
-      <div className="sans-serif inline-block bg-white px-8 py-20 text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:pb-20">
+      <div className="sans-serif inline-block bg-white px-8 py-16 sm:py-20 text-lg sm:text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:pb-20">
         <motion.h2
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -673,11 +675,11 @@ const Spaces = () => (
           viewport={{ once: true }}
         >
           Any Space
-          <span className="mx-4 mb-12 mt-0.5 text-gray-200 md:mx-6">•</span>
+          <span className="mx-2 mb-12 mt-0.5 text-gray-200 md:mx-6">•</span>
           Any Style
         </motion.h2>
       </div>
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 px-8 pb-28 text-left sm:px-12 md:grid-cols-2 md:gap-24">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 sm:px-12 pb-12 sm:pb-28 text-left md:grid-cols-2 md:gap-24">
         {spaces.map(([title, description, images]) => (
           <Space
             key={title}
@@ -723,13 +725,13 @@ const CTA = () => (
 
 const Testimonials = () => (
   <section className="bg-gray-100">
-    <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 px-8 md:pb-16 sm:px-12">
+    <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 px-8 sm:px-12">
       <div className="mt-8 inline-flex justify-center gap-2 self-center py-4 px-6 bg-white bg-opacity-50 rounded-xl">
-        <img src={star} alt="star" className="w-14 sm:w-18" />
-        <img src={star} alt="star" className="w-14 sm:w-18" />
-        <img src={star} alt="star" className="w-14 sm:w-18" />
-        <img src={star} alt="star" className="w-14 sm:w-18" />
-        <img src={star} alt="star" className="w-14 sm:w-18" />
+        <img src={star} alt="star" className="w-12 sm:w-18" />
+        <img src={star} alt="star" className="w-12 sm:w-18" />
+        <img src={star} alt="star" className="w-12 sm:w-18" />
+        <img src={star} alt="star" className="w-12 sm:w-18" />
+        <img src={star} alt="star" className="w-12 sm:w-18" />
       </div>
       <h2 className="mt-4 text-center text-lg sm:text-xl italic tracking-wide text-gray-600">
         Five-Star Customer Service
@@ -824,7 +826,7 @@ const Question = ({
 const FAQ = () => (
   <section className="bg-gray-100">
     <div className="mx-auto max-w-6xl px-8 pb-20 pt-12 sm:pt-24 sm:pb-36 sm:px-12">
-      <h2 className="mb-16 text-2xl tracking-wide md:text-3xl">
+      <h2 className="mb-12 sm:mb-16 text-2xl tracking-wide md:text-3xl">
         Frequently Asked Questions
       </h2>
       <Question title="What are the rates for your services?">
@@ -921,7 +923,7 @@ const Contact = () => {
     <section id="contact" className="flex md:scroll-mt-32">
       <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
       <div className="flex flex-[2] flex-col items-center p-8 leading-loose tracking-wide sm:p-12">
-        <h2 className="sans-serif -mt-16 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center text-xl font-thin uppercase tracking-wider sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
+        <h2 className="sans-serif -mt-16 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center sm:text-xl w-full sm:w-auto font-thin uppercase tracking-wider sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
           Start Your Spacelift
         </h2>
 
@@ -1054,7 +1056,7 @@ const Footer = () => (
     <div className="flex flex-[2] justify-between border-l border-l-white p-6 sm:px-12">
       <div className="flex flex-col gap-8 text-sm md:text-base">
         <div className="hidden font-thin tracking-wide md:block">
-          Explore our projects on Facebook & Instagram
+          Explore our projects on Facebook & Instagram!
         </div>
         <div className="flex-1 flex-col items-center gap-8 md:flex-row">
           <div className="flex gap-2">
