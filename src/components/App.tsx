@@ -1,5 +1,4 @@
 import { motion, useAnimation, useScroll, useTransform } from 'motion/react'
-import { debounce } from 'lodash'
 import './App.css'
 import logo from 'assets/spacelift-logo-transparent.png'
 import hero from 'assets/hero-1.jpg'
@@ -7,11 +6,13 @@ import check from 'assets/check.png'
 import facebook from 'assets/facebook.svg'
 import arrowDown from 'assets/arrow-down.svg'
 import instagram from 'assets/instagram.svg'
+import rosemarieRoot from 'assets/rosemarie-root.png'
 import star from 'assets/star.svg'
 import couch from 'assets/couch.png'
 import couchBg from 'assets/couch-bg.png'
 import vanIsle from 'assets/van-isle.png'
 import anySpace from 'assets/any-space.png'
+import biographyBg from 'assets/biography-bg.jpg'
 import clean from 'assets/process/clean.png'
 import declutter from 'assets/process/declutter.png'
 import paint from 'assets/process/paint.png'
@@ -191,7 +192,7 @@ const Header = () => {
               )}
             </Fragment>
           ))}
-          <a href="#contact" className={`${Button} ml-2 font-bold px-4`}>
+          <a href="#contact" className={`${Button} ml-2 px-4 font-bold`}>
             <span className="hidden lg:block">Book your</span> Estimate
           </a>
           <div className="hidden gap-2 xl:flex">
@@ -244,7 +245,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {menuOpen && (
-          <nav className="absolute z-10 top-0 right-0 -ml-8 flex h-screen w-screen flex-col items-center justify-center gap-12 bg-white py-4 pt-24 text-sm uppercase tracking-wider md:hidden">
+          <nav className="absolute right-0 top-0 z-10 -ml-8 flex h-screen w-screen flex-col items-center justify-center gap-12 bg-white py-4 pt-24 text-sm uppercase tracking-wider md:hidden">
             {navLinks.map((item, index) => (
               <Fragment key={index}>
                 <a
@@ -299,22 +300,22 @@ const Tagline = () => (
 const Hero = () => (
   <div className="flex h-screen flex-col-reverse md:flex-row md:pt-18">
     <div className="flex text-gray-700 md:flex-[2] md:flex-row md:pt-72 xl:flex-1">
-      <div className="flex-1 flex flex-col justify-around pb-4 md:pb-10">
+      <div className="flex flex-1 flex-col justify-around pb-4 md:pb-10">
         <motion.div
           initial={{ marginLeft: -100, opacity: 0 }}
           animate={{ marginLeft: 0, opacity: 1 }}
           transition={{ duration: 1 }}
-          className="hidden max-w-3xl px-8 my-8 md:block md:px-12 xl:pl-24"
+          className="my-8 hidden max-w-3xl px-8 md:block md:px-12 xl:pl-24"
         >
           <Tagline />
         </motion.div>
-        <div className="py-8 md:bg-gray-50 px-2 sm:px-8 md:px-8 lg:px-12 xl:pl-24">
+        <div className="px-2 py-8 sm:px-8 md:bg-gray-50 md:px-8 lg:px-12 xl:pl-24">
           <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-gray-500 md:flex md:justify-between">
             {['Home', 'Business', 'Real Estate', 'Any Space'].map(
               (item, index) => (
                 <motion.div
                   key={index}
-                  className="flex justify-center gap-2 uppercase tracking-wider lg:gap-4 text-xs"
+                  className="flex justify-center gap-2 text-xs uppercase tracking-wider lg:gap-4"
                   initial={{ marginLeft: -100, opacity: 0 }}
                   animate={{ marginLeft: 0, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.25 }}
@@ -330,14 +331,14 @@ const Hero = () => (
             )}
           </div>
         </div>
-        <div className="flex max-w-3xl justify-between gap-8 px-8 md:justify-around md:px-12 xl:pl-24 pt-4">
+        <div className="flex max-w-3xl justify-between gap-8 px-8 pt-4 md:justify-around md:px-12 xl:pl-24">
           <a href="#about" className={`${ButtonLarge} flex-1 font-bold`}>
             Learn More
             <img src={arrowDown} alt="Down arrow" width="24" />
           </a>
           <a
             href="#contact"
-            className={`${ButtonLargeSecondary} hidden flex-1 md:block border-0`}
+            className={`${ButtonLargeSecondary} hidden flex-1 border-0 md:block`}
           >
             Book Your Estimate
           </a>
@@ -345,10 +346,10 @@ const Hero = () => (
       </div>
     </div>
     <div
-      className="flex flex-1 w-full items-center bg-black bg-opacity-50 bg-cover bg-blend-darken backdrop-blur-sm md:bg-opacity-0"
+      className="flex w-full flex-1 items-center bg-black bg-opacity-50 bg-cover bg-blend-darken backdrop-blur-sm md:bg-opacity-0"
       style={{ backgroundImage: `url(${hero})` }}
     >
-      <div className="mx-4 pt-24 text-center md:hidden w-full">
+      <div className="mx-4 w-full pt-24 text-center md:hidden">
         <Tagline />
       </div>
     </div>
@@ -365,12 +366,12 @@ const Hero = () => (
 const About = () => (
   <section
     id="about"
-    className="relative md:scroll-mt-18 bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56"
+    className="relative bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 md:scroll-mt-18 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56"
     style={{
       backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
     }}
   >
-    <div className="sans-serif my-8 sm:my-12 inline-block border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-xl sm:text-2xl font-thin uppercase tracking-wider text-gray-700 sm:pl-12 sm:pr-20 md:text-3xl xl:pl-24">
+    <div className="sans-serif my-8 inline-block border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-xl font-thin uppercase tracking-wider text-gray-700 sm:my-12 sm:pl-12 sm:pr-20 sm:text-2xl md:text-3xl xl:pl-24">
       <motion.h2
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -381,7 +382,7 @@ const About = () => (
       </motion.h2>
     </div>
     <div className="px-8 sm:px-12 xl:pl-24">
-      <div className="max-w-2xl sm:text-lg font-light leading-loose tracking-wide text-gray-700">
+      <div className="max-w-2xl font-light leading-loose tracking-wide text-gray-700 sm:text-lg">
         Spacelift is your complete transformation design service for home /
         business / real estate. Any space, in any style.
         <br />
@@ -450,8 +451,8 @@ const TheProcess = () => {
   }, [])
 
   return (
-    <section id="process" className="relative flex md:scroll-mt-18 flex-col">
-      <div className="sans-serif my-6 sm:my-12 inline-block self-center border  border-gray-800 bg-white py-6 px-8 text-xl sm:text-2xl font-thin uppercase tracking-wider text-gray-700 sm:px-20 md:text-3xl">
+    <section id="process" className="relative flex flex-col md:scroll-mt-18">
+      <div className="sans-serif my-6 inline-block self-center border border-gray-800  bg-white px-8 py-6 text-xl font-thin uppercase tracking-wider text-gray-700 sm:my-12 sm:px-20 sm:text-2xl md:text-3xl">
         <h2>The Process</h2>
       </div>
       <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:flex-row lg:my-16">
@@ -474,7 +475,7 @@ const TheProcess = () => {
         {steps.map((step, index) => (
           <div
             key={`${step}-icon`}
-            className={`sans-serif flex w-28 h-28 md:w-36 md:h-36 flex-1 flex-col items-center justify-center border border-gray-800 bg-white pt-4 pb-6 text-center text-xs sm:text-sm uppercase tracking-wide sm:tracking-wider hover:font-bold sm:hover:underline underline-offset-8 cursor-pointer ${
+            className={`sans-serif flex size-28 flex-1 cursor-pointer flex-col items-center justify-center border border-gray-800 bg-white pb-6 pt-4 text-center text-xs uppercase tracking-wide underline-offset-8 hover:font-bold sm:text-sm sm:tracking-wider sm:hover:underline md:size-36 ${
               selectedStep === step ? 'font-bold underline' : ''
             }`}
             onMouseEnter={() => handleHover(index)}
@@ -490,7 +491,7 @@ const TheProcess = () => {
             <img
               src={stepsMap[step][0]}
               alt={`${step} icon`}
-              className="w-16 md:w-20 bg-black"
+              className="w-16 bg-black md:w-20"
               loading="lazy"
             />
             <h4>{step}</h4>
@@ -498,19 +499,16 @@ const TheProcess = () => {
         ))}
       </div>
       <div
-        className="h-96 xl:h-75vh hide-scrollbar overflow-x-scroll snap-x snap-mandatory"
+        className="hide-scrollbar h-96 snap-x snap-mandatory overflow-x-scroll xl:h-75vh"
         ref={containerRef}
       >
         <div className="flex h-full">
           {steps.map((step) => (
-            <div
-              key={`${step}-bg`}
-              className="h-full w-full flex-shrink-0 snap-center"
-            >
+            <div key={`${step}-bg`} className="size-full shrink-0 snap-center">
               <img
                 src={stepsMap[step][1]}
                 alt={`${step} background`}
-                className="h-full w-full object-cover"
+                className="size-full object-cover"
               />
             </div>
           ))}
@@ -555,16 +553,16 @@ const Space = ({
     <div>
       <div className="relative">
         <h3
-          className={`border border-black sans-serif absolute bg-white px-4 py-2 md:px-8 md:py-3 text-center md:text-xl font-thin uppercase tracking-wider text-gray-700 ${
+          className={`sans-serif absolute border border-black bg-white px-4 py-2 text-center font-thin uppercase tracking-wider text-gray-700 md:px-8 md:py-3 md:text-xl ${
             isFullWidth
-              ? 'top-8 md:top-12 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
-              : 'top-3 left-3'
+              ? 'left-1/2 top-8 -translate-x-1/2 -translate-y-1/2 md:top-12'
+              : 'left-3 top-3'
           }`}
         >
           {title}
         </h3>
         <div
-          className={`border-0 lg:border hide-scrollbar flex snap-x snap-mandatory overflow-x-scroll aspect-video ${
+          className={`hide-scrollbar flex aspect-video snap-x snap-mandatory overflow-x-scroll border-0 lg:border ${
             isFullWidth ? '' : 'border md:aspect-square'
           } border-black`}
           ref={containerRef}
@@ -579,7 +577,7 @@ const Space = ({
               }}
             >
               <img
-                className="w-full h-full object-cover"
+                className="size-full object-cover"
                 src={image}
                 alt={`${title} image ${index + 1}`}
               />
@@ -587,7 +585,7 @@ const Space = ({
           ))}
 
           <button
-            className="absolute bottom-4 md:bottom-12 left-4 rounded-full bg-white p-2"
+            className="absolute bottom-4 left-4 rounded-full bg-white p-2 md:bottom-12"
             onClick={() => scrollToImage(containerRef.current, 'prev')}
             aria-label="Scroll to previous image"
             disabled={!canScrollPrev}
@@ -602,7 +600,7 @@ const Space = ({
             />
           </button>
           <button
-            className="absolute bottom-4 md:bottom-12 right-4 rounded-full bg-white p-2"
+            className="absolute bottom-4 right-4 rounded-full bg-white p-2 md:bottom-12"
             onClick={() => scrollToImage(containerRef.current, 'next')}
             aria-label="Scroll to next image"
             disabled={!canScrollNext}
@@ -619,7 +617,7 @@ const Space = ({
         </div>
       </div>
       {!!description && (
-        <div className="pt-4 text-center font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:pt-6 px-2 md:px-0">
+        <div className="px-2 pt-4 text-center font-light leading-loose tracking-wide text-gray-700 sm:px-10 md:px-0 md:pt-6">
           {description}
         </div>
       )}
@@ -672,7 +670,7 @@ const spaces: [string, string, string[]][] = [
 const Spaces = () => (
   <section id="spaces" className="relative md:scroll-mt-18">
     <div className="text-center lg:mb-24">
-      <div className="sans-serif inline-block bg-white px-8 py-16 sm:py-20 text-lg sm:text-2xl font-thin uppercase tracking-wider text-gray-700 md:text-4xl lg:pb-20">
+      <div className="sans-serif inline-block bg-white px-8 py-16 text-lg font-thin uppercase tracking-wider text-gray-700 sm:py-20 sm:text-2xl md:text-4xl lg:pb-20">
         <motion.h2
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -684,7 +682,7 @@ const Spaces = () => (
           Any Style
         </motion.h2>
       </div>
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 sm:px-12 pb-12 sm:pb-28 text-left md:grid-cols-2 md:gap-24">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 pb-12 text-left sm:px-12 sm:pb-28 md:grid-cols-2 md:gap-24">
         {spaces.map(([title, description, images]) => (
           <Space
             key={title}
@@ -694,7 +692,7 @@ const Spaces = () => (
           />
         ))}
       </div>
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto max-w-6xl">
         <Space
           title="Any Space"
           images={[
@@ -711,7 +709,7 @@ const Spaces = () => (
 
 const CTA = () => (
   <section
-    className="flex h-96 md:h-screen items-center justify-center bg-cover bg-center bg-no-repeat"
+    className="flex h-96 items-center justify-center bg-cover bg-center bg-no-repeat md:h-screen"
     style={{ backgroundImage: `url(${anySpace})` }}
   >
     <div className="m-4 border bg-white/80 px-12 py-6 text-center text-lg font-light leading-loose tracking-wide text-gray-700 backdrop-blur-sm md:px-24 md:py-12">
@@ -728,20 +726,68 @@ const CTA = () => (
   </section>
 )
 
+const Biography = () => (
+  <section
+    className="flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat lg:h-screen lg:flex-row"
+    style={{ backgroundImage: `url(${biographyBg})` }}
+  >
+    <div className="flex-1">
+      <img
+        src={biographyBg}
+        alt="Rosemarie Root photo"
+        className="w-full lg:hidden"
+      />
+    </div>
+    <div className="flex w-full flex-1 bg-black p-12 lg:mx-32 lg:max-w-xl">
+      <div className="relative flex-1 border-y border-white pb-18 pt-6 text-center text-white lg:max-w-lg">
+        <span className="absolute -top-5 left-5 z-0 inline-block bg-black px-3 text-7xl">
+          &#8220;
+        </span>
+        <span className="absolute -bottom-12 right-5 z-0 inline-block bg-black px-3 text-7xl">
+          &#8221;
+        </span>
+        <img
+          src={rosemarieRoot}
+          alt="Rosemarie Root"
+          title="Rosemarie Root"
+          className="relative z-10"
+        />
+        <p className="mb-8 text-lg italic text-gray-300">
+          Certified Professional Organizer
+          <br />
+          Founder of Spacelift
+        </p>
+
+        <p className="mb-5 text-lg leading-loose">
+          Raised on beautiful Vancouver Island, I&apos;ve always had a passion
+          for building things and problem-solving. With an eye for style and a
+          need to refurbish, create, organize and decorate I find inspiration
+          everywhere.
+        </p>
+        <p className="text-lg leading-loose">
+          Over the years, honing my skills has been more than just professional
+          growth. It feeds my soul to create functional, beautiful things &
+          spaces that truly reflect the people who use and live in them.
+        </p>
+      </div>
+    </div>
+  </section>
+)
+
 const Testimonials = () => (
   <section className="bg-gray-100">
     <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 px-8 sm:px-12">
-      <div className="mt-8 inline-flex justify-center gap-2 self-center py-4 px-6 bg-white bg-opacity-50 rounded-xl">
+      <div className="mt-8 inline-flex justify-center gap-2 self-center rounded-xl bg-white bg-opacity-50 px-6 py-4">
         <img src={star} alt="star" className="w-12 sm:w-18" />
         <img src={star} alt="star" className="w-12 sm:w-18" />
         <img src={star} alt="star" className="w-12 sm:w-18" />
         <img src={star} alt="star" className="w-12 sm:w-18" />
         <img src={star} alt="star" className="w-12 sm:w-18" />
       </div>
-      <h2 className="mt-4 text-center text-lg sm:text-xl italic tracking-wide text-gray-600">
+      <h2 className="mt-4 text-center text-lg italic tracking-wide text-gray-600 sm:text-xl">
         Five-Star Customer Service
       </h2>
-      <div className="grid grid-cols-1 gap-8 sm:gap-x-20 sm:gap-y-16 py-12 md:grid-cols-3 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 py-12 sm:gap-x-20 sm:gap-y-12 md:grid-cols-3 lg:grid-cols-3">
         {[
           [
             'T. Malley',
@@ -782,7 +828,7 @@ const Testimonials = () => (
         ].map(([name, quote]) => (
           <div key={name} className="flex flex-col">
             <div className="mb-2 text-lg italic text-gray-500">{name}</div>
-            <div className="flex-1 border border-black bg-white px-6 py-4 text-sm italic leading-loose tracking-wide text-gray-700">
+            <div className="flex-1 border border-black bg-white px-6 py-4 text-sm italic leading-loose tracking-wide text-gray-700 transition-shadow duration-300 hover:shadow-lg hover:shadow-gray-300">
               <div>{quote}</div>
             </div>
           </div>
@@ -830,8 +876,8 @@ const Question = ({
 
 const FAQ = () => (
   <section className="bg-gray-100">
-    <div className="mx-auto max-w-6xl px-8 pb-20 pt-12 sm:pt-24 sm:pb-36 sm:px-12">
-      <h2 className="mb-12 sm:mb-16 text-2xl tracking-wide md:text-3xl">
+    <div className="mx-auto max-w-6xl px-8 pb-20 pt-12 sm:px-12 sm:pb-36 sm:pt-24">
+      <h2 className="mb-12 text-2xl tracking-wide sm:mb-16 md:text-3xl">
         Frequently Asked Questions
       </h2>
       <Question title="What are the rates for your services?">
@@ -928,7 +974,7 @@ const Contact = () => {
     <section id="contact" className="flex md:scroll-mt-32">
       <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
       <div className="flex flex-[2] flex-col items-center p-8 leading-loose tracking-wide sm:p-12">
-        <h2 className="sans-serif -mt-16 mb-6 inline border border-gray-800 bg-white px-8 py-4 text-center sm:text-xl w-full sm:w-auto font-thin uppercase tracking-wider sm:px-12 lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
+        <h2 className="sans-serif -mt-16 mb-6 inline w-full border border-gray-800 bg-white px-8 py-4 text-center font-thin uppercase tracking-wider sm:w-auto sm:px-12 sm:text-xl lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
           Start Your Spacelift
         </h2>
 
@@ -968,7 +1014,7 @@ const Contact = () => {
                 required
               />
             </label>
-            <div className="flex-col md:flex-row gap-8">
+            <div className="flex-col gap-8 md:flex-row">
               <label className="mt-6 block">
                 <span className="text-gray-700">
                   Email <sup className="text-red-400">*</sup>
@@ -1112,8 +1158,9 @@ const App = () => (
     <About />
     <TheProcess />
     <Spaces />
-    <Testimonials />
     <CTA />
+    <Testimonials />
+    <Biography />
     <FAQ />
     <Contact />
     <Footer />
