@@ -728,47 +728,52 @@ const CTA = () => (
 
 const Biography = () => (
   <section
-    className="flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat lg:h-screen lg:flex-row"
+    className="bg-cover bg-center bg-no-repeat lg:h-screen"
     style={{ backgroundImage: `url(${biographyBg})` }}
   >
-    <div className="flex-1">
-      <img
-        src={biographyBg}
-        alt="Rosemarie Root photo"
-        className="w-full lg:hidden"
-      />
-    </div>
-    <div className="flex w-full flex-1 bg-black p-12 lg:mx-32 lg:max-w-xl">
-      <div className="relative flex-1 border-y border-white pb-18 pt-6 text-center text-white lg:max-w-lg">
-        <span className="absolute -top-5 left-5 z-0 inline-block bg-black px-3 text-7xl">
-          &#8220;
-        </span>
-        <span className="absolute -bottom-12 right-5 z-0 inline-block bg-black px-3 text-7xl">
-          &#8221;
-        </span>
+    <div className="mx-auto flex h-full max-w-7xl flex-col items-center justify-center lg:flex-row">
+      <div className="flex-1">
         <img
-          src={rosemarieRoot}
-          alt="Rosemarie Root"
-          title="Rosemarie Root"
-          className="relative z-10"
+          src={biographyBg}
+          alt="Rosemarie Root photo"
+          className="w-full lg:hidden"
         />
-        <p className="mb-8 text-lg italic text-gray-300">
-          Certified Professional Organizer
-          <br />
-          Founder of Spacelift
-        </p>
+      </div>
+      <div className="flex w-full flex-1 bg-black p-12 lg:max-w-xl">
+        <div className="relative flex-1 border-y-2 border-white px-4 pb-4 pt-12 text-center text-xl leading-loose text-white lg:max-w-lg">
+          <span className="absolute -top-5 left-5 z-0 inline-block bg-black px-3 text-7xl">
+            &#8220;
+          </span>
+          <span className="absolute -bottom-12 right-5 z-0 inline-block bg-black px-3 text-7xl">
+            &#8221;
+          </span>
 
-        <p className="mb-5 text-lg leading-loose">
-          Raised on beautiful Vancouver Island, I&apos;ve always had a passion
-          for building things and problem-solving. With an eye for style and a
-          need to refurbish, create, organize and decorate I find inspiration
-          everywhere.
-        </p>
-        <p className="text-lg leading-loose">
-          Over the years, honing my skills has been more than just professional
-          growth. It feeds my soul to create functional, beautiful things &
-          spaces that truly reflect the people who use and live in them.
-        </p>
+          <div className="sans-serif">
+            <h2 className="mb-8">
+              I&apos;m a certified Professional Organizer and the founder of
+              Spacelift.
+            </h2>
+
+            <p className="mb-5 ">
+              Raised on beautiful Vancouver Island, I have always had a passion
+              for building things and problem-solving. With an eye for style and
+              a need to refurbish, create, organize and decorate I find
+              inspiration everywhere.
+            </p>
+            <p className="">
+              Over the years, honing my skills has been more than just
+              professional growth. It feeds my soul to create functional,
+              beautiful things & spaces that truly reflect the people who use
+              and live in them.
+            </p>
+            <img
+              src={rosemarieRoot}
+              alt="Rosemarie Root"
+              title="Rosemarie Root"
+              className="relative z-10"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </section>
