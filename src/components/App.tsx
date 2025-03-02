@@ -12,7 +12,8 @@ import couch from 'assets/couch.png'
 import couchBg from 'assets/couch-bg.png'
 import vanIsle from 'assets/van-isle.png'
 import anySpace from 'assets/any-space.png'
-import biographyBg from 'assets/biography-bg.jpg'
+// import biographyBg from 'assets/biography-bg.jpg'
+// import biographyBgMobile from 'assets/biography-bg-mobile.jpg'
 import clean from 'assets/process/clean.png'
 import declutter from 'assets/process/declutter.png'
 import paint from 'assets/process/paint.png'
@@ -727,53 +728,44 @@ const CTA = () => (
 )
 
 const Biography = () => (
-  <section
-    className="bg-cover bg-center bg-no-repeat lg:h-screen"
-    style={{ backgroundImage: `url(${biographyBg})` }}
-  >
-    <div className="mx-auto flex h-full max-w-7xl flex-col items-center justify-center lg:flex-row">
-      <div className="flex-1">
-        <img
-          src={biographyBg}
-          alt="Rosemarie Root photo"
-          className="w-full lg:hidden"
-        />
-      </div>
-      <div className="flex w-full flex-1 bg-black p-12 lg:max-w-xl">
-        <div className="relative flex-1 border-y-2 border-white px-4 pb-4 pt-12 text-center text-xl leading-loose text-white lg:max-w-lg">
-          <span className="absolute -top-5 left-5 z-0 inline-block bg-black px-3 text-7xl">
+  <section className="h-96 bg-[url('/src/assets/biography-bg-mobile.jpg')] bg-cover bg-top bg-no-repeat p-4 sm:bg-[url('/src/assets/biography-bg.jpg')] lg:h-screen">
+    <div className="mx-auto flex h-full max-w-6xl items-center justify-center md:flex-row">
+      <div className="flex-[3]"></div>
+      <div className="flex w-full flex-[5] flex-col items-center bg-black bg-opacity-70 px-4 md:max-w-2xl md:px-12 md:pb-4 md:pt-10">
+        <div className="relative flex-1 border-white py-4 text-center text-white md:border-y-2 md:py-14">
+          <span className="absolute -left-4 top-4 z-0 hidden px-3 text-7xl text-gray-200 md:inline-block">
             &#8220;
           </span>
-          <span className="absolute -bottom-12 right-5 z-0 inline-block bg-black px-3 text-7xl">
+          <span className="absolute -bottom-4 -right-2 z-0 hidden px-3 text-7xl text-gray-200 md:inline-block">
             &#8221;
           </span>
 
-          <div className="sans-serif">
-            <h2 className="mb-8">
+          <div className="sans-serif text-sm leading-loose md:mt-4">
+            <h2 className="md:text-xl">
               I&apos;m a certified Professional Organizer and the founder of
               Spacelift.
             </h2>
 
-            <p className="mb-5 ">
+            <p className="mt- leading-loose md:mt-8 md:text-xl">
               Raised on beautiful Vancouver Island, I have always had a passion
               for building things and problem-solving. With an eye for style and
               a need to refurbish, create, organize and decorate I find
               inspiration everywhere.
             </p>
-            <p className="">
+            <p className="mt-5 hidden leading-loose md:block md:text-xl">
               Over the years, honing my skills has been more than just
               professional growth. It feeds my soul to create functional,
               beautiful things & spaces that truly reflect the people who use
               and live in them.
             </p>
-            <img
-              src={rosemarieRoot}
-              alt="Rosemarie Root"
-              title="Rosemarie Root"
-              className="relative z-10"
-            />
           </div>
         </div>
+        <img
+          src={rosemarieRoot}
+          alt="Rosemarie Root"
+          title="Rosemarie Root"
+          className="relative z-10 -mt-3 h-12 md:mt-2 md:h-28"
+        />
       </div>
     </div>
   </section>
@@ -800,23 +792,23 @@ const Testimonials = () => (
           ],
           [
             'T. Deelstra',
-            '“You did more than expected—your help staging our home was truly exceptional. I’m so happy to have you as my realtor!”'
+            '“You did more than expected—your help staging our home was truly exceptional. I appreciate your services and all your hard work”'
           ],
           [
-            'R. & J. Parker',
-            '“Rose is the hardest worker I’ve ever known—thanks to her, we found our dream home and sold our place in just four days!”'
+            'H. Forhand',
+            '“Completely transformed my entire townhouse to allow for the sales using her great taste , creativity, ingenuity and muscle . She staged it with style and class. No job is too big or small for her.”'
           ],
           [
-            'M. Westgate',
-            '“Rose brought our house to life with her keen eye for detail. Her enthusiasm and commitment made the process effortless!”'
+            'R. Scott',
+            '“Excellent design sense and her incredible attention to every detail to make sure things are perfect is incredible. I’ve never met someone with her level of energy. 11 out of 10.”'
           ],
           [
-            'A. Scott',
-            '“Rose works for you—hand-selecting homes that perfectly match your needs. I’ll definitely use her services again!”'
+            'S. Wilson',
+            '“Hard worker and I appreciate everything she did. Hands and knees cleaning and staging. And she is fast !!! Efficient and incredible - I couldn’t recommend her more”'
           ],
           [
             'M. Garcia',
-            '“Rose was amazing—upfront, honest, and incredibly dedicated. She even cleaned and staged our home, selling it in just hours!”'
+            '“Amazing — upfront, honest, and incredibly dedicated. She even cleaned and staged our home, selling it in just hours!”'
           ],
           [
             'M. Seel',
@@ -828,7 +820,7 @@ const Testimonials = () => (
           ],
           [
             'H. Smith',
-            '“Spacelift transformed our home into a modern, stylish space. Their team was an absolute pleasure to work with, highly recommended!”'
+            '“Spacelift transformed our home into a modern, stylish space. An absolute pleasure to work with, highly recommended!”'
           ]
         ].map(([name, quote]) => (
           <div key={name} className="flex flex-col">
@@ -894,7 +886,7 @@ const FAQ = () => (
         items you may want to purchase or already have. Alternatively we can
         provide any needed items for an additional fee.
       </Question>
-      <Question title="Is Spacelift fully insured and certified?">
+      <Question title="Is Spacelift insured, certified and confidential?">
         Absolutely! Spacelift is fully insured and certified, ensuring top-notch
         quality and peace of mind for all our clients. All of your information
         is confidential and secure.
@@ -920,7 +912,9 @@ const FAQ = () => (
       </Question>
       <Question title="Does your company offer interior or exterior painting?">
         From interior to exterior, little to big projects, we can fulfil your
-        painting needs.
+        painting needs. My back yard isn&apos;t working for me, is this a space
+        you could help with? Any space in any style. From inside to out we will
+        work with any space you need.
       </Question>
       <Question title="My back yard isn't working for me, is this a space you could help with?">
         Any space in any style. From inside to out we will work with any space
