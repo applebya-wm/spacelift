@@ -803,7 +803,7 @@ const Testimonials = () => (
           ],
           [
             'H. Forhand',
-            '“Completely transformed my entire townhouse to allow for the sales using her great taste , creativity, ingenuity and muscle . She staged it with style and class. No job is too big or small for her.”'
+            '“Completely transformed my entire townhouse to allow for the sales using her great taste, creativity, ingenuity and muscle . She staged it with style and class. No job is too big or small for her.”'
           ],
           [
             'R. Scott',
