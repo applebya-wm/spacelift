@@ -12,8 +12,8 @@ import couch from 'assets/couch.png'
 import couchBg from 'assets/couch-bg.png'
 import vanIsle from 'assets/van-isle.png'
 import anySpace from 'assets/any-space.png'
-// import biographyBg from 'assets/biography-bg.jpg'
-// import biographyBgMobile from 'assets/biography-bg-mobile.jpg'
+import biographyBg from 'assets/biography-bg.jpg'
+import biographyBgMobile from 'assets/biography-bg-mobile.jpg'
 import clean from 'assets/process/clean.png'
 import declutter from 'assets/process/declutter.png'
 import paint from 'assets/process/paint.png'
@@ -728,44 +728,51 @@ const CTA = () => (
 )
 
 const Biography = () => (
-  <section className="h-96 bg-[url('/src/assets/biography-bg-mobile.jpg')] bg-cover bg-top bg-no-repeat p-4 sm:bg-[url('/src/assets/biography-bg.jpg')] lg:h-screen">
+  <section
+    className="bg-[length:cover,0_0] bg-top bg-no-repeat p-4 md:h-screen lg:bg-[length:0_0,cover]"
+    style={{
+      backgroundImage: `url(${biographyBgMobile}), url(${biographyBg})`
+    }}
+  >
     <div className="mx-auto flex h-full max-w-6xl items-center justify-center md:flex-row">
       <div className="flex-[3]"></div>
-      <div className="flex w-full flex-[5] flex-col items-center bg-black bg-opacity-70 px-4 md:max-w-2xl md:px-12 md:pb-4 md:pt-10">
-        <div className="relative flex-1 border-white py-4 text-center text-white md:border-y-2 md:py-14">
-          <span className="absolute -left-4 top-4 z-0 hidden px-3 text-7xl text-gray-200 md:inline-block">
+      <div className="flex w-full flex-[5] flex-col items-center bg-black bg-opacity-70 p-4 md:max-w-2xl md:px-12 md:py-8">
+        <div className="relative flex-1 border-y-2 border-white py-4 pt-12 text-center text-white">
+          <span className="absolute -left-4 top-2 z-0 px-3 text-7xl text-gray-200">
             &#8220;
           </span>
-          <span className="absolute -bottom-4 -right-2 z-0 hidden px-3 text-7xl text-gray-200 md:inline-block">
+          <span className="absolute -bottom-8 -right-2 z-0 px-3 text-7xl text-gray-200">
             &#8221;
           </span>
 
-          <div className="sans-serif text-sm leading-loose md:mt-4">
+          <div className="sans-serif mt-4 text-sm leading-loose">
             <h2 className="md:text-xl">
               I&apos;m a certified Professional Organizer and the founder of
               Spacelift.
             </h2>
 
-            <p className="mt- leading-loose md:mt-8 md:text-xl">
+            <p className="mt-8 leading-loose md:text-xl">
               Raised on beautiful Vancouver Island, I have always had a passion
               for building things and problem-solving. With an eye for style and
               a need to refurbish, create, organize and decorate I find
               inspiration everywhere.
             </p>
-            <p className="mt-5 hidden leading-loose md:block md:text-xl">
+            <p className="mt-5 leading-loose md:text-xl">
               Over the years, honing my skills has been more than just
               professional growth. It feeds my soul to create functional,
               beautiful things & spaces that truly reflect the people who use
               and live in them.
             </p>
           </div>
+          <div className="justify-self-center">
+            <img
+              src={rosemarieRoot}
+              alt="Rosemarie Root"
+              title="Rosemarie Root"
+              className="relative z-10 h-18 md:mt-2 md:h-36"
+            />
+          </div>
         </div>
-        <img
-          src={rosemarieRoot}
-          alt="Rosemarie Root"
-          title="Rosemarie Root"
-          className="relative z-10 -mt-3 h-12 md:mt-2 md:h-28"
-        />
       </div>
     </div>
   </section>
