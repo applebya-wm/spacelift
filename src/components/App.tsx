@@ -107,7 +107,7 @@ const Header = () => {
 
   // Dynamic transforms for the logo (desktop only)
   const left = useTransform(scrollY, [0, scrollEnd], ['12%', leftEnd])
-  const top = useTransform(scrollY, [0, scrollEnd], [70, 0])
+  const top = useTransform(scrollY, [0, scrollEnd], ['50%', '0%'])
   const width = useTransform(scrollY, [0, scrollEnd], [420, widthEnd])
   const opacity = useTransform(scrollY, [0, 80], [1, 0])
 
@@ -299,8 +299,8 @@ const Tagline = () => (
 )
 
 const Hero = () => (
-  <div className="flex h-screen flex-col-reverse md:flex-row md:pt-18">
-    <div className="flex text-gray-700 md:flex-[2] md:flex-row md:pt-72 xl:flex-1">
+  <section className="min-height relative flex h-screen flex-col-reverse md:flex-row md:pt-18">
+    <div className="flex text-gray-700 md:flex-[2] md:flex-row md:pt-[15%] xl:flex-1">
       <div className="flex flex-1 flex-col justify-around pb-4 md:pb-10">
         <motion.div
           initial={{ marginLeft: -100, opacity: 0 }}
@@ -361,7 +361,7 @@ const Hero = () => (
         </div>
       </div>
     </div>
-  </div>
+  </section>
 )
 
 const About = () => (
@@ -729,15 +729,16 @@ const CTA = () => (
 
 const Biography = () => (
   <section
-    className="bg-[length:cover,0_0] bg-top bg-no-repeat p-4 md:h-screen lg:bg-[length:0_0,cover]"
+    className="min-height bg-[length:cover,0_0] bg-[position:left_center,center_center] bg-no-repeat p-4 md:h-screen lg:bg-[length:0_0,cover]"
     style={{
       backgroundImage: `url(${biographyBgMobile}), url(${biographyBg})`
     }}
   >
-    <div className="mx-auto flex h-full max-w-6xl items-center justify-center md:flex-row">
+    <div className="mx-auto mt-64 flex h-full max-w-6xl items-center justify-center px-12 sm:mt-24 md:mt-0 md:flex-row">
       <div className="flex-[3]"></div>
-      <div className="flex w-full flex-[5] flex-col items-center bg-black bg-opacity-70 p-4 md:max-w-2xl md:px-12 md:py-8">
-        <div className="relative flex-1 border-y-2 border-white py-4 pt-12 text-center text-white">
+      <div className="flex w-full flex-col items-center bg-black bg-opacity-60 p-4 sm:flex-[5] md:max-w-2xl md:px-12 md:py-8">
+        <div className="relative flex-1 py-4 pt-6 text-center text-white">
+          <div className="ml-10 block min-h-[3px] bg-white" />
           <span className="absolute -left-4 top-2 z-0 px-3 text-7xl text-gray-200">
             &#8220;
           </span>
@@ -745,13 +746,13 @@ const Biography = () => (
             &#8221;
           </span>
 
-          <div className="sans-serif mt-4 text-sm leading-loose">
+          <div className="sans-serif mt-6 leading-loose lg:mt-10">
             <h2 className="md:text-xl">
               I&apos;m a certified Professional Organizer and the founder of
               Spacelift.
             </h2>
 
-            <p className="mt-8 leading-loose md:text-xl">
+            <p className="mt-5 leading-loose md:text-xl">
               Raised on beautiful Vancouver Island, I have always had a passion
               for building things and problem-solving. With an eye for style and
               a need to refurbish, create, organize and decorate I find
@@ -769,9 +770,10 @@ const Biography = () => (
               src={rosemarieRoot}
               alt="Rosemarie Root"
               title="Rosemarie Root"
-              className="relative z-10 h-18 md:mt-2 md:h-36"
+              className="relative z-10 h-18 md:mt-2 md:h-32"
             />
           </div>
+          <div className="mr-12 block min-h-[3px] bg-white" />
         </div>
       </div>
     </div>

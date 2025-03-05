@@ -68,3 +68,7 @@ textarea {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.min-height {
+  min-height: 47em;
+}
