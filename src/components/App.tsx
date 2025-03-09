@@ -37,6 +37,7 @@ import merchandiseBg from 'assets/process/merchandise-bg.jpg'
 import stageBg from 'assets/process/stage-bg.jpg'
 import organizeBg from 'assets/process/organize-bg.jpg'
 
+// @ts-expect-error: img
 import homeSpace1 from 'assets/spaces/home-1.jpg?w=643&format=avif'
 import homeSpace2 from 'assets/spaces/home-2.jpg'
 import homeSpace3 from 'assets/spaces/home-3.jpg'
