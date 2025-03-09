@@ -31,6 +31,8 @@ import ctaBg from 'assets/cta-bg.jpg?w=2000'
 import biographyBg from 'assets/biography-bg.jpg?w=2400&format=jpg'
 // @ts-expect-error: img
 import biographyBgMobile from 'assets/biography-bg-mobile.jpg?w=1200'
+// @ts-expect-error: img
+import contactBg from 'assets/contact-bg.jpg?w=800'
 
 import clean from 'assets/process/clean.png'
 import declutter from 'assets/process/declutter.png'
@@ -115,17 +117,17 @@ import storeDisplaysSpace7 from 'assets/spaces/store-displays-7.jpg?w=643;1286&f
 // @ts-expect-error: img
 import storeDisplaysSpace8 from 'assets/spaces/store-displays-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
-import anySpaceSpace1 from 'assets/spaces/any-space-1.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+import anySpaceSpace1 from 'assets/spaces/any-space-1.png?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
-import anySpaceSpace2 from 'assets/spaces/any-space-2.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+import anySpaceSpace2 from 'assets/spaces/any-space-2.jpg?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
-import anySpaceSpace3 from 'assets/spaces/any-space-3.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+import anySpaceSpace3 from 'assets/spaces/any-space-3.png?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
-import anySpaceSpace4 from 'assets/spaces/any-space-4.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+import anySpaceSpace4 from 'assets/spaces/any-space-4.jpg?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
-import anySpaceSpace5 from 'assets/spaces/any-space-5.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+import anySpaceSpace5 from 'assets/spaces/any-space-5.png?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
-import anySpaceSpace6 from 'assets/spaces/any-space-6.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+import anySpaceSpace6 from 'assets/spaces/any-space-6.jpg?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 
 const Button =
   'sans-serif border border-gray-800 px-6 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center whitespace-nowrap'
@@ -562,7 +564,7 @@ const TheProcess = () => {
               className="w-16 bg-black md:w-20"
               loading="lazy"
             />
-            <h4>{step}</h4>
+            <h3>{step}</h3>
           </div>
         ))}
       </div>
@@ -816,7 +818,7 @@ const CTA = () => (
       <div className="mt-6">
         <a href="#contact" className={`${Button} ml-2 font-bold`}>
           Start your project
-          <img src={arrowDown} width="24" />
+          <img src={arrowDown} width="24" alt="Down arrow" />
         </a>
       </div>
     </div>
@@ -929,7 +931,7 @@ const Testimonials = () => (
           ]
         ].map(([name, quote]) => (
           <div key={name} className="flex flex-col">
-            <div className="mb-2 text-lg italic text-gray-500">{name}</div>
+            <div className="mb-2 text-lg italic text-gray-600">{name}</div>
             <div className="flex-1 border border-black bg-white px-6 py-4 text-sm italic leading-loose tracking-wide text-gray-700 transition-shadow duration-300 hover:shadow-lg hover:shadow-gray-300">
               <div>{quote}</div>
             </div>
@@ -1078,7 +1080,10 @@ const Contact = () => {
 
   return (
     <section id="contact" className="flex md:scroll-mt-32">
-      <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
+      <div
+        className="hidden flex-1 bg-cover bg-center md:flex"
+        style={{ backgroundImage: `url(${contactBg})` }}
+      ></div>
       <div className="flex flex-[2] flex-col items-center p-4 leading-loose tracking-wide sm:p-12">
         <h2 className="sans-serif -mt-16 mb-6 inline w-full border border-gray-800 bg-white px-8 py-4 text-center font-thin uppercase tracking-wider sm:w-auto sm:px-12 sm:text-xl lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
           Start Your Spacelift
