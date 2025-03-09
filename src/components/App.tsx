@@ -73,7 +73,7 @@ import businessSpace1 from 'assets/spaces/business-1.jpg?w=643;1286&format=jpg&a
 // @ts-expect-error: img
 import businessSpace2 from 'assets/spaces/business-2.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
-import businessSpace3 from 'assets/spaces/business-3.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+import businessSpace3 from 'assets/spaces/business-3.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2&rotate=90'
 // @ts-expect-error: img
 import businessSpace4 from 'assets/spaces/business-4.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
@@ -98,8 +98,6 @@ import realEstateSpace7 from 'assets/spaces/real-estate-7.jpg?w=643;1286&format=
 import realEstateSpace8 from 'assets/spaces/real-estate-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import realEstateSpace9 from 'assets/spaces/real-estate-9.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
-// @ts-expect-error: img
-import realEstateSpace10 from 'assets/spaces/real-estate-10.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import storeDisplaysSpace1 from 'assets/spaces/store-displays-1.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
@@ -745,8 +743,7 @@ const spaces: [string, string, string[]][] = [
       realEstateSpace6,
       realEstateSpace7,
       realEstateSpace8,
-      realEstateSpace9,
-      realEstateSpace10
+      realEstateSpace9
     ]
   ],
   [
