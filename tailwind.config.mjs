@@ -9,6 +9,10 @@ export default {
       },
       height: {
         '75vh': '75vh'
+      },
+      fontSize: {
+        sm: '0.85rem',
+        xs: '0.7rem'
       }
     }
   },

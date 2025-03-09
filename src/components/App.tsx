@@ -8,20 +8,29 @@ import {
 } from 'react'
 import { motion, useAnimation, useScroll, useTransform } from 'motion/react'
 import './App.css'
-import logo from 'assets/spacelift-logo-transparent.png'
-import hero from 'assets/hero-1.jpg'
+// @ts-expect-error: img
+import logo from 'assets/spacelift-logo-transparent.png?w=840'
+// @ts-expect-error: img
+import hero from 'assets/hero-1.jpg?w=1890&format=jpg'
+
 import check from 'assets/icons/check.png'
 import facebook from 'assets/icons/facebook.svg'
 import arrowDown from 'assets/icons/arrow-down.svg'
 import instagram from 'assets/icons/instagram.svg'
-import rosemarieRoot from 'assets/rosemarie-root.png'
+// @ts-expect-error: img
+import rosemarieRootSignature from 'assets/rosemarie-root.png?w=910'
 import star from 'assets/icons/star.svg'
-import couch from 'assets/couch.png'
-import couchBg from 'assets/couch-bg.png'
+// @ts-expect-error: img
+import couch from 'assets/couch.png?w=1200'
+// @ts-expect-error: img
+import couchBg from 'assets/couch-bg.png?as=jpg'
 import vanIsle from 'assets/van-isle.png'
-import ctaBg from 'assets/cta-bg.jpg'
-import biographyBg from 'assets/biography-bg.jpg'
-import biographyBgMobile from 'assets/biography-bg-mobile.jpg'
+// @ts-expect-error: img
+import ctaBg from 'assets/cta-bg.jpg?w=2000'
+// @ts-expect-error: img
+import biographyBg from 'assets/biography-bg.jpg?w=2400&format=jpg'
+// @ts-expect-error: img
+import biographyBgMobile from 'assets/biography-bg-mobile.jpg?w=1200'
 
 import clean from 'assets/process/clean.png'
 import declutter from 'assets/process/declutter.png'
@@ -30,52 +39,95 @@ import merchandise from 'assets/process/merchandise.png'
 import stage from 'assets/process/stage.png'
 import organize from 'assets/process/organize.png'
 
-import cleanBg from 'assets/process/clean-bg.jpg'
-import declutterBg from 'assets/process/declutter-bg.jpg'
-import paintBg from 'assets/process/paint-bg.jpg'
-import merchandiseBg from 'assets/process/merchandise-bg.jpg'
-import stageBg from 'assets/process/stage-bg.jpg'
-import organizeBg from 'assets/process/organize-bg.jpg'
+// @ts-expect-error: img
+import cleanBg from 'assets/process/clean-bg.jpg?w=2000'
+// @ts-expect-error: img
+import declutterBg from 'assets/process/declutter-bg.jpg?w=2000'
+// @ts-expect-error: img
+import paintBg from 'assets/process/paint-bg.jpg?w=2000'
+// @ts-expect-error: img
+import merchandiseBg from 'assets/process/merchandise-bg.jpg?w=2000'
+// @ts-expect-error: img
+import stageBg from 'assets/process/stage-bg.jpg?w=2000'
+// @ts-expect-error: img
+import organizeBg from 'assets/process/organize-bg.jpg?w=2000'
 
 // @ts-expect-error: img
-import homeSpace1 from 'assets/spaces/home-1.jpg?w=643&format=avif'
-import homeSpace2 from 'assets/spaces/home-2.jpg'
-import homeSpace3 from 'assets/spaces/home-3.jpg'
-import homeSpace4 from 'assets/spaces/home-4.jpg'
-import homeSpace5 from 'assets/spaces/home-5.jpg'
-import homeSpace6 from 'assets/spaces/home-6.jpg'
-import homeSpace7 from 'assets/spaces/home-7.jpg'
-import homeSpace8 from 'assets/spaces/home-8.jpg'
-import businessSpace1 from 'assets/spaces/business-1.jpg'
-import businessSpace2 from 'assets/spaces/business-2.jpg'
-import businessSpace3 from 'assets/spaces/business-3.jpg'
-import businessSpace4 from 'assets/spaces/business-4.png'
-import businessSpace5 from 'assets/spaces/business-5.jpg'
-import businessSpace6 from 'assets/spaces/business-6.jpg'
-import realEstateSpace1 from 'assets/spaces/real-estate-1.png'
-import realEstateSpace2 from 'assets/spaces/real-estate-2.png'
-import realEstateSpace3 from 'assets/spaces/real-estate-3.jpg'
-import realEstateSpace4 from 'assets/spaces/real-estate-4.jpg'
-import realEstateSpace5 from 'assets/spaces/real-estate-5.jpg'
-import realEstateSpace6 from 'assets/spaces/real-estate-6.jpg'
-import realEstateSpace7 from 'assets/spaces/real-estate-7.jpg'
-import realEstateSpace8 from 'assets/spaces/real-estate-8.jpg'
-import realEstateSpace9 from 'assets/spaces/real-estate-9.jpg'
-import realEstateSpace10 from 'assets/spaces/real-estate-10.jpg'
-import storeDisplaysSpace1 from 'assets/spaces/store-displays-1.png'
-import storeDisplaysSpace2 from 'assets/spaces/store-displays-2.png'
-import storeDisplaysSpace3 from 'assets/spaces/store-displays-3.png'
-import storeDisplaysSpace4 from 'assets/spaces/store-displays-4.png'
-import storeDisplaysSpace5 from 'assets/spaces/store-displays-5.png'
-import storeDisplaysSpace6 from 'assets/spaces/store-displays-6.jpg'
-import storeDisplaysSpace7 from 'assets/spaces/store-displays-7.jpg'
-import storeDisplaysSpace8 from 'assets/spaces/store-displays-8.jpg'
-import anySpaceSpace1 from 'assets/spaces/any-space-1.png'
-import anySpaceSpace2 from 'assets/spaces/any-space-2.jpg'
-import anySpaceSpace3 from 'assets/spaces/any-space-3.png'
-import anySpaceSpace4 from 'assets/spaces/any-space-4.jpg'
-import anySpaceSpace5 from 'assets/spaces/any-space-5.png'
-import anySpaceSpace6 from 'assets/spaces/any-space-6.jpg'
+import homeSpace1 from 'assets/spaces/home-1.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import homeSpace2 from 'assets/spaces/home-2.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import homeSpace3 from 'assets/spaces/home-3.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import homeSpace4 from 'assets/spaces/home-4.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import homeSpace5 from 'assets/spaces/home-5.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import homeSpace6 from 'assets/spaces/home-6.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import homeSpace7 from 'assets/spaces/home-7.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import homeSpace8 from 'assets/spaces/home-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import businessSpace1 from 'assets/spaces/business-1.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import businessSpace2 from 'assets/spaces/business-2.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import businessSpace3 from 'assets/spaces/business-3.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import businessSpace4 from 'assets/spaces/business-4.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import businessSpace5 from 'assets/spaces/business-5.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import businessSpace6 from 'assets/spaces/business-6.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace1 from 'assets/spaces/real-estate-1.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace2 from 'assets/spaces/real-estate-2.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace3 from 'assets/spaces/real-estate-3.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace4 from 'assets/spaces/real-estate-4.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace5 from 'assets/spaces/real-estate-5.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace6 from 'assets/spaces/real-estate-6.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace7 from 'assets/spaces/real-estate-7.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace8 from 'assets/spaces/real-estate-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace9 from 'assets/spaces/real-estate-9.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import realEstateSpace10 from 'assets/spaces/real-estate-10.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import storeDisplaysSpace1 from 'assets/spaces/store-displays-1.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import storeDisplaysSpace2 from 'assets/spaces/store-displays-2.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import storeDisplaysSpace3 from 'assets/spaces/store-displays-3.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import storeDisplaysSpace4 from 'assets/spaces/store-displays-4.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import storeDisplaysSpace5 from 'assets/spaces/store-displays-5.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import storeDisplaysSpace6 from 'assets/spaces/store-displays-6.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import storeDisplaysSpace7 from 'assets/spaces/store-displays-7.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import storeDisplaysSpace8 from 'assets/spaces/store-displays-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import anySpaceSpace1 from 'assets/spaces/any-space-1.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import anySpaceSpace2 from 'assets/spaces/any-space-2.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import anySpaceSpace3 from 'assets/spaces/any-space-3.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import anySpaceSpace4 from 'assets/spaces/any-space-4.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import anySpaceSpace5 from 'assets/spaces/any-space-5.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import anySpaceSpace6 from 'assets/spaces/any-space-6.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 
 const Button =
   'sans-serif border border-gray-800 px-6 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center whitespace-nowrap'
@@ -539,11 +591,11 @@ const TheProcess = () => {
 const Space = ({
   title,
   description,
-  images
+  srcSets
 }: {
   title: string
   description?: string
-  images: string[]
+  srcSets: string[]
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
@@ -567,6 +619,8 @@ const Space = ({
 
   const isFullWidth = !description
 
+  console.log('srcSet', srcSets)
+
   return (
     <div>
       <div className="relative">
@@ -585,22 +639,31 @@ const Space = ({
           } border-black`}
           ref={containerRef}
         >
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="inline min-w-full snap-center"
-              style={{
-                scrollSnapAlign: 'center',
-                height: '100%'
-              }}
-            >
-              <img
-                className="size-full object-cover"
-                src={image}
-                alt={`${title} image ${index + 1}`}
-              />
-            </div>
-          ))}
+          {srcSets.map((srcSet, index) => {
+            const [lowRes, , highRes] = srcSet
+              .split(', ')
+              .map((entry) => entry.split(' ')[0])
+
+            console.log(lowRes, highRes)
+
+            return (
+              <div
+                key={index}
+                className="inline min-w-full snap-center"
+                style={{
+                  scrollSnapAlign: 'center',
+                  height: '100%'
+                }}
+              >
+                <img
+                  className="size-full object-cover"
+                  src={lowRes}
+                  srcSet={`${lowRes} 1x, ${highRes} 2x`}
+                  alt={`${title} image ${index + 1}`}
+                />
+              </div>
+            )
+          })}
 
           <button
             className="absolute bottom-4 left-4 rounded-full bg-white p-2 md:bottom-12"
@@ -718,10 +781,10 @@ const Spaces = () => (
         </motion.h2>
       </div>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 pb-12 text-left sm:px-12 sm:pb-28 md:grid-cols-2 md:gap-24">
-        {spaces.map(([title, description, images]) => (
+        {spaces.map(([title, description, srcSets]) => (
           <Space
             key={title}
-            images={images}
+            srcSets={srcSets}
             title={title}
             description={description}
           />
@@ -730,7 +793,7 @@ const Spaces = () => (
       <div className="mx-auto max-w-6xl">
         <Space
           title="Any Space"
-          images={[
+          srcSets={[
             anySpaceSpace1,
             anySpaceSpace2,
             anySpaceSpace3,
@@ -746,7 +809,7 @@ const Spaces = () => (
 
 const CTA = () => (
   <section
-    className="flex h-96 items-center justify-center bg-cover bg-center bg-no-repeat md:h-screen"
+    className="flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat md:h-screen"
     style={{ backgroundImage: `url(${ctaBg})` }}
   >
     <div className="m-4 border bg-white/80 px-12 py-6 text-center text-lg font-light leading-loose tracking-wide text-gray-700 backdrop-blur-sm md:px-24 md:py-12">
@@ -765,14 +828,14 @@ const CTA = () => (
 
 const Biography = () => (
   <section
-    className="min-height bg-[length:cover,0_0] bg-[position:left_center,center_center] bg-no-repeat p-4 md:h-screen lg:bg-[length:0_0,cover]"
+    className="min-h-screen bg-[length:cover,0_0] bg-[position:left_center,center_center] bg-no-repeat md:h-screen md:bg-[length:0_0,cover]"
     style={{
       backgroundImage: `url(${biographyBgMobile}), url(${biographyBg})`
     }}
   >
-    <div className="mx-auto mt-64 flex h-full max-w-6xl items-center justify-center px-12 sm:mt-24 md:mt-0 md:flex-row">
+    <div className="mx-auto flex size-full min-h-screen max-w-7xl items-center justify-center sm:px-12 md:mt-0 md:flex-row">
       <div className="flex-[3]"></div>
-      <div className="flex w-full flex-col items-center bg-black bg-opacity-60 p-4 sm:flex-[5] md:max-w-2xl md:px-12 md:py-8">
+      <div className="my-4 ml-[15%] flex max-h-screen w-full flex-col items-center bg-black bg-opacity-60 px-4 py-1 sm:flex-[3] md:max-w-2xl md:px-12 md:py-8 lg:ml-0">
         <div className="relative flex-1 py-4 pt-6 text-center text-white">
           <div className="ml-10 block min-h-[3px] bg-white" />
           <span className="absolute -left-4 top-2 z-0 px-3 text-7xl text-gray-200">
@@ -783,18 +846,18 @@ const Biography = () => (
           </span>
 
           <div className="sans-serif mt-6 leading-loose lg:mt-10">
-            <h2 className="md:text-xl">
+            <h2 className="text-sm text-inherit md:text-lg lg:text-xl">
               I&apos;m a certified Professional Organizer and the founder of
               Spacelift.
             </h2>
 
-            <p className="mt-5 leading-loose md:text-xl">
+            <p className="mt-5 text-sm leading-loose md:text-lg lg:text-xl">
               Raised on beautiful Vancouver Island, I have always had a passion
               for building things and problem-solving. With an eye for style and
               a need to refurbish, create, organize and decorate I find
               inspiration everywhere.
             </p>
-            <p className="mt-5 leading-loose md:text-xl">
+            <p className="mt-5 text-sm leading-loose md:text-lg lg:text-xl">
               Over the years, honing my skills has been more than just
               professional growth. It feeds my soul to create functional,
               beautiful things & spaces that truly reflect the people who use
@@ -803,10 +866,10 @@ const Biography = () => (
           </div>
           <div className="justify-self-center">
             <img
-              src={rosemarieRoot}
+              src={rosemarieRootSignature}
               alt="Rosemarie Root"
               title="Rosemarie Root"
-              className="relative z-10 h-18 md:mt-2 md:h-32"
+              className="relative z-10 mb-2 md:mt-2 md:h-32"
             />
           </div>
           <div className="mr-12 block min-h-[3px] bg-white" />
@@ -818,7 +881,7 @@ const Biography = () => (
 
 const Testimonials = () => (
   <section className="bg-gray-100">
-    <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 px-8 sm:px-12">
+    <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 p-4 sm:p-8 sm:px-12">
       <div className="mt-8 inline-flex justify-center gap-2 self-center rounded-xl bg-white bg-opacity-50 px-6 py-4">
         <img src={star} alt="star" className="w-12 sm:w-18" />
         <img src={star} alt="star" className="w-12 sm:w-18" />
@@ -892,14 +955,16 @@ const Question = ({
   return (
     <div className="mt-4">
       <h3
-        className="mb-4 inline-flex cursor-pointer text-lg font-light text-gray-600 hover:underline"
+        className="mb-4 inline-flex cursor-pointer font-light text-gray-600 hover:underline sm:text-lg"
         onClick={() => setIsOpen(!isOpen)}
+        tabIndex={-1}
       >
         <div>{title}</div>
         <img
           src={arrowDown}
           width="24"
           className={`ml-4 inline-block ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+          alt="Toggle"
         />
       </h3>
       {isOpen && (
@@ -918,7 +983,7 @@ const Question = ({
 
 const FAQ = () => (
   <section className="bg-gray-100">
-    <div className="mx-auto max-w-6xl px-8 pb-20 pt-12 sm:px-12 sm:pb-36 sm:pt-24">
+    <div className="mx-auto max-w-6xl px-4 pb-20 pt-12 sm:px-12 sm:pb-36 sm:pt-24">
       <h2 className="mb-12 text-2xl tracking-wide sm:mb-16 md:text-3xl">
         Frequently Asked Questions
       </h2>
@@ -1017,7 +1082,7 @@ const Contact = () => {
   return (
     <section id="contact" className="flex md:scroll-mt-32">
       <div className="hidden flex-1 bg-[url('/src/assets/contact-bg.jpg')] bg-cover bg-center md:flex"></div>
-      <div className="flex flex-[2] flex-col items-center p-8 leading-loose tracking-wide sm:p-12">
+      <div className="flex flex-[2] flex-col items-center p-4 leading-loose tracking-wide sm:p-12">
         <h2 className="sans-serif -mt-16 mb-6 inline w-full border border-gray-800 bg-white px-8 py-4 text-center font-thin uppercase tracking-wider sm:w-auto sm:px-12 sm:text-xl lg:-mt-24 lg:px-24 lg:py-8 lg:text-2xl">
           Start Your Spacelift
         </h2>
@@ -1142,7 +1207,7 @@ const Footer = () => (
   <footer className="flex bg-black/90 text-white">
     <div className="hidden flex-1 items-center justify-center lg:flex lg:border-r-white">
       <div>
-        <img src={logo} className="h-32 brightness-150 grayscale" />
+        <img src={logo} className="h-32 brightness-150 grayscale" alt="logo" />
         <div className="sans-serif flex justify-center text-xs tracking-widest ">
           <span className="mb-1">TRANSFORMING SPACES</span>
         </div>
@@ -1161,7 +1226,7 @@ const Footer = () => (
               target="_blank"
               rel="noreferrer"
             >
-              <img src={facebook} />
+              <img src={facebook} alt="Facebook" />
             </a>
             <a
               className="rounded-full border-2 border-white"
@@ -1169,7 +1234,7 @@ const Footer = () => (
               target="_blank"
               rel="noreferrer"
             >
-              <img src={instagram} />
+              <img src={instagram} alt="Instagram" />
             </a>
           </div>
           <div className="hidden pt-2 tracking-wide text-white sm:block">
@@ -1184,7 +1249,6 @@ const Footer = () => (
             className="mb-2 inline-block text-sm tracking-wide underline"
           >
             Back to top
-            {/* <img src={arrowDown} width="24" className="rotate-90" /> */}
           </a>
         </div>
         <div className="mt-2 flex flex-col gap-2 text-sm tracking-wide text-gray-400">

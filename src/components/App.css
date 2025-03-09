@@ -25,14 +25,6 @@ html {
   letter-spacing: 0.5em;
 }
 
-.text-sm {
-  font-size: 0.85rem;
-}
-
-.text-xs {
-  font-size: 0.7rem;
-}
-
 .pad {
   padding: 0 6rem;
 }
