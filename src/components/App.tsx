@@ -617,13 +617,13 @@ const TheProcess = () => {
               className="relative size-full shrink-0 snap-center"
             >
               <motion.div
-                className="absolute inset-x-0 bottom-2 mx-auto max-w-6xl md:bottom-[5%]"
+                className="absolute inset-x-0 top-24 mx-auto max-w-6xl md:bottom-[5%]"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
               >
-                <div className="mx-16 border border-black bg-white bg-opacity-80 p-3 text-center text-xs lg:text-lg">
+                <div className="mx-16  bg-black bg-opacity-70 p-3 text-center text-xs text-white lg:text-lg">
                   {stepsMap[step][2]}
                 </div>
               </motion.div>
