@@ -1,31 +1,3 @@
-import { motion, useAnimation, useScroll, useTransform } from 'motion/react'
-import './App.css'
-import logo from 'assets/spacelift-logo-transparent.png'
-import hero from 'assets/hero-1.jpg'
-import check from 'assets/check.png'
-import facebook from 'assets/facebook.svg'
-import arrowDown from 'assets/arrow-down.svg'
-import instagram from 'assets/instagram.svg'
-import rosemarieRoot from 'assets/rosemarie-root.png'
-import star from 'assets/star.svg'
-import couch from 'assets/couch.png'
-import couchBg from 'assets/couch-bg.png'
-import vanIsle from 'assets/van-isle.png'
-import anySpace from 'assets/any-space.png'
-import biographyBg from 'assets/biography-bg.jpg'
-import biographyBgMobile from 'assets/biography-bg-mobile.jpg'
-import clean from 'assets/process/clean.png'
-import declutter from 'assets/process/declutter.png'
-import paint from 'assets/process/paint.png'
-import merchandise from 'assets/process/merchandise.png'
-import stage from 'assets/process/stage.png'
-import organize from 'assets/process/organize.png'
-import cleanBg from 'assets/clean.jpg'
-import declutterBg from 'assets/declutter.jpg'
-import paintBg from 'assets/paint.jpg'
-import merchandiseBg from 'assets/merchandise.jpg'
-import stageBg from 'assets/stage.jpg'
-import organizeBg from 'assets/organize.jpg'
 import {
   FormEvent,
   Fragment,
@@ -34,31 +6,75 @@ import {
   useRef,
   useState
 } from 'react'
-import homeSpace1 from 'assets/spaces/home-1.png'
+import { motion, useAnimation, useScroll, useTransform } from 'motion/react'
+import './App.css'
+import logo from 'assets/spacelift-logo-transparent.png'
+import hero from 'assets/hero-1.jpg'
+import check from 'assets/icons/check.png'
+import facebook from 'assets/icons/facebook.svg'
+import arrowDown from 'assets/icons/arrow-down.svg'
+import instagram from 'assets/icons/instagram.svg'
+import rosemarieRoot from 'assets/rosemarie-root.png'
+import star from 'assets/icons/star.svg'
+import couch from 'assets/couch.png'
+import couchBg from 'assets/couch-bg.png'
+import vanIsle from 'assets/van-isle.png'
+import ctaBg from 'assets/cta-bg.jpg'
+import biographyBg from 'assets/biography-bg.jpg'
+import biographyBgMobile from 'assets/biography-bg-mobile.jpg'
+
+import clean from 'assets/process/clean.png'
+import declutter from 'assets/process/declutter.png'
+import paint from 'assets/process/paint.png'
+import merchandise from 'assets/process/merchandise.png'
+import stage from 'assets/process/stage.png'
+import organize from 'assets/process/organize.png'
+
+import cleanBg from 'assets/process/clean-bg.jpg'
+import declutterBg from 'assets/process/declutter-bg.jpg'
+import paintBg from 'assets/process/paint-bg.jpg'
+import merchandiseBg from 'assets/process/merchandise-bg.jpg'
+import stageBg from 'assets/process/stage-bg.jpg'
+import organizeBg from 'assets/process/organize-bg.jpg'
+
+import homeSpace1 from 'assets/spaces/home-1.jpg?w=643&format=avif'
 import homeSpace2 from 'assets/spaces/home-2.jpg'
 import homeSpace3 from 'assets/spaces/home-3.jpg'
 import homeSpace4 from 'assets/spaces/home-4.jpg'
-import homeSpace5 from 'assets/spaces/home-5.png'
-import businessSpace1 from 'assets/spaces/business-1.png'
+import homeSpace5 from 'assets/spaces/home-5.jpg'
+import homeSpace6 from 'assets/spaces/home-6.jpg'
+import homeSpace7 from 'assets/spaces/home-7.jpg'
+import homeSpace8 from 'assets/spaces/home-8.jpg'
+import businessSpace1 from 'assets/spaces/business-1.jpg'
 import businessSpace2 from 'assets/spaces/business-2.jpg'
-import businessSpace3 from 'assets/spaces/business-3.png'
+import businessSpace3 from 'assets/spaces/business-3.jpg'
 import businessSpace4 from 'assets/spaces/business-4.png'
-import businessSpace5 from 'assets/spaces/business-5.png'
+import businessSpace5 from 'assets/spaces/business-5.jpg'
+import businessSpace6 from 'assets/spaces/business-6.jpg'
 import realEstateSpace1 from 'assets/spaces/real-estate-1.png'
-import realEstateSpace2 from 'assets/spaces/real-estate-2.jpg'
-import realEstateSpace3 from 'assets/spaces/real-estate-3.png'
-import realEstateSpace4 from 'assets/spaces/real-estate-4.png'
-import realEstateSpace5 from 'assets/spaces/real-estate-5.png'
+import realEstateSpace2 from 'assets/spaces/real-estate-2.png'
+import realEstateSpace3 from 'assets/spaces/real-estate-3.jpg'
+import realEstateSpace4 from 'assets/spaces/real-estate-4.jpg'
+import realEstateSpace5 from 'assets/spaces/real-estate-5.jpg'
+import realEstateSpace6 from 'assets/spaces/real-estate-6.jpg'
+import realEstateSpace7 from 'assets/spaces/real-estate-7.jpg'
+import realEstateSpace8 from 'assets/spaces/real-estate-8.jpg'
+import realEstateSpace9 from 'assets/spaces/real-estate-9.jpg'
+import realEstateSpace10 from 'assets/spaces/real-estate-10.jpg'
 import storeDisplaysSpace1 from 'assets/spaces/store-displays-1.png'
 import storeDisplaysSpace2 from 'assets/spaces/store-displays-2.png'
 import storeDisplaysSpace3 from 'assets/spaces/store-displays-3.png'
 import storeDisplaysSpace4 from 'assets/spaces/store-displays-4.png'
 import storeDisplaysSpace5 from 'assets/spaces/store-displays-5.png'
-import storeDisplaysSpace6 from 'assets/spaces/store-displays-6.png'
+import storeDisplaysSpace6 from 'assets/spaces/store-displays-6.jpg'
+import storeDisplaysSpace7 from 'assets/spaces/store-displays-7.jpg'
+import storeDisplaysSpace8 from 'assets/spaces/store-displays-8.jpg'
 import anySpaceSpace1 from 'assets/spaces/any-space-1.png'
-import anySpaceSpace2 from 'assets/spaces/any-space-2.png'
+import anySpaceSpace2 from 'assets/spaces/any-space-2.jpg'
 import anySpaceSpace3 from 'assets/spaces/any-space-3.png'
-import anySpaceSpace4 from 'assets/spaces/any-space-4.png'
+import anySpaceSpace4 from 'assets/spaces/any-space-4.jpg'
+import anySpaceSpace5 from 'assets/spaces/any-space-5.png'
+import anySpaceSpace6 from 'assets/spaces/any-space-6.jpg'
 
 const Button =
   'sans-serif border border-gray-800 px-6 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center whitespace-nowrap'
@@ -630,7 +646,16 @@ const spaces: [string, string, string[]][] = [
   [
     'Home',
     "Whether it's a cozy living room or a vibrant kitchen, we bring tailored designs to elevate your everyday living.",
-    [homeSpace1, homeSpace2, homeSpace3, homeSpace4, homeSpace5]
+    [
+      homeSpace1,
+      homeSpace2,
+      homeSpace3,
+      homeSpace4,
+      homeSpace5,
+      homeSpace6,
+      homeSpace7,
+      homeSpace8
+    ]
   ],
   [
     'Business',
@@ -640,7 +665,8 @@ const spaces: [string, string, string[]][] = [
       businessSpace2,
       businessSpace3,
       businessSpace4,
-      businessSpace5
+      businessSpace5,
+      businessSpace6
     ]
   ],
   [
@@ -651,7 +677,12 @@ const spaces: [string, string, string[]][] = [
       realEstateSpace2,
       realEstateSpace3,
       realEstateSpace4,
-      realEstateSpace5
+      realEstateSpace5,
+      realEstateSpace6,
+      realEstateSpace7,
+      realEstateSpace8,
+      realEstateSpace9,
+      realEstateSpace10
     ]
   ],
   [
@@ -663,7 +694,9 @@ const spaces: [string, string, string[]][] = [
       storeDisplaysSpace3,
       storeDisplaysSpace4,
       storeDisplaysSpace5,
-      storeDisplaysSpace6
+      storeDisplaysSpace6,
+      storeDisplaysSpace7,
+      storeDisplaysSpace8
     ]
   ]
 ]
@@ -700,7 +733,9 @@ const Spaces = () => (
             anySpaceSpace1,
             anySpaceSpace2,
             anySpaceSpace3,
-            anySpaceSpace4
+            anySpaceSpace4,
+            anySpaceSpace5,
+            anySpaceSpace6
           ]}
         />
       </div>
@@ -711,7 +746,7 @@ const Spaces = () => (
 const CTA = () => (
   <section
     className="flex h-96 items-center justify-center bg-cover bg-center bg-no-repeat md:h-screen"
-    style={{ backgroundImage: `url(${anySpace})` }}
+    style={{ backgroundImage: `url(${ctaBg})` }}
   >
     <div className="m-4 border bg-white/80 px-12 py-6 text-center text-lg font-light leading-loose tracking-wide text-gray-700 backdrop-blur-sm md:px-24 md:py-12">
       Have a unique space in mind?
@@ -804,8 +839,8 @@ const Testimonials = () => (
             '“You did more than expected—your help staging our home was truly exceptional. I appreciate your services and all your hard work”'
           ],
           [
-            'H. Forhand',
-            '“Completely transformed my entire townhouse to allow for the sales using her great taste, creativity, ingenuity and muscle . She staged it with style and class. No job is too big or small for her.”'
+            'M. Garcia',
+            '“Amazing — upfront, honest, and incredibly dedicated. She even cleaned and staged our home, selling it in just hours!”'
           ],
           [
             'R. Scott',
@@ -816,8 +851,8 @@ const Testimonials = () => (
             '“Hard worker and I appreciate everything she did. Hands and knees cleaning and staging. And she is fast !!! Efficient and incredible - I couldn’t recommend her more”'
           ],
           [
-            'M. Garcia',
-            '“Amazing — upfront, honest, and incredibly dedicated. She even cleaned and staged our home, selling it in just hours!”'
+            'H. Forhand',
+            '“Completely transformed my entire townhouse to allow for the sales using her great taste, creativity, ingenuity and muscle . She staged it with style and class. No job is too big or small for her.”'
           ],
           [
             'M. Seel',
