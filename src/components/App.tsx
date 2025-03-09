@@ -623,7 +623,7 @@ const TheProcess = () => {
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
               >
-                <div className="mx-16  bg-black bg-opacity-70 p-3 text-center text-xs text-white lg:text-lg">
+                <div className="mx-16  bg-black bg-opacity-60 p-3 text-center text-xs text-white lg:text-lg">
                   {stepsMap[step][2]}
                 </div>
               </motion.div>

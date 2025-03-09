@@ -61,6 +61,8 @@ textarea {
   scrollbar-width: none; /* Firefox */
 }
 
-.min-height {
-  min-height: 47em;
+@media (min-width: 768px) {
+  .min-height {
+    min-height: 47em;
+  }
 }
