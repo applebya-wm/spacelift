@@ -619,8 +619,6 @@ const Space = ({
 
   const isFullWidth = !description
 
-  console.log('srcSet', srcSets)
-
   return (
     <div>
       <div className="relative">
@@ -643,8 +641,6 @@ const Space = ({
             const [lowRes, , highRes] = srcSet
               .split(', ')
               .map((entry) => entry.split(' ')[0])
-
-            console.log(lowRes, highRes)
 
             return (
               <div
