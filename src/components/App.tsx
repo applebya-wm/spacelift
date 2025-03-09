@@ -248,12 +248,12 @@ const Header = () => {
         </motion.div>
 
         {/* Desktop Navigation (unchanged from original) */}
-        <nav className="hidden items-center justify-end gap-6 py-4 text-sm uppercase tracking-wider underline-offset-8 md:flex">
+        <nav className="hidden items-center justify-end gap-5 py-4 text-sm uppercase tracking-wider underline-offset-8 md:flex">
           {navLinks.map((item, index) => (
             <Fragment key={index}>
               <a
                 href={item.href}
-                className="text-gray-700 hover:cursor-pointer hover:text-gray-900 hover:underline"
+                className="p-2 text-gray-700 hover:cursor-pointer hover:text-gray-900 hover:underline"
               >
                 {item.label}
               </a>
@@ -280,6 +280,7 @@ const Header = () => {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="z-50 border border-black bg-white p-2 focus:outline-none focus:ring-gray-600"
+            aria-label="Toggle menu"
           >
             {menuOpen ? (
               <svg
