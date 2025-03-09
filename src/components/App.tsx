@@ -71,6 +71,8 @@ import homeSpace7 from 'assets/spaces/home-7.jpg?w=643;1286&format=jpg&as=srcset
 // @ts-expect-error: img
 import homeSpace8 from 'assets/spaces/home-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
+import homeSpace9 from 'assets/spaces/home-9.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
 import businessSpace1 from 'assets/spaces/business-1.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import businessSpace2 from 'assets/spaces/business-2.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
@@ -420,9 +422,14 @@ const Hero = () => (
       className="flex w-full flex-1 items-center bg-black bg-opacity-50 bg-cover bg-blend-darken backdrop-blur-sm md:bg-opacity-0"
       style={{ backgroundImage: `url(${hero})` }}
     >
-      <div className="mx-4 w-full pt-24 text-center md:hidden">
+      <motion.div
+        className="mx-4 w-full pt-24 text-center md:hidden"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
         <Tagline />
-      </div>
+      </motion.div>
     </div>
     <div className="pointer-events-none absolute top-0 flex h-0 w-full justify-center text-center md:hidden">
       <div className="z-40">
@@ -439,19 +446,19 @@ const About = () => (
     id="about"
     className="relative bg-gray-100 bg-[length:auto_370px,_100%_150px] bg-[position:right_bottom,_right_bottom,right_top_-10000px] bg-no-repeat pb-96 md:scroll-mt-18 md:bg-[length:auto_450px,_100%_150px] md:bg-[position:right_bottom,_right_bottom,right_top_-90px] lg:pb-56"
     style={{
-      backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`
+      backgroundImage: `url(${couch}), url(${couchBg}), url(${vanIsle})`,
+      backgroundAttachment: 'scroll, scroll, fixed'
     }}
   >
-    <div className="sans-serif my-8 inline-block border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-xl font-thin uppercase tracking-wider text-gray-700 sm:my-12 sm:pl-12 sm:pr-20 sm:text-2xl md:text-3xl xl:pl-24">
-      <motion.h2
-        initial={{ y: 50, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        What is Spacelift?
-      </motion.h2>
-    </div>
+    <motion.div
+      className="sans-serif my-8 inline-block border border-l-0 border-gray-800 bg-white py-6 pl-8 pr-12 text-xl font-thin uppercase tracking-wider text-gray-700 sm:my-12 sm:pl-12 sm:pr-20 sm:text-2xl md:text-3xl xl:pl-24"
+      initial={{ x: -100, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+    >
+      <h2>What is Spacelift?</h2>
+    </motion.div>
     <div className="px-8 sm:px-12 xl:pl-24">
       <div className="max-w-2xl font-light leading-loose tracking-wide text-gray-700 sm:text-lg">
         Spacelift is your complete transformation design service for home /
@@ -476,13 +483,37 @@ const About = () => (
 )
 
 const TheProcess = () => {
-  const stepsMap: { [key: string]: [string, string] } = {
-    declutter: [declutter, declutterBg],
-    organize: [organize, organizeBg],
-    paint: [paint, paintBg],
-    clean: [clean, cleanBg],
-    stage: [stage, stageBg],
-    merchandise: [merchandise, merchandiseBg]
+  const stepsMap: { [key: string]: [string, string, string] } = {
+    declutter: [
+      declutter,
+      declutterBg,
+      'Decluttering removes unnecessary items to create a cleaner, more functional space. This reduces stress, improves efficiency, and enhances overall well-being. A clutter-free environment promotes productivity and peace of mind.'
+    ],
+    organize: [
+      organize,
+      organizeBg,
+      'Organizing can help people reduce stress, save time, and improve productivity by creating order in their spaces and routines. A well-organized home or workspace enhances efficiency and promotes a sense of calm. It also makes it easier to find what you need. '
+    ],
+    paint: [
+      paint,
+      paintBg,
+      'Painting transforms homes and businesses by adding color, freshness, and personality to any space. A fresh coat of paint can create a brand-new atmosphere, making spaces feel more inviting, modern, or spacious.'
+    ],
+    clean: [
+      clean,
+      cleanBg,
+      'Cleaning sets the foundation for a fresh start by preparing the space for decorating, staging, or remodeling. A thorough clean removes dust, grime, and old residues. A spotless space enhances the impact of any transformation, making the final result feel crisp, inviting, and revitalized.'
+    ],
+    stage: [
+      stage,
+      stageBg,
+      'Staging prepares your  home for sale by arranging furniture, décor, and lighting to highlight the property’s best features. This helps create an inviting, stylish space that appeals to potential buyers. A staged home will often sell faster and at a higher price, by making a strong first impression. '
+    ],
+    merchandise: [
+      merchandise,
+      merchandiseBg,
+      'Merchandising boosts business growth by increasing visibility, attracting customers, and getting it into the hands of the consumer. Well-placed & well-packaged items encourage impulse purchases and increase revenue.'
+    ]
   }
 
   const steps = Object.keys(stepsMap)
@@ -523,9 +554,15 @@ const TheProcess = () => {
 
   return (
     <section id="process" className="relative flex flex-col md:scroll-mt-18">
-      <div className="sans-serif my-6 inline-block self-center border border-gray-800  bg-white px-8 py-6 text-xl font-thin uppercase tracking-wider text-gray-700 sm:my-12 sm:px-20 sm:text-2xl md:text-3xl">
+      <motion.div
+        className="sans-serif my-6 inline-block self-center border border-gray-800 bg-white px-8 py-6 text-xl font-thin uppercase tracking-wider text-gray-700 sm:my-12 sm:px-20 sm:text-2xl md:text-3xl"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
         <h2>The Process</h2>
-      </div>
+      </motion.div>
       <div className="mx-auto my-8 flex max-w-6xl flex-col justify-around gap-4 px-8 font-light leading-loose tracking-wide text-gray-700 sm:px-12 md:flex-row lg:my-16">
         <div className="flex flex-1 gap-8">
           <div className="font-serif text-4xl text-gray-300">1</div>
@@ -575,7 +612,21 @@ const TheProcess = () => {
       >
         <div className="flex h-full">
           {steps.map((step) => (
-            <div key={`${step}-bg`} className="size-full shrink-0 snap-center">
+            <div
+              key={`${step}-bg`}
+              className="relative size-full shrink-0 snap-center"
+            >
+              <motion.div
+                className="absolute inset-x-0 bottom-2 mx-auto max-w-6xl md:bottom-[5%]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <div className="mx-16 border border-black bg-white bg-opacity-80 p-3 text-center text-xs lg:text-lg">
+                  {stepsMap[step][2]}
+                </div>
+              </motion.div>
               <img
                 src={stepsMap[step][1]}
                 alt={`${step} background`}
@@ -715,7 +766,8 @@ const spaces: [string, string, string[]][] = [
       homeSpace5,
       homeSpace6,
       homeSpace7,
-      homeSpace8
+      homeSpace8,
+      homeSpace9
     ]
   ],
   [
@@ -878,13 +930,19 @@ const Biography = () => (
 const Testimonials = () => (
   <section className="bg-gray-100">
     <div className="mx-auto flex max-w-6xl flex-col bg-gray-100 p-4 sm:p-8 sm:px-12">
-      <div className="mt-8 inline-flex justify-center gap-2 self-center rounded-xl bg-white bg-opacity-50 px-6 py-4">
+      <motion.div
+        className="mt-8 inline-flex justify-center gap-2 self-center px-6 py-4"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
         <img src={star} alt="star" className="w-12 sm:w-18" />
         <img src={star} alt="star" className="w-12 sm:w-18" />
         <img src={star} alt="star" className="w-12 sm:w-18" />
         <img src={star} alt="star" className="w-12 sm:w-18" />
         <img src={star} alt="star" className="w-12 sm:w-18" />
-      </div>
+      </motion.div>
       <h2 className="mt-4 text-center text-lg italic tracking-wide text-gray-600 sm:text-xl">
         Five-Star Customer Service
       </h2>
