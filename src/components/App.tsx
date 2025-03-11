@@ -1076,9 +1076,7 @@ const FAQ = () => (
       </Question>
       <Question title="How long does a typical decluttering and space transformation take?">
         From interior to exterior, little to big projects, we can fulfil your
-        painting needs. My back yard isn&apos;t working for me, is this a space
-        you could help with? Any space in any style. From inside to out we will
-        work with any space you need.
+        painting needs.
       </Question>
       <Question title="My back yard isn't working for me, is this a space you could help with?">
         Any space in any style. From inside to out we will work with any space
