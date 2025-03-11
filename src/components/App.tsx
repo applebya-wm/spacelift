@@ -1075,8 +1075,12 @@ const FAQ = () => (
         apply.
       </Question>
       <Question title="How long does a typical decluttering and space transformation take?">
-        From interior to exterior, little to big projects, we can fulfil your
-        painting needs.
+        The time required depends on several factors, including the size of the
+        space, the amount of clutter, and scope of work needed. A smaller
+        project like a closet or pantry, can typically be completed in a few
+        hours to a day. A larger space, such as a bedroom or home office, may
+        take one to two days. Whole-home transformations or business spaces may
+        require several days to a week.
       </Question>
       <Question title="My back yard isn't working for me, is this a space you could help with?">
         Any space in any style. From inside to out we will work with any space
