@@ -79,11 +79,15 @@ import businessSpace2 from 'assets/spaces/business-2.jpg?w=643;1286&format=jpg&a
 // @ts-expect-error: img
 import businessSpace3 from 'assets/spaces/business-3.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2&rotate=90'
 // @ts-expect-error: img
-import businessSpace4 from 'assets/spaces/business-4.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+import businessSpace4 from 'assets/spaces/business-4.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import businessSpace5 from 'assets/spaces/business-5.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import businessSpace6 from 'assets/spaces/business-6.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import businessSpace7 from 'assets/spaces/business-7.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import businessSpace8 from 'assets/spaces/business-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import realEstateSpace1 from 'assets/spaces/real-estate-1.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
@@ -109,7 +113,7 @@ import storeDisplaysSpace2 from 'assets/spaces/store-displays-2.png?w=643;1286&f
 // @ts-expect-error: img
 import storeDisplaysSpace3 from 'assets/spaces/store-displays-3.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
-import storeDisplaysSpace4 from 'assets/spaces/store-displays-4.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+import storeDisplaysSpace4 from 'assets/spaces/store-displays-4.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import storeDisplaysSpace5 from 'assets/spaces/store-displays-5.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
@@ -130,6 +134,10 @@ import anySpaceSpace4 from 'assets/spaces/any-space-4.jpg?w=1150;2300&format=jpg
 import anySpaceSpace5 from 'assets/spaces/any-space-5.png?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import anySpaceSpace6 from 'assets/spaces/any-space-6.jpg?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import anySpaceSpace7 from 'assets/spaces/any-space-7.jpg?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
+// @ts-expect-error: img
+import anySpaceSpace8 from 'assets/spaces/any-space-8.jpg?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 
 const Button =
   'sans-serif border border-gray-800 px-6 py-2 text-gray-700 bg-white tracking-wider inline-flex gap-2 text-sm uppercase items-center hover:bg-gray-100 transition-colors justify-center whitespace-nowrap'
@@ -779,7 +787,9 @@ const spaces: [string, string, string[]][] = [
       businessSpace3,
       businessSpace4,
       businessSpace5,
-      businessSpace6
+      businessSpace6,
+      businessSpace7,
+      businessSpace8
     ]
   ],
   [
@@ -847,7 +857,9 @@ const Spaces = () => (
             anySpaceSpace3,
             anySpaceSpace4,
             anySpaceSpace5,
-            anySpaceSpace6
+            anySpaceSpace6,
+            anySpaceSpace7,
+            anySpaceSpace8
           ]}
         />
       </div>
