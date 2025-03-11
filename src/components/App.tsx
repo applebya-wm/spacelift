@@ -974,7 +974,7 @@ const Testimonials = () => (
           ],
           [
             'M. Seel',
-            '“Spacelift transformed our office! Their design gave us a competitive edge by boosting productivity and impressing clients. Couldn’t be happier!”'
+            '“Spacelift transformed our office! Their design gave us a competitive edge by boosting productivity and impressing clients.”'
           ],
           [
             'A. Johnson',
