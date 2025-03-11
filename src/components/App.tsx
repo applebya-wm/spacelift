@@ -487,12 +487,12 @@ const TheProcess = () => {
     declutter: [
       declutter,
       declutterBg,
-      'Decluttering removes unnecessary items to create a cleaner, more functional space. This reduces stress, improves efficiency, and enhances overall well-being. A clutter-free environment promotes productivity and peace of mind.'
+      'Decluttering removes unnecessary items to create a cleaner, more functional space. This reduces stress, improves efficiency, and enhances overall mental clarity.'
     ],
     organize: [
       organize,
       organizeBg,
-      'Organizing can help people reduce stress, save time, and improve productivity by creating order in their spaces and routines. A well-organized home or workspace enhances efficiency and promotes a sense of calm. It also makes it easier to find what you need. '
+      'Organizing can help people, save time, and improve productivity by creating order in their spaces and routines. A well-organized space makes it easier to find what you need and promotes a sense of order.'
     ],
     paint: [
       paint,
@@ -757,7 +757,7 @@ const Space = ({
 const spaces: [string, string, string[]][] = [
   [
     'Home',
-    "Whether it's a cozy living room or a vibrant kitchen, we bring tailored designs to elevate your everyday living.",
+    "Whether it's a dull living room, chaotic kids room or a cluttered kitchen pantry, we bring skills and tailored designs to elevate your everyday living.",
     [
       homeSpace1,
       homeSpace2,
@@ -772,7 +772,7 @@ const spaces: [string, string, string[]][] = [
   ],
   [
     'Business',
-    'Drive productivity and impresses clients. We specialize in modern, functional designs for businesses of all sizes.',
+    'Drive productivity and impress customers and clientele. We specialize in functional designs and spaces for businesses of all sizes.',
     [
       businessSpace1,
       businessSpace2,
@@ -954,27 +954,27 @@ const Testimonials = () => (
           ],
           [
             'T. Deelstra',
-            '“You did more than expected—your help staging our home was truly exceptional. I appreciate your services and all your hard work”'
+            '“You did more than expected — your help staging our home was truly exceptional. I appreciate your services and all your hard work.”'
           ],
           [
-            'M. Garcia',
-            '“Amazing — upfront, honest, and incredibly dedicated. She even cleaned and staged our home, selling it in just hours!”'
+            'M. Bowden',
+            '“Amazing — upfront, honest, and incredibly dedicated. She cleaned and staged our home. Fantastic job, sold within hours.”'
           ],
           [
             'R. Scott',
-            '“Excellent design sense and her incredible attention to every detail to make sure things are perfect is incredible. I’ve never met someone with her level of energy. 11 out of 10.”'
+            '“Excellent design sense and her incredible attention to every detail to make sure things are perfect is incredible. I’ve never met someone with her level of energy . 11 out of 10.”'
           ],
           [
             'S. Wilson',
-            '“Hard worker and I appreciate everything she did. Hands and knees cleaning and staging. And she is fast !!! Efficient and incredible - I couldn’t recommend her more”'
+            '“Hard worker and I appreciate everything she did . Hands and knees cleaning and staging. And she is fast !!! Efficient and incredible - I couldn’t recommend her more.”'
           ],
           [
             'H. Forhand',
-            '“Completely transformed my entire townhouse to allow for the sales using her great taste, creativity, ingenuity and muscle . She staged it with style and class. No job is too big or small for her.”'
+            '“Completely transformed my entire townhouse to allow for the sales using her great taste , creativity, ingenuity and muscle . She staged it with style and class. No job is too big or small for her.”'
           ],
           [
             'M. Seel',
-            '“Spacelift transformed our office! Their design gave us a competitive edge by boosting productivity and impressing clients. We couldn’t be happier!”'
+            '“Spacelift transformed our office! Their design gave us a competitive edge by boosting productivity and impressing clients. Couldn’t be happier!”'
           ],
           [
             'A. Johnson',
@@ -1074,7 +1074,7 @@ const FAQ = () => (
         We are happy to take it away but additional dump fees and rates may
         apply.
       </Question>
-      <Question title="Does your company offer interior or exterior painting?">
+      <Question title="How long does a typical decluttering and space transformation take?">
         From interior to exterior, little to big projects, we can fulfil your
         painting needs. My back yard isn&apos;t working for me, is this a space
         you could help with? Any space in any style. From inside to out we will
