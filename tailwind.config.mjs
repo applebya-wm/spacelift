@@ -13,6 +13,9 @@ export default {
       fontSize: {
         sm: '0.85rem',
         xs: '0.7rem'
+      },
+      gap: {
+        2: '0.5rem' // .gap-2 class
       }
     }
   },

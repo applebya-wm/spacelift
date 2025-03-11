@@ -372,28 +372,28 @@ const Tagline = () => (
 
 const Hero = () => (
   <section className="min-height relative flex h-screen flex-col-reverse md:flex-row md:pt-18">
-    <div className="flex text-gray-700 md:flex-[2] md:flex-row md:pt-[15%] xl:flex-1">
+    <div className="flex text-gray-700 md:flex-[2] md:flex-row md:pt-[30%] lg:pt-[15%] xl:flex-1">
       <div className="flex flex-1 flex-col justify-around pb-4 md:pb-10">
         <motion.div
           initial={{ marginLeft: -100, opacity: 0 }}
           animate={{ marginLeft: 0, opacity: 1 }}
           transition={{ duration: 1 }}
-          className="my-8 hidden max-w-3xl px-8 md:block md:px-12 xl:pl-24"
+          className="hidden max-w-3xl px-8 md:block md:px-12 lg:my-8 xl:pl-24"
         >
           <Tagline />
         </motion.div>
-        <div className="px-2 py-8 sm:px-8 md:bg-gray-50 md:px-8 lg:px-12 xl:pl-24">
-          <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-gray-500 md:flex md:justify-between">
+        <div className="px-2 py-8 sm:px-8 md:bg-gray-50 md:px-12 lg:pl-12 lg:pr-8 xl:pl-24">
+          <div className="sans-serif grid max-w-xl grid-cols-2 gap-4 text-gray-500 md:flex md:justify-between md:gap-0">
             {['Home', 'Business', 'Real Estate', 'Any Space'].map(
               (item, index) => (
                 <motion.div
                   key={index}
-                  className="flex justify-center gap-2 text-xs uppercase tracking-wider lg:gap-4"
+                  className="flex justify-center gap-2 text-xs uppercase tracking-wider lg:gap-2 lg:text-sm"
                   initial={{ marginLeft: -100, opacity: 0 }}
                   animate={{ marginLeft: 0, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.25 }}
                 >
-                  <span className="lg:text-sm">{item}</span>
+                  <span>{item}</span>
                   <img
                     src={check}
                     className="size-4 sm:size-5"
@@ -876,14 +876,14 @@ const CTA = () => (
 
 const Biography = () => (
   <section
-    className="min-h-screen bg-[length:cover,0_0] bg-[position:left_center,center_center] bg-no-repeat md:h-screen md:bg-[length:0_0,cover]"
+    className="min-height-bio h-screen bg-[length:cover,0_0] bg-[position:left_center,center_center] bg-no-repeat md:bg-[length:0_0,cover]"
     style={{
       backgroundImage: `url(${biographyBgMobile}), url(${biographyBg})`
     }}
   >
-    <div className="mx-auto flex size-full min-h-screen max-w-7xl items-center justify-center sm:px-12 md:mt-0 md:flex-row">
+    <div className="mx-auto flex size-full max-w-7xl items-center justify-center sm:px-12 md:mt-0 md:flex-row">
       <div className="flex-[3]"></div>
-      <div className="my-4 ml-[15%] flex max-h-screen w-full flex-col items-center bg-black bg-opacity-60 px-4 py-1 sm:flex-[3] md:max-w-2xl md:px-12 md:py-8 lg:ml-0">
+      <div className="my-4 ml-[15%] flex w-full flex-col items-center bg-black bg-opacity-60 px-4 py-1 sm:flex-[5] md:max-w-2xl md:px-12 md:py-8 lg:ml-0">
         <div className="relative flex-1 py-4 pt-6 text-center text-white">
           <div className="ml-10 block min-h-[3px] bg-white" />
           <span className="absolute -left-4 top-2 z-0 px-3 text-7xl text-gray-200">
@@ -917,7 +917,7 @@ const Biography = () => (
               src={rosemarieRootSignature}
               alt="Rosemarie Root"
               title="Rosemarie Root"
-              className="relative z-10 mb-2 md:mt-2 md:h-32"
+              className="relative z-10 mb-2 h-auto w-96 md:mt-2 md:h-32"
             />
           </div>
           <div className="mr-12 block min-h-[3px] bg-white" />

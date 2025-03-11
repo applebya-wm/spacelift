@@ -46,10 +46,6 @@ textarea {
   border-radius: 4px;
 }
 
-.gap-2 {
-  gap: 0.5rem;
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
@@ -61,8 +57,16 @@ textarea {
   scrollbar-width: none; /* Firefox */
 }
 
+.min-height-bio {
+  min-height: 38em;
+}
+
 @media (min-width: 768px) {
   .min-height {
-    min-height: 47em;
+    min-height: 49em;
+  }
+
+  .min-height-bio {
+    min-height: 50em;
   }
 }
