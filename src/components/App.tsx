@@ -70,8 +70,7 @@ import homeSpace6 from 'assets/spaces/home-6.jpg?w=643;1286&format=jpg&as=srcset
 import homeSpace7 from 'assets/spaces/home-7.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import homeSpace8 from 'assets/spaces/home-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
-// @ts-expect-error: img
-import homeSpace9 from 'assets/spaces/home-9.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+
 // @ts-expect-error: img
 import businessSpace1 from 'assets/spaces/business-1.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
@@ -88,6 +87,7 @@ import businessSpace6 from 'assets/spaces/business-6.jpg?w=643;1286&format=jpg&a
 import businessSpace7 from 'assets/spaces/business-7.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import businessSpace8 from 'assets/spaces/business-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+
 // @ts-expect-error: img
 import realEstateSpace1 from 'assets/spaces/real-estate-1.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
@@ -104,8 +104,7 @@ import realEstateSpace6 from 'assets/spaces/real-estate-6.jpg?w=643;1286&format=
 import realEstateSpace7 from 'assets/spaces/real-estate-7.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import realEstateSpace8 from 'assets/spaces/real-estate-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
-// @ts-expect-error: img
-import realEstateSpace9 from 'assets/spaces/real-estate-9.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+
 // @ts-expect-error: img
 import storeDisplaysSpace1 from 'assets/spaces/store-displays-1.png?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
@@ -122,10 +121,11 @@ import storeDisplaysSpace6 from 'assets/spaces/store-displays-6.jpg?w=643;1286&f
 import storeDisplaysSpace7 from 'assets/spaces/store-displays-7.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import storeDisplaysSpace8 from 'assets/spaces/store-displays-8.jpg?w=643;1286&format=jpg&as=srcset&dpr=1;2'
+
 // @ts-expect-error: img
-import anySpaceSpace1 from 'assets/spaces/any-space-1.png?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
+import anySpaceSpace1 from 'assets/spaces/any-space-1.jpg?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
-import anySpaceSpace2 from 'assets/spaces/any-space-2.jpg?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
+import anySpaceSpace2 from 'assets/spaces/any-space-2.png?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
 import anySpaceSpace3 from 'assets/spaces/any-space-3.png?w=1150;2300&format=jpg&as=srcset&dpr=1;2'
 // @ts-expect-error: img
@@ -500,7 +500,7 @@ const TheProcess = () => {
     organize: [
       organize,
       organizeBg,
-      'Organizing can help people, save time, and improve productivity by creating order in their spaces and routines. A well-organized space makes it easier to find what you need and promotes a sense of order.'
+      'Organizing can help people save time, and improve productivity by creating order in their spaces and routines. A well-organized space makes it easier to find what you need and promotes a sense of order.'
     ],
     paint: [
       paint,
@@ -774,8 +774,7 @@ const spaces: [string, string, string[]][] = [
       homeSpace5,
       homeSpace6,
       homeSpace7,
-      homeSpace8,
-      homeSpace9
+      homeSpace8
     ]
   ],
   [
@@ -803,8 +802,7 @@ const spaces: [string, string, string[]][] = [
       realEstateSpace5,
       realEstateSpace6,
       realEstateSpace7,
-      realEstateSpace8,
-      realEstateSpace9
+      realEstateSpace8
     ]
   ],
   [
@@ -929,7 +927,7 @@ const Biography = () => (
               src={rosemarieRootSignature}
               alt="Rosemarie Root"
               title="Rosemarie Root"
-              className="relative z-10 mb-2 h-auto w-96 md:mt-2 md:h-32"
+              className="relative z-10 mb-2 size-auto md:mt-2 md:h-32"
             />
           </div>
           <div className="mr-12 block min-h-[3px] bg-white" />
