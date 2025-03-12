@@ -972,15 +972,15 @@ const Testimonials = () => (
           ],
           [
             'R. Scott',
-            '“Excellent design sense and her incredible attention to every detail to make sure things are perfect is incredible. I’ve never met someone with her level of energy . 11 out of 10.”'
+            '“Excellent design sense and her incredible attention to every detail to make sure things are perfect is incredible. I’ve never met someone with her level of energy. 11 out of 10.”'
           ],
           [
             'S. Wilson',
-            '“Hard worker and I appreciate everything she did . Hands and knees cleaning and staging. And she is fast !!! Efficient and incredible - I couldn’t recommend her more.”'
+            '“Hard worker and I appreciate everything she did . Hands and knees cleaning and staging. And she is fast!!! Efficient and incredible - I couldn’t recommend her more.”'
           ],
           [
             'H. Forhand',
-            '“Completely transformed my entire townhouse to allow for the sales using her great taste , creativity, ingenuity and muscle . She staged it with style and class. No job is too big or small for her.”'
+            '“Completely transformed my entire townhouse to allow for the sales using her great taste, creativity, ingenuity and muscle. She staged it with style and class. No job is too big or small for her.”'
           ],
           [
             'M. Seel',
