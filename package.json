@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "vite",
     "predeploy": "pnpm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "node tools/deploy.mjs",
     "postbuild": "echo spacelift.online > dist/CNAME",
     "build": "tsc && vite build",
     "serve": "vite preview",
