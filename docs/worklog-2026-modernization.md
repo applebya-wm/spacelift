@@ -183,7 +183,38 @@ Independent review, merge, production deployment and verification.
 
 ---
 
-## Total: 3.7 h
+## Session 5 — 2026-09-10, ~0.5 h · Deploy verification and branch hygiene
+
+- Owner asked whether the latest work was live. Verified properly rather than
+  from memory: checked out the deployed `gh-pages` tree and diffed it file by
+  file against a fresh build of `main` — all served files identical, bundle
+  hashes matching. The two commits `main` was ahead by were docs and dev-only
+  dependency overrides, neither of which changes the built output, so nothing
+  was pending.
+- That diff surfaced nine non-build files stranded on the branch since January
+  2025. Read the `gh-pages` source to find the cause (its removal glob runs with
+  globby's `dot: false`, so dot-prefixed paths are never deleted, and
+  `--dotfiles` does not affect it).
+- Established the severity honestly before acting: all nine returned 404,
+  because the legacy Jekyll build excludes dot-prefixed paths. Stale state
+  rather than a disclosure problem.
+- Wrote `tools/deploy.mjs` with a corrected remove pattern, having checked the
+  candidate patterns against globby directly — the brace-expanded form the CLI
+  could have taken turned out to match only dotfiles and would have stranded old
+  build assets instead. Added guards for empty `dist/`, missing `CNAME`, dirty
+  tree, and failed push.
+- Caught two of my own mistakes while testing: Prettier reflowed a glob
+  containing `*/` inside a block comment and silently broke the file's syntax
+  (found because I tested the guards rather than assuming), and the naive remove
+  pattern enumerated the deploy clone's `.git` internals.
+- Tested end to end against a scratch remote seeded with the real branch, then
+  deployed and verified production: strays gone from the branch, all nine paths
+  still 404, served bytes byte-identical to `dist`, no console errors, no
+  overflow, one `h1`. (`0737997`, deploy `5b75b8e`)
+
+---
+
+## Total: 4.2 h
 
 ### A note on this figure
 

@@ -29,6 +29,7 @@ pnpm dev          # http://localhost:5173
 | `pnpm lint` / `pnpm format`  | ESLint (flat config) / Prettier                            |
 | `pnpm check:links`           | Verify every reference in `dist/` resolves                 |
 | `pnpm generate:brand-assets` | Regenerate `public/og-image.jpg` and `public/wordmark.png` |
+| `pnpm deploy`                | Build, then publish `dist/` to the `gh-pages` branch        |
 
 **A first build takes about 50 seconds** because it encodes every image variant
 in AVIF, WebP and JPEG. After that `vite-imagetools` caches by content hash in
@@ -105,6 +106,12 @@ to webfont barely moves anything. Removing those fallback faces reintroduces a
 `.github/workflows/deploy.yml` runs typecheck, lint, format check, tests and a
 production dependency audit on every push and pull request; then builds and
 verifies no reference in `dist/` is broken.
+
+Manual releases go out with `pnpm run deploy`, which builds and then runs
+`tools/deploy.mjs`. That wrapper exists rather than a bare `gh-pages -d dist`
+because the CLI never deletes dot-prefixed files from the branch — see the
+comment at the top of the file. It also refuses to publish an empty `dist/` or
+one missing `CNAME`, and exits non-zero when the push fails.
 
 **Publishing is not yet automated.** `actions/deploy-pages` needs the
 repository's Pages source set to *GitHub Actions*, and the repository is still on

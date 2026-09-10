@@ -418,6 +418,43 @@ with three alternatives mocked up at true tab size, and the owner elected to kee
 the existing identity. Noted here so the observation is not lost, not as a
 recommendation.
 
+## Deployment hygiene fix (2026-09-10)
+
+Verifying that the release was live turned up nine files on the `gh-pages`
+branch that were not build output: `.eslintrc`, `.prettierrc`, `.editorconfig`,
+`.gitignore`, `.vscode/` (×2), `.github/ISSUE_TEMPLATE/` (×2) and
+`.vitest/setup.ts`. They had been there since the first publish in January 2025
+— `.eslintrc` had even outlived its deletion from `main` during the flat-config
+migration, because nothing was removing it. Pre-existing, not introduced here.
+
+**Cause.** `gh-pages` empties the branch before copying by globbing its
+`remove` pattern, default `"."`, through
+`globby.sync(options.remove, { cwd })`. That call passes no `dot` option, so
+globby's default of `dot: false` applies and the glob never enumerates
+dot-prefixed entries — so they are never deleted. The `--dotfiles` flag does not
+help: it governs which *source* files are copied, not the removal glob.
+
+**Severity.** Low. All nine returned 404 in production, because the legacy
+Jekyll build excludes dot-prefixed paths, and the repository is public anyway.
+But it was stale deployment state that had already drifted from source, and it
+would have become servable the moment anything disabled Jekyll processing.
+
+**Fix.** `tools/deploy.mjs` replaces the bare CLI call so the remove pattern can
+be an array. The CLI cannot express it — `--remove` takes one string, and the
+brace-expanded form matches *only* the dotfiles while silently ceasing to match
+regular files, which would strand every previous build's assets instead. Both
+behaviours were checked against globby directly before choosing. The pattern
+excludes `.git`, without which it enumerates the deploy clone's own git
+internals. The script also fails on a missing or empty `dist/`, fails on a
+missing `dist/CNAME` (which would drop the custom domain), warns on a dirty
+tree, and exits non-zero on a failed push — `gh-pages` resolves its promise even
+when the git work fails, so that previously exited 0.
+
+Verified against a scratch remote seeded with the real branch before touching
+production: 668 files / 9 strays → 659 / 0, byte-identical to `dist`, `CNAME`
+intact, history preserved as a forward commit. Deployed; branch now carries zero
+dot-prefixed files and the served bytes are unchanged.
+
 ## Remaining suggestions
 
 ### P2 — worth doing, not done here
