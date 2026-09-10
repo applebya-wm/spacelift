@@ -383,6 +383,41 @@ Interactive smoke test on live production, Pixel 5 emulation:
 - Contact form renders with its submit control enabled
 - Zero console errors throughout
 
+## Post-release defect (2026-08-31)
+
+One regression introduced by this engagement reached production and was reported
+by the owner rather than caught here. Recording it because a results document
+that only lists wins is not much use.
+
+**Symptom.** The browser tab showed an indigo ring instead of the Spacelift mark.
+
+**Cause.** `public/favicon.svg` arrived with the original Vite template in the
+repository's initial commit — a generic `#4F46E5` ring — and had never been
+referenced, because the pre-existing `index.html` linked only `favicon.ico` and
+the 16/32 PNGs. Rewriting `index.html` for metadata added
+`<link rel="icon" type="image/svg+xml" href="/favicon.svg">` on the reasonable
+assumption that a file called `favicon.svg` in `public/` was the site's favicon.
+Browsers prefer an SVG icon over an ICO when both are offered, so that promoted
+a placeholder none of us had ever seen into the visible tab icon.
+
+**Fix.** Deleted the file so it cannot be linked again, and restored the explicit
+16×16 and 32×32 PNG links alongside `favicon.ico` — matching what production
+served before. Same two links corrected in `public/404.html`. Deployed and
+verified: `/favicon.svg` now 404s and the real mark is served.
+
+**Why the existing guard missed it.** `tools/check-links.mjs` verifies that every
+referenced file *exists*. `favicon.svg` did exist — the problem was its contents.
+No static check catches "this file is the wrong picture", and inventing one for
+this case would be over-fitting. What did generalise was auditing every file in
+`public/` for whether anything references it; after this fix, all twelve are
+referenced, and nothing else of this class is left in the tree.
+
+**Not changed.** The brand mark itself is a hairline gold swash that reads faintly
+at 16px on a light tab strip. That is pre-existing, was raised with the owner
+with three alternatives mocked up at true tab size, and the owner elected to keep
+the existing identity. Noted here so the observation is not lost, not as a
+recommendation.
+
 ## Remaining suggestions
 
 ### P2 — worth doing, not done here

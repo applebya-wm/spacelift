@@ -163,7 +163,27 @@ Independent review, merge, production deployment and verification.
 
 ---
 
-## Total: 3.3 h
+## Session 4 — 2026-08-31, ~0.4 h · Post-release defect
+
+- Owner reported the browser tab showing an indigo ring instead of the Spacelift
+  mark. Traced it to `public/favicon.svg`: a Vite-template placeholder present
+  since the repository's initial commit, never referenced until the `index.html`
+  metadata rewrite in this engagement linked it — and browsers prefer SVG over
+  ICO. A regression I introduced, reported by the client rather than caught here.
+- Deleted the file and restored the explicit 16/32 PNG links alongside
+  `favicon.ico`, in both `index.html` and `public/404.html`. Rebuilt, deployed,
+  and verified in production that `/favicon.svg` 404s and the real mark is served.
+  (`004c8c2`)
+- Audited every file in `public/` for whether anything references it, on the
+  theory that if one stale asset was sitting there others might be. All twelve
+  are referenced; nothing else of the class remains.
+- Separately, the brand mark is a hairline swash that reads faintly at 16px.
+  Mocked up three options at true tab size and put them to the owner, who
+  elected to keep the existing identity. No further work.
+
+---
+
+## Total: 3.7 h
 
 ### A note on this figure
 
