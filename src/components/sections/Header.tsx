@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 
-import { sourcesFor } from 'components/Picture'
+import { imageSet, sourcesFor } from 'components/Picture'
 import { trackEvent } from 'components/analytics'
 import { Button, focusRing } from 'components/ui/styles'
 import { FACEBOOK_URL, INSTAGRAM_URL } from 'components/ui/links'
@@ -94,26 +94,26 @@ export const Header = () => {
         {/*
           Oversized wordmark watermark behind the header. Desktop only — below
           `md` its opacity is pinned at 0, so rendering it there downloaded an
-          asset that could never become visible. Skipping it outright is worth
-          the entire file on mobile.
+          asset that could never become visible.
 
-          It is generated pre-grayscaled, so no CSS filter is needed.
+          A CSS background rather than an <img>, for the same reason the island
+          watermark in About.tsx is: it is purely decorative, carries no
+          semantics, and is drawn at 7.5% opacity over a box far larger than the
+          asset needs to be. As an <img> that size mismatch is a legitimate
+          Lighthouse `image-size-responsive` failure; as a background it is
+          simply how backgrounds work. The asset is generated pre-grayscaled, so
+          no CSS filter is needed.
         */}
         {!isMobile && (
-          <picture>
-            {sourcesFor(logoWatermark, '1200px')}
-            <motion.img
-              src={logoWatermark.img.src}
-              alt=""
-              aria-hidden="true"
-              width={logoWatermark.img.w}
-              height={logoWatermark.img.h}
-              loading="lazy"
-              decoding="async"
-              className="pointer-events-none absolute -z-50 w-[1200px] max-w-none"
-              style={{ top: watermarkTop, opacity: watermarkOpacity }}
-            />
-          </picture>
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute -z-50 h-[650px] w-[1200px] bg-contain bg-no-repeat"
+            style={{
+              backgroundImage: imageSet(logoWatermark),
+              top: watermarkTop,
+              opacity: watermarkOpacity
+            }}
+          />
         )}
 
         {/* Desktop logo: animated into the corner on scroll. */}
