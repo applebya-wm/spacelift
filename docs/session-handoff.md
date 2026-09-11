@@ -1,6 +1,7 @@
 # Session handoff — spacelift.online
 
-**Written:** 2026-09-10 · **State:** modernization complete and deployed; next block is SEO + Lighthouse polish.
+**Written:** 2026-09-10 · **Updated:** 2026-09-10 after the SEO + Lighthouse polish block.
+**State:** complete and deployed. Mobile 99/100/100/100, desktop 100/100/100/100.
 
 Read this first, then [`modernization-results.md`](./modernization-results.md) for what changed and why.
 
@@ -10,9 +11,9 @@ Read this first, then [`modernization-results.md`](./modernization-results.md) f
 
 |                                        |                                                                |
 | -------------------------------------- | -------------------------------------------------------------- |
-| `main`                                 | `8012a5e` — local and origin in sync, working tree clean       |
-| `gh-pages`                             | `5b75b8e` = "Deploy 0737997"                                   |
-| Deployed tree vs fresh build of `main` | **all 659 files byte-identical**                               |
+| `main`                                 | `48bba1e` — local and origin in sync, working tree clean       |
+| `gh-pages`                             | `78bf860` = "Deploy e7a2408"                                   |
+| Deployed tree vs fresh build of `main` | **all 661 files byte-identical**                               |
 | Pending site changes                   | **none** (`main` is 1 commit ahead; docs only)                 |
 | CI on `main`                           | green                                                          |
 | `pnpm audit`                           | clean, including `--prod`                                      |
@@ -54,7 +55,11 @@ tool now that the target is a score.
 
 ---
 
-## 2. Next block: SEO and a near-perfect Lighthouse report
+## 2. The SEO + Lighthouse block — completed 2026-09-10
+
+Kept in full because the reasoning matters more than the outcome: it records what
+was deliberately *not* done and why, which is the part a future session is most
+likely to undo by accident.
 
 ### Read this before planning SEO work
 
