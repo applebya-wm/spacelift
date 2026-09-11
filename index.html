@@ -49,11 +49,88 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
     <!--
+      Structured data. Lives in the HTML shell rather than in the React tree so
+      crawlers see it without executing JavaScript.
+
+      Deliberately contains no postal address and no telephone: Spacelift is
+      operated from the owner's home, and neither is published anywhere on the
+      site. A service-area business should not publish a residential address,
+      and Google's own guidance is to express coverage with `areaServed`
+      instead. Every value below is already stated publicly on this page.
+
+      Deliberately omitted, and why:
+      - `aggregateRating` — the nine testimonials carry no numeric ratings, and
+        the five-star graphic is a marketing claim, not an aggregation. Inventing
+        a ratingValue and reviewCount would be fabricated data and risks a
+        manual action.
+      - `review` — Google does not allow a business to mark up reviews about
+        itself on its own site.
+      Both need a real review source (e.g. a Google Business Profile) to be
+      done honestly. See docs/session-handoff.md.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://spacelift.online/#business",
+            "name": "Spacelift",
+            "url": "https://spacelift.online/",
+            "description": "Complete transformation design service for homes, businesses and real estate \u2014 decluttering, organizing, painting, cleaning, staging and merchandising.",
+            "slogan": "Transforming Spaces",
+            "image": "https://spacelift.online/og-image.jpg",
+            "logo": "https://spacelift.online/wordmark.png",
+            "areaServed": {
+              "@type": "Place",
+              "name": "Southern Vancouver Island, British Columbia, Canada"
+            },
+            "founder": {
+              "@type": "Person",
+              "name": "Rosemarie Root",
+              "jobTitle": "Certified Professional Organizer"
+            },
+            "knowsAbout": [
+              "Decluttering",
+              "Home organization",
+              "Interior painting",
+              "Deep cleaning",
+              "Home staging",
+              "Retail merchandising"
+            ],
+            "makesOffer": {
+              "@type": "Offer",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": 75,
+                "priceCurrency": "CAD",
+                "unitCode": "HUR",
+                "description": "From $75.00 per hour, three hour minimum."
+              }
+            },
+            "sameAs": [
+              "https://www.facebook.com/profile.php?id=61560538700519",
+              "https://www.instagram.com/spaceliftonline/"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://spacelift.online/#website",
+            "url": "https://spacelift.online/",
+            "name": "Spacelift",
+            "inLanguage": "en-CA",
+            "publisher": { "@id": "https://spacelift.online/#business" }
+          }
+        ]
+      }
+    </script>
+
+    <!--
       Fonts are self-hosted from /assets and preloaded by the build; the LCP
       hero image is preloaded there too. See tools/vite-plugin-preload-critical.ts.
     -->
-    <script type="module" crossorigin src="/assets/index-Biz733Yb.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-9PoGLc3A.css">
+    <script type="module" crossorigin src="/assets/index-COtPR99u.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CyZ169mh.css">
     <link rel="preload" as="image" type="image/avif" imagesrcset="/assets/hero-1-BA6TnsAd.avif 640w, /assets/hero-1-BjAgixRj.avif 960w, /assets/hero-1-CpEnM3qN.avif 1280w, /assets/hero-1-hHmG1AEm.avif 1920w" imagesizes="(min-width: 1280px) 50vw, (min-width: 768px) 34vw, 100vw" fetchpriority="high">
     <link rel="preload" as="font" type="font/woff2" href="/assets/besley-latin-variable-CY-9cTmT.woff2" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="/assets/lato-latin-400-DXRmO6t1.woff2" crossorigin>
