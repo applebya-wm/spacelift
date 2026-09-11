@@ -18,14 +18,25 @@ Read this first, then [`modernization-results.md`](./modernization-results.md) f
 | `pnpm audit`                           | clean, including `--prod`                                      |
 | Production                             | apex 200, `http`→301→https, `www`→301→apex, cert to 2026-10-27 |
 
-**Live Lighthouse, 2026-09-10, against production:**
+**Live Lighthouse against production, 2026-09-10 (post-polish):**
 
-|         | Perf   | A11y    | Best practices | SEO     |
-| ------- | ------ | ------- | -------------- | ------- |
-| Mobile  | **98** | **100** | **100**        | **100** |
-| Desktop | **97** | **100** | **100**        | **100** |
+|         | Perf       | A11y    | Best practices | SEO     |
+| ------- | ---------- | ------- | -------------- | ------- |
+| Mobile  | **99**     | **100** | **100**        | **100** |
+| Desktop | **100**    | **100** | **100**        | **100** |
 
-Mobile Core Web Vitals: FCP 1.5 s · **LCP 2.2 s** · TBT 0 ms · **CLS 0** · SI 1.5 s.
+Mobile is the median of 5 runs; desktop the median of 3. Mobile performance
+samples were `[84, 99, 82, 99, 99]` — the two low readings had a
+`server-response-time` of 96–101 ms against 10–19 ms on the others, with
+byte-identical payloads, so the variance is GitHub Pages origin latency rather
+than the page. It is also exactly what the held Cloudflare edge would smooth out.
+**Always take a median of several runs here; a single sample will mislead you.**
+
+Mobile metrics (median of 5): FCP 1.45 s · **LCP 2.04 s** · TBT 48 ms ·
+**CLS 0** · SI 1.51 s. Total byte weight 1,003 KiB, down from 1,090 KiB.
+
+Earlier in the same session, before the wordmark work, this read mobile
+98/100/100/100 and desktop 97/100/100/100.
 
 Reproduce with:
 

@@ -519,6 +519,32 @@ emulating a DPR 1.75 device. Serving 800w into a 412 px slot is precisely what a
 correct `srcset` should do. Acting on it would mean shipping soft images to every
 high-DPR phone to satisfy a metric, so it was left alone and documented instead.
 
+### Result
+
+| | Perf | A11y | Best practices | SEO |
+|---|---|---|---|---|
+| Mobile | 98 → **99** | 100 | 100 | 100 |
+| Desktop | 97 → **100** | 100 | 100 | 100 |
+
+Mobile is a median of 5 runs, desktop of 3. Total byte weight 1,090 → 1,003 KiB.
+Mobile CLS measures exactly 0.
+
+Mobile performance samples were `[84, 99, 82, 99, 99]`. The two low readings had
+a `server-response-time` of 96–101 ms against 10–19 ms on the others, with
+byte-identical payloads — GitHub Pages origin latency, not the page, and exactly
+what the deferred Cloudflare edge would smooth out.
+
+One self-inflicted regression was caught and fixed in the same pass. Serving the
+watermark at 600w into a box displayed at 1200px is a legitimate
+`image-size-responsive` failure, and it dropped desktop best-practices from 100
+to 96 — found only by re-running Lighthouse after deploying. The mismatch was not
+really the bug; treating a decorative, `aria-hidden`, 7.5%-opacity layer as an
+`<img>` was. It is now a CSS background, the same way the island watermark in
+`About.tsx` already was, reusing the same `imageSet()` helper. The byte saving
+stands, the audit no longer applies because the element is no longer an image,
+and the markup says what the thing actually is. Verified pixel-identical to the
+previously deployed header (max channel delta 0).
+
 ### What still caps the score
 
 `cache-insight` is worth **820 KiB** and cannot be fixed in this repository:

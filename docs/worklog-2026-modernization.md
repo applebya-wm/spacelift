@@ -266,11 +266,24 @@ Independent review, merge, production deployment and verification.
   established it was my own harness — a scripted scroll landing a scroll-snap
   carousel on a different slide — by reproducing the identical figure comparing
   production against itself.
-- Deployed and verified in Chrome.
+- Deployed, then re-ran Lighthouse and caught a regression I had just
+  introduced: serving the watermark at 600w into a 1200px box is a real
+  `image-size-responsive` failure and had dropped desktop best-practices 100 ->
+  96. Fixed by making it a CSS background — which is what a decorative
+  aria-hidden 7.5%-opacity layer should have been, matching the existing
+  treatment in About.tsx. Byte saving kept, audit no longer applicable,
+  pixel-identical to the deployed header.
+- Final, median of 5 mobile / 3 desktop runs: **mobile 99/100/100/100, desktop
+  100/100/100/100**, byte weight 1,090 -> 1,003 KiB, CLS exactly 0. Traced the
+  two low mobile samples to 96-101 ms origin response time against 10-19 ms on
+  the others with identical payloads — GitHub Pages latency, not the page.
+- Verified the deployed site in real Chrome across desktop and mobile widths:
+  rendering, favicon links, JSON-LD, one h1, one high-priority image, no
+  console errors, mobile menu, and the FAQ disclosure driven by keyboard only.
 
 ---
 
-## Total: 5.3 h
+## Total: 5.6 h
 
 ### A note on this figure
 
