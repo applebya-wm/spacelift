@@ -85,29 +85,36 @@ export const Header = () => {
   const width = useTransform(scrollY, [0, scrollEnd], [420, 150])
   const opacity = useTransform(scrollY, [0, 80], [1, 0])
   const watermarkTop = useTransform(scrollY, [0, scrollEnd], [-280, -400])
-  const watermarkOpacity = useTransform(
-    scrollY,
-    [0, scrollEnd],
-    [isMobile ? 0 : 0.075, 0]
-  )
+  // Only ever rendered on desktop now, so no mobile branch is needed here.
+  const watermarkOpacity = useTransform(scrollY, [0, scrollEnd], [0.075, 0])
 
   return (
     <header className="sans-serif fixed left-0 top-0 z-20 w-full md:bg-white/80 md:backdrop-blur-sm">
       <div className="px-4 lg:mx-auto">
-        <picture>
-          {sourcesFor(logoWatermark, '1200px')}
-          <motion.img
-            src={logoWatermark.img.src}
-            alt=""
-            aria-hidden="true"
-            width={logoWatermark.img.w}
-            height={logoWatermark.img.h}
-            loading="lazy"
-            decoding="async"
-            className="pointer-events-none absolute -z-50 w-[1200px] max-w-none opacity-10 grayscale"
-            style={{ top: watermarkTop, opacity: watermarkOpacity }}
-          />
-        </picture>
+        {/*
+          Oversized wordmark watermark behind the header. Desktop only — below
+          `md` its opacity is pinned at 0, so rendering it there downloaded an
+          asset that could never become visible. Skipping it outright is worth
+          the entire file on mobile.
+
+          It is generated pre-grayscaled, so no CSS filter is needed.
+        */}
+        {!isMobile && (
+          <picture>
+            {sourcesFor(logoWatermark, '1200px')}
+            <motion.img
+              src={logoWatermark.img.src}
+              alt=""
+              aria-hidden="true"
+              width={logoWatermark.img.w}
+              height={logoWatermark.img.h}
+              loading="lazy"
+              decoding="async"
+              className="pointer-events-none absolute -z-50 w-[1200px] max-w-none"
+              style={{ top: watermarkTop, opacity: watermarkOpacity }}
+            />
+          </picture>
+        )}
 
         {/* Desktop logo: animated into the corner on scroll. */}
         <motion.div className="absolute hidden md:block" style={{ left, top }}>

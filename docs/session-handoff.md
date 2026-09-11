@@ -51,14 +51,30 @@ tool now that the target is a score.
 There is no Lighthouse SEO work left to do. Anything further is real-world SEO,
 not score-chasing, and the honest list is short:
 
-- **`LocalBusiness` structured data.** Lighthouse's `structured-data` audit is
-  _manual_ — it never scores, so adding schema will not move the number. It is
-  still the single most valuable real SEO improvement available for a
-  service-area business, because it feeds Google's local pack and rich results.
-  **Blocked on the owner:** needs confirmed service area, business hours, phone,
-  and postal address. Do not invent these. Ask, then implement
-  `LocalBusiness` + `AggregateRating` (there are nine real testimonials on the
-  page) as JSON-LD.
+- **Structured data. ✅ PARTIALLY DONE 2026-09-10.** A safe subset now ships in
+  `index.html` — in the HTML shell rather than the React tree, so crawlers see
+  it without executing JS. `ProfessionalService` + `WebSite`, carrying name,
+  URL, logo, description, `areaServed`, founder, services, hourly rate and
+  `sameAs`. Every value is already stated publicly on the page. Note Lighthouse
+  scores `structured-data` as a _manual_ audit, so this does not move the number
+  and was never going to.
+
+  **Deliberately omitted — decisions, not oversights:**
+  - **No `address`, `telephone` or `geo`.** Spacelift is run from the owner's
+    home and none of those appears anywhere on the site. A service-area business
+    should not publish a residential address; Google's guidance is to express
+    coverage with `areaServed`. `src/structured-data.test.ts` asserts they never
+    appear, because every `LocalBusiness` example on the web includes a street
+    address and pasting one in later would be an easy mistake.
+  - **No `aggregateRating`.** The nine testimonials carry no numeric ratings and
+    the five-star graphic is a marketing claim, not an aggregation. Inventing a
+    `ratingValue`/`reviewCount` would be fabricated data and risks a manual
+    action.
+  - **No `review`.** Google does not permit a business to mark up reviews about
+    itself on its own site.
+
+  Both rating items need a real review source to be done honestly, which is
+  exactly what a Google Business Profile provides — see below.
 - **Google Business Profile** is almost certainly worth more to this business
   than anything in the codebase. Out of our scope, worth saying once to the owner.
 - Nothing else. The metadata, canonical, OG/Twitter, sitemap, robots and
@@ -83,8 +99,8 @@ held the nameserver change on 2026-08-27 because the zone also carries the
 business's Microsoft 365 email. Say so plainly rather than attempting a
 workaround; there isn't one on GitHub Pages.
 
-**② The wordmark is ~17% of the mobile payload. Fixable now, no blockers.**
-Two verified findings:
+**② The wordmark is ~17% of the mobile payload. ✅ DONE 2026-09-10.**
+Was two findings; both fixed. Kept here for the reasoning:
 
 - `logoWatermark` (1200w, **88.0 kB**) loads on mobile and is **invisible**
   there. Confirmed in a real browser: `opacity: 0`, and it can never become
@@ -107,15 +123,40 @@ Two verified findings:
   `quality=88` — it was chosen for line-art crispness, but 177 px display
   probably does not need it.
 
-  Together these two are roughly **150 kB of a 880 kB page**.
+  Together these two were roughly **150 kB of an 880 kB page**.
 
-**③ `image-delivery-insight` — 290 KiB.** Flags specific gallery images as
-larger than displayed: `real-estate-1` (57 kB, 34 kB wasted), `couch`,
-`business-1/3/5`, `real-estate-5`, `home-2`. Worth checking whether the gallery
-`sizes` and width ladder need the same treatment as the logo. Be careful here —
-`SIZES.gallery` was already corrected once during review, and the values were
-derived by _measuring the rendered element_, not by reading class names. Measure
-again before changing.
+  **Fixed:** the watermark is no longer rendered below `md` at all, and is
+  generated at 600w pre-grayscaled (88.0 → 28.0 kB) since it is drawn at 7.5%
+  opacity — composited as the visitor sees it, the mean channel delta against
+  the old asset is 0.35/255, and a desktop header screenshot diff showed 0.000%
+  of pixels differing by more than 8/255. A 560w rung was added, and
+  `SIZES.logo` was corrected from a rounded `200px` to the measured
+  `177 / 207 / 420px` — that rounding alone was pushing DPR-3 phones onto 840w.
+
+  | device | wordmark bytes before | after |
+  |---|---|---|
+  | mobile DPR 1 | 112.6 kB | **11.6 kB** |
+  | mobile DPR 2 | 112.6 kB | **24.6 kB** |
+  | mobile DPR 2.75 | 149.4 kB | **36.3 kB** |
+  | mobile DPR 3 | 149.4 kB | **36.3 kB** |
+  | desktop DPR 1 | 112.6 kB | **52.6 kB** |
+  | desktop DPR 2 | 149.4 kB | **89.4 kB** |
+
+  Whole-page transfer at DPR 2: **0.878 → 0.792 MB (−9.8%)**.
+
+**③ `image-delivery-insight` — 290 KiB. Investigated 2026-09-10: mostly a false
+positive. Do not chase it.**
+Lighthouse's own reasoning, read out of the audit details, is e.g. _"This image
+file is larger than it needs to be (800x449) for its displayed dimensions
+(412x350)"_. It compares served pixels against **CSS** pixels while the emulated
+device is DPR 1.75 — so serving 800w into a 412 px slot is exactly what a
+correct `srcset` is supposed to do, and the audit credits DPR only partially.
+Satisfying it would mean shipping visibly soft images to every high-DPR phone,
+which is the definition of gaming the score.
+
+The one genuine entry in that list was the wordmark ("Increasing the image
+compression factor could improve this image's download size", 9.2 kB), addressed
+via ②. The gallery entries were left alone deliberately.
 
 **④ `unused-javascript` — 113 KiB, of which only 41 KiB is ours.**
 75 KiB is `googletagmanager.com/gtag/js` (42% unused) — third-party, not
@@ -180,6 +221,12 @@ because `gh-pages -d dist` never deletes dot-prefixed files from the branch (its
 removal glob runs with globby's `dot: false`). It guards against an empty
 `dist/`, a missing `dist/CNAME` (which would drop the custom domain), a dirty
 tree, and a failed push. Read its header comment before changing it.
+
+**Full-page screenshot diffs are ~1-in-3 flaky at 768 px.** A scripted scroll can
+land one of the six scroll-snap carousels on a different slide, producing a
+consistent-looking **13.650%** pixel difference. Verified as harness noise by
+diffing production against *itself* and reproducing the identical figure. Run any
+visual comparison at least twice before believing it.
 
 **Deploy verification that actually proves something:**
 

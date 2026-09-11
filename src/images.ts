@@ -54,8 +54,20 @@ export { default as hero } from 'assets/hero-1.jpg?format=avif;webp;jpg&w=640;96
 /* brand marks and line art                                                    */
 /* -------------------------------------------------------------------------- */
 
-export { default as logo } from 'assets/spacelift-logo-transparent.png?format=webp;png&w=240;420;840&quality=88&as=picture'
-export { default as logoWatermark } from 'assets/spacelift-logo-transparent.png?format=webp;png&w=1200&quality=80&as=picture'
+// The 560w rung matters: the mobile wordmark displays at 177 CSS px, so phones
+// at DPR 2.75-3 (Pixel 5 and most modern Android) need ~490-530px. Without it
+// they jumped straight to 840w — 61.4 kB for a 177 px element. Quality stays at
+// 88 deliberately; dropping to 75 saves only 4 kB and this is the brand mark
+// rendered 1:1 at 420 px on desktop.
+export { default as logo } from 'assets/spacelift-logo-transparent.png?format=webp;png&w=240;420;560;840&quality=88&as=picture'
+// The header watermark is drawn at 1200 px wide but grayscaled and at 7.5%
+// opacity, so fidelity is irrelevant — it was already being upscaled on retina
+// desktops and nobody noticed. Generating it at 600w, pre-grayscaled (which
+// drops two colour channels), took it from 88.0 kB to 28.0 kB. Composited as
+// the visitor actually sees it, the mean channel delta against the old asset is
+// 0.35/255. It is also no longer rendered at all below `md`, where it was
+// permanently `opacity: 0` — see Header.tsx.
+export { default as logoWatermark } from 'assets/spacelift-logo-transparent.png?format=webp;png&w=600&quality=50&grayscale&as=picture'
 export { default as signature } from 'assets/rosemarie-root.png?format=webp;png&w=456;912&quality=88&as=picture'
 
 export { default as check } from 'assets/icons/check.png'

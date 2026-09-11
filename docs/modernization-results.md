@@ -455,6 +455,79 @@ production: 668 files / 9 strays → 659 / 0, byte-identical to `dist`, `CNAME`
 intact, history preserved as a forward commit. Deployed; branch now carries zero
 dot-prefixed files and the served bytes are unchanged.
 
+## Final polish (2026-09-10)
+
+A Lighthouse pass against production — the first one run, since the August
+baseline had assumed the tool was unavailable here — returned **mobile
+98 / 100 / 100 / 100** and **desktop 97 / 100 / 100 / 100**. Triaging the
+remaining audits produced two real items and one instructive false positive.
+
+### The wordmark was ~17% of the mobile payload
+
+- The 1200 px header watermark (**88.0 kB**) was downloading on mobile, where its
+  opacity is pinned at `0` and can never become anything else. It is no longer
+  rendered below `md`.
+- It is drawn grayscaled at **7.5% opacity**, so fidelity is irrelevant — it had
+  in fact been upscaled on retina desktops all along without anyone noticing.
+  Regenerated at 600w, pre-grayscaled: **88.0 → 28.0 kB**. Composited as the
+  visitor actually sees it, the mean channel delta against the old asset is
+  **0.35/255**, and a desktop header screenshot diff showed **0.000%** of pixels
+  differing by more than 8/255.
+- The logo width ladder was `240 / 420 / 840`, and `SIZES.logo` declared a
+  rounded `200px` where the element measures 177 px (207 px at `sm`). That
+  rounding was enough to push DPR-3 phones past the ladder onto 840w. Added a
+  560w rung and corrected `sizes` to the measured values.
+
+| Device | Wordmark bytes before | After |
+|---|---|---|
+| mobile DPR 1 | 112.6 kB | **11.6 kB** |
+| mobile DPR 2 | 112.6 kB | **24.6 kB** |
+| mobile DPR 2.75 | 149.4 kB | **36.3 kB** |
+| mobile DPR 3 | 149.4 kB | **36.3 kB** |
+| desktop DPR 1 | 112.6 kB | **52.6 kB** |
+| desktop DPR 2 | 149.4 kB | **89.4 kB** |
+
+Whole-page transfer at DPR 2: **0.878 → 0.792 MB, −9.8%**.
+
+### Structured data, within what can honestly be published
+
+`ProfessionalService` + `WebSite` JSON-LD now ships in the HTML shell, so
+crawlers see it without executing JavaScript. It carries only facts already
+stated on the page: name, URL, logo, description, service area, founder,
+services, hourly rate, and social profiles.
+
+It deliberately contains **no postal address, telephone or geo coordinates**.
+Spacelift is operated from the owner's home and none of those is published
+anywhere on the site; a service-area business should not publish a residential
+address. It also contains **no `aggregateRating` and no `review`** — the nine
+testimonials carry no numeric ratings, the five-star graphic is a marketing
+claim rather than an aggregation, and Google does not permit a business to mark
+up reviews of itself on its own site. `src/structured-data.test.ts` asserts all
+of these stay absent, because every `LocalBusiness` example online includes a
+street address and adding one later would be an easy mistake to make.
+
+Doing the ratings honestly needs a real review source, which is what a Google
+Business Profile would provide. That is the owner's to set up and is worth more
+to the business than anything further in this repository.
+
+### One finding deliberately not acted on
+
+`image-delivery-insight` claims 290 KiB of savings across seven gallery images.
+Reading its reasoning — *"larger than it needs to be (800x449) for its displayed
+dimensions (412x350)"* — it compares served pixels against **CSS** pixels while
+emulating a DPR 1.75 device. Serving 800w into a 412 px slot is precisely what a
+correct `srcset` should do. Acting on it would mean shipping soft images to every
+high-DPR phone to satisfy a metric, so it was left alone and documented instead.
+
+### What still caps the score
+
+`cache-insight` is worth **820 KiB** and cannot be fixed in this repository:
+GitHub Pages serves a fixed `max-age=600` on everything, including
+content-hashed immutable assets. It is exactly what the staged Cloudflare cache
+rules address, and the nameserver change is held by owner decision because the
+zone also carries the business's email. Performance will not reach 100 on
+repeat-visit terms until that is done.
+
 ## Remaining suggestions
 
 ### P2 — worth doing, not done here

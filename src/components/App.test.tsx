@@ -177,6 +177,20 @@ describe('<App />', () => {
     }
   })
 
+  describe('gallery carousels', () => {
+    it('labels both scroll directions distinctly', () => {
+      render(<App />)
+
+      expect(
+        screen.getAllByRole('button', { name: /scroll to previous image/i })
+          .length
+      ).toBe(5)
+      expect(
+        screen.getAllByRole('button', { name: /scroll to next image/i }).length
+      ).toBe(5)
+    })
+  })
+
   describe('FAQ disclosures', () => {
     it('exposes each question as a keyboard-operable button', () => {
       render(<App />)
@@ -223,20 +237,6 @@ describe('<App />', () => {
       ])
       expect(steps[0]).toHaveAttribute('aria-pressed', 'true')
       expect(steps[1]).toHaveAttribute('aria-pressed', 'false')
-    })
-  })
-
-  describe('gallery carousels', () => {
-    it('labels both scroll directions distinctly', () => {
-      render(<App />)
-
-      expect(
-        screen.getAllByRole('button', { name: /scroll to previous image/i })
-          .length
-      ).toBe(5)
-      expect(
-        screen.getAllByRole('button', { name: /scroll to next image/i }).length
-      ).toBe(5)
     })
   })
 })

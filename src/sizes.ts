@@ -48,6 +48,18 @@ export const SIZES = {
   /** Founder signature, capped at 128px tall. */
   signature: '456px',
 
-  /** Wordmark: 420px at rest on desktop, 200px on mobile. */
-  logo: '(min-width: 768px) 420px, 200px'
+  /**
+   * Wordmark. Measured rather than inferred, because the mobile copy is sized
+   * by height (`h-24 sm:h-28`) so its width falls out of the aspect ratio:
+   * 177px below `sm`, 207px from `sm`, and 420px at rest from `md` up.
+   *
+   * The footer mark is 236px and shares this value, which over-declares for it
+   * — but the header has already fetched the same URL by then, so it is a cache
+   * hit rather than a larger download. Splitting them would cost a request.
+   *
+   * The earlier value of a flat `200px` was close but rounded upward, which was
+   * enough to push DPR-3 phones (200 x 3 = 600) past the 560w rung and onto
+   * 840w — 61.4 kB instead of 36.3 kB for a 177px element.
+   */
+  logo: '(min-width: 768px) 420px, (min-width: 640px) 207px, 177px'
 } as const

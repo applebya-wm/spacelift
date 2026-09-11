@@ -237,7 +237,40 @@ Independent review, merge, production deployment and verification.
 
 ---
 
-## Total: 4.5 h
+## Session 7 — 2026-09-10, ~0.8 h · Final polish: wordmark payload, structured data
+
+- Reduced the wordmark from ~17% of the mobile payload to a fraction of it. Three
+  changes: stop rendering the header watermark below `md` (where its opacity is
+  pinned at 0), regenerate it at 600w pre-grayscaled since it is drawn at 7.5%
+  opacity, and add a 560w rung while correcting `SIZES.logo` from a rounded
+  `200px` to the measured 177/207/420px — the rounding alone was pushing DPR-3
+  phones onto the 840w file. Page transfer at DPR 2: 0.878 → 0.792 MB.
+- Proved the watermark change invisible rather than asserting it: composited it
+  as the visitor sees it (grayscale, 7.5% opacity, over white) for a mean channel
+  delta of 0.35/255, and diffed a desktop header screenshot at 0.000% of pixels
+  differing above threshold.
+- Decided *against* dropping the logo from quality 88 — it saves 4 kB and this is
+  the brand mark rendered 1:1 at 420 px on desktop. Measured before deciding.
+- Added `ProfessionalService` + `WebSite` JSON-LD, scoped to what can honestly be
+  published: no address, telephone or geo, because the business runs from the
+  owner's home; and no `aggregateRating` or `review`, because there is no real
+  rating source and Google forbids self-reviews. Wrote
+  `src/structured-data.test.ts` to assert those stay absent — every
+  `LocalBusiness` example online includes a street address, so this is an easy
+  mistake to make later.
+- Investigated Lighthouse's `image-delivery-insight` (290 KiB claimed) and did
+  **not** act on it: it compares served pixels to CSS pixels while emulating
+  DPR 1.75, so it is penalising a correct `srcset`. Documented rather than
+  chased.
+- Chased down a 13.650% figure in the visual-regression diff at 768 px and
+  established it was my own harness — a scripted scroll landing a scroll-snap
+  carousel on a different slide — by reproducing the identical figure comparing
+  production against itself.
+- Deployed and verified in Chrome.
+
+---
+
+## Total: 5.3 h
 
 ### A note on this figure
 
