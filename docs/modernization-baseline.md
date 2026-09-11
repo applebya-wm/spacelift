@@ -254,8 +254,12 @@ Verified in Chromium at 320, 390, 768, 1440 and 1920 px.
 
 ## 10. Environment limitations
 
-- Lighthouse was **not** used. Scores from a throttled CI-less laptop are not reproducible
-  enough to quote as client-facing numbers. Instead, LCP/CLS/FCP and byte accounting were
+- Lighthouse was **not** used for this baseline, on the judgement that scores from a
+  CI-less laptop are not reproducible enough to quote as client-facing numbers.
+  **Superseded 2026-09-10:** Lighthouse does run fine in this environment, and
+  post-release scores are recorded in `session-handoff.md`. The reasoning below still
+  holds for the *before* figures — no Lighthouse run exists from before the work, and
+  fabricating one retrospectively would be worse than having none. Instead, LCP/CLS/FCP and byte accounting were
   measured directly via `PerformanceObserver` and Resource Timing under a fixed, documented
   emulation profile, and the identical harness will be re-run after the work for a
   like-for-like comparison.

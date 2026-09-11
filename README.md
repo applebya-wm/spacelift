@@ -136,6 +136,7 @@ live.
 
 | Document                                                                         |                                                         |
 | -------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| [`docs/session-handoff.md`](docs/session-handoff.md)                             | **Start here** — current state, gotchas, next steps     |
 | [`docs/modernization-baseline.md`](docs/modernization-baseline.md)               | Measured state before the 2026 modernization            |
 | [`docs/modernization-plan.md`](docs/modernization-plan.md)                       | Findings, classified P0–P3                              |
 | [`docs/hosting-architecture-decision.md`](docs/hosting-architecture-decision.md) | Why GitHub Pages + Cloudflare, and not Pages or Workers |

@@ -214,7 +214,30 @@ Independent review, merge, production deployment and verification.
 
 ---
 
-## Total: 4.2 h
+## Session 6 — 2026-09-10, ~0.3 h · Final verification and handoff
+
+- Confirmed the release is fully live: diffed the deployed `gh-pages` tree file
+  by file against a clean-room rebuild of `main` (all 659 files identical), and
+  re-ran every gate from a fresh `node_modules`.
+- Ran Lighthouse against production for the first time — it works in this
+  environment, which the August baseline had assumed it would not. Mobile
+  **98 / 100 / 100 / 100**, desktop **97 / 100 / 100 / 100**. Corrected the
+  baseline document's claim rather than leaving it standing.
+- Triaged the five imperfect mobile audits and did the investigation now, so the
+  next block starts from facts. Two verified finds worth acting on:
+  the 1200px logo watermark (**88 kB**) loads on mobile where it is permanently
+  `opacity: 0` — 9.8% of the page for nothing; and the logo width ladder jumps
+  420w → 840w, so phones at DPR 2.75–3 fetch 61.4 kB for a 177 px element.
+  Together ~150 kB of an 880 kB page.
+- Established that Lighthouse SEO is already 100 with zero failing audits, so
+  the remaining SEO work is real-world rather than score-chasing: `LocalBusiness`
+  JSON-LD, which is blocked on owner-supplied facts and which Lighthouse scores
+  only as a *manual* audit.
+- Wrote `docs/session-handoff.md`.
+
+---
+
+## Total: 4.5 h
 
 ### A note on this figure
 
